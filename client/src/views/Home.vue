@@ -1,11 +1,15 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
+  <div>
+    <Showcase />
   </div>
 </template>
 
 <script>
+import Showcase from '../components/Layouts/Showcase';
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    Showcase
+  }
 };
 </script>

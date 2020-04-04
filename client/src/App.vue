@@ -1,9 +1,47 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <div>
+      <Navbar />
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import Navbar from './components/Layouts/Navbar';
+export default {
+  components: {
+    Navbar
+  }
+};
+</script>
+
+<style>
+img {
+  width: 100%;
+}
+
+.showcase {
+  position: relative;
+  background: url('/img/showcase.jpg') no-repeat center center/cover;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.showcase-inner {
+  text-align: center;
+  padding-top: 20%;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
