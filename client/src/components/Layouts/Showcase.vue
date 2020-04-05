@@ -30,11 +30,14 @@
               </div>
             </div>
           </div>
-          <input
+          <button
+            :disabled="loading"
             type="submit"
-            value="Find Bootcamps"
             class="btn btn-primary btn-block"
-          />
+          >
+            Find Bootcamps
+            <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
+          </button>
         </form>
       </div>
     </div>
@@ -48,18 +51,21 @@ export default {
   data() {
     return {
       lng: '',
-      lat: ''
+      lat: '',
+      loading: false
     };
   },
   methods: {
     ...mapActions(['getBootcampsByRadius']),
     getBootcamp() {
+      this.loading = true;
       const data = {
         lng: this.lng * 1,
         lat: this.lat * 1
       };
 
       this.getBootcampsByRadius(data).then(res => {
+        this.loading = false;
         if (res && res.data.success) {
           this.$router.push({ name: 'bootcamps-within' });
         } else {
