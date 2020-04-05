@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
 
@@ -120,9 +120,7 @@ export default {
     });
     next();
   },
-  methods: {
-    ...mapActions(['SingleBootcamps'])
-  }
+  
 };
 </script>
 

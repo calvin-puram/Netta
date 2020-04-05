@@ -46,7 +46,7 @@
 import LocationFilter from '@bootcampsUtils/LocationFilter';
 import OtherFilter from '@bootcampsUtils/OtherFilters';
 import BootcampCard from '@bootcampsUtils/BootcampsCard';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
 
@@ -65,9 +65,6 @@ export default {
       }
     });
     next();
-  },
-  methods: {
-    ...mapActions(['getAllBootcamps'])
   }
 };
 </script>
