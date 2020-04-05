@@ -46,7 +46,7 @@ img {
 }
 
 #nprogress .bar {
-  background: #fff !important;
+  background: green !important;
 
   position: fixed;
   z-index: 1031;
