@@ -14,7 +14,7 @@ const actions = {
   // all bootcamps
   async getAllBootcamps({ commit }) {
     try {
-      const res = await axios.get('http://localhost:5000/api/v1/bootcamps');
+      const res = await axios.get('/api/v1/bootcamps');
       if (res && res.data.success) {
         commit('bootcamp_res', res.data.data);
       }
@@ -30,7 +30,7 @@ const actions = {
   async getBootcampsByRadius({ commit }, data) {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/bootcamps/radius/200/${data.lng}/${data.lat}/km`
+        `/api/v1/bootcamps/radius/200/${data.lng}/${data.lat}/km`
       );
       if (res && res.data.success) {
         commit('bootcamp_res', res.data.bootcamps);
@@ -46,7 +46,7 @@ const actions = {
   async getBootcampsByFilter({ commit }, data) {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
+        `/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
       );
       if (res && res.data.success) {
         commit('bootcamp_res', res.data.data);
@@ -61,9 +61,7 @@ const actions = {
   // sort bootcamps
   async SortBootcamps({ commit }) {
     try {
-      const res = await axios.get(
-        'http://localhost:5000/api/v1/bootcamps?sort=createdAt'
-      );
+      const res = await axios.get('/api/v1/bootcamps?sort=createdAt');
       if (res && res.data.success) {
         commit('bootcampLatest_res', res.data.data);
       }
