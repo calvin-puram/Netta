@@ -6,7 +6,7 @@
         <p class="lead">
           Find, rate and read reviews on coding bootcamps
         </p>
-        <form>
+        <form @submit.prevent="getBootcamp">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -34,7 +34,6 @@
             type="submit"
             value="Find Bootcamps"
             class="btn btn-primary btn-block"
-            @click="getBootcamp"
           />
         </form>
       </div>
@@ -43,8 +42,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
+  computed: mapGetters(['getErr']),
   data() {
     return {
       lng: '',
@@ -59,9 +59,11 @@ export default {
         lat: this.lat * 1
       };
 
-      this.getBootcampsByRadius(data).the(res => {
+      this.getBootcampsByRadius(data).then(res => {
         if (res && res.data.success) {
-          this.router.push('/bootcamps');
+          this.$router.push({ name: 'bootcamps-within' });
+        } else {
+          this.$noty.error(this.getErr);
         }
       });
     }

@@ -2,17 +2,16 @@
   <section class="latest py-5 bg-light">
     <div class="container">
       <div class="row">
-        <h3>Latest Bootcamps</h3>
-        <div class="card-group">
+        <div class="card-group ">
           <div
             class="col-md-4 col-sm-12"
             v-for="bootcamp in getLatestBootcamps"
             :key="bootcamp._id"
           >
             <div>
-              <div class="card m-2">
+              <div class="card m-2 mt-5">
                 <img
-                  :src="`img/${bootcamp.photo}`"
+                  :src="`/img/${bootcamp.photo}`"
                   class="card-img-top"
                   alt="bootcamp image"
                 />

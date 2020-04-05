@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Bootcamps from '../views/Bootcamps.vue';
+import FilterBootcamps from '../views/FilterBootcamps.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/bootcamps',
     name: 'bootcamps',
     component: Bootcamps
+  },
+  {
+    path: '/bootcamps/within',
+    name: 'bootcamps-within',
+    component: FilterBootcamps
   },
   {
     path: '/about',

@@ -1,6 +1,7 @@
 <template>
   <div>
     <Showcase />
+
     <BootcampLatest :getLatestBootcamps="getLatestBootcamps" />
   </div>
 </template>
