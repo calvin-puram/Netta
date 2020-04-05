@@ -44,4 +44,16 @@ img {
   width: 100%;
   height: 100%;
 }
+
+#nprogress .bar {
+  background: #fff !important;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
 </style>

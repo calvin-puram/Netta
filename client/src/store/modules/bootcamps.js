@@ -15,6 +15,7 @@ const actions = {
         console.log(res.data.data);
         commit('bootcamp_res', res.data.data);
       }
+      return res;
     } catch (err) {
       console.log(err.response.msg);
       commit('bootcamp_err', err.response.msg);

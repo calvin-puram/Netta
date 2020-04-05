@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-4">
+        <div class="col-md-4" v-if="getBootcamps.length > 0">
           <div class="card card-body mb-4">
             <h4 class="mb-3">By Location</h4>
             <LocationFilter />
@@ -20,7 +20,10 @@
           </div>
 
           <!-- Pagination -->
-          <nav aria-label="Page navigation example">
+          <nav
+            aria-label="Page navigation example"
+            v-if="getBootcamps.length > 0"
+          >
             <ul class="pagination">
               <li class="page-item">
                 <a class="page-link" href="#">Previous</a>
@@ -44,6 +47,8 @@ import LocationFilter from '../components/BootcampsUtils/LocationFilter';
 import OtherFilter from '../components/BootcampsUtils/OtherFilters';
 import BootcampCard from '../components/BootcampsUtils/BootcampsCard';
 import { mapActions, mapGetters } from 'vuex';
+import NProgress from 'nprogress';
+import store from '../store/index';
 
 export default {
   components: {
@@ -52,11 +57,17 @@ export default {
     BootcampCard
   },
   computed: mapGetters(['getBootcamps']),
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('getAllBootcamps').then(res => {
+      if (res && res.data.success) {
+        NProgress.done();
+      }
+    });
+    next();
+  },
   methods: {
     ...mapActions(['getAllBootcamps'])
-  },
-  created() {
-    this.getAllBootcamps();
   }
 };
 </script>
