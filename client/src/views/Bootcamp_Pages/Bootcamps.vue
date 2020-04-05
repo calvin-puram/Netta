@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import LocationFilter from '../components/BootcampsUtils/LocationFilter';
-import OtherFilter from '../components/BootcampsUtils/OtherFilters';
-import BootcampCard from '../components/BootcampsUtils/BootcampsCard';
+import LocationFilter from '@bootcampsUtils/LocationFilter';
+import OtherFilter from '@bootcampsUtils/OtherFilters';
+import BootcampCard from '@bootcampsUtils/BootcampsCard';
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
-import store from '../store/index';
+import store from '@store/index';
 
 export default {
   components: {

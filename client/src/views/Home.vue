@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import Showcase from '../components/Layouts/Showcase';
-import BootcampLatest from '../components/HomeUtils/BootcampLatest';
+import Showcase from '@layouts/Showcase';
+import BootcampLatest from '@homeUtils/BootcampLatest';
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
-import store from '../store/index';
+import store from '@store/index';
 
 export default {
   name: 'Home',

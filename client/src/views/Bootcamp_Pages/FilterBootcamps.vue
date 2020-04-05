@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BootcampLatest from '../components/HomeUtils/BootcampLatest';
+import BootcampLatest from '../../components/HomeUtils/BootcampLatest';
 import { mapGetters } from 'vuex';
 
 export default {

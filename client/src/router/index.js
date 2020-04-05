@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Bootcamps from '../views/Bootcamps.vue';
-import FilterBootcamps from '../views/FilterBootcamps.vue';
+import Bootcamps from '../views/Bootcamp_Pages/Bootcamps.vue';
+import FilterBootcamps from '../views/Bootcamp_Pages/FilterBootcamps.vue';
+import Bootcamp from '../views/Bootcamp_Pages/Bootcamp.vue';
 
 Vue.use(VueRouter);
 
@@ -23,13 +24,10 @@ const routes = [
     component: FilterBootcamps
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/bootcamp/:slug',
+    name: 'bootcamp',
+    component: Bootcamp,
+    props: true
   }
 ];
 
