@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-4" v-if="getBootcamps.length > 0">
+        <div class="col-md-4" v-if="getBootcamps">
           <div class="card card-body mb-4">
             <h4 class="mb-3">By Location</h4>
             <LocationFilter />
@@ -20,9 +20,9 @@
           </div>
 
           <!-- Pagination -->
-          <nav
+          <!-- <nav
             aria-label="Page navigation example"
-            v-if="getBootcamps.length > 0"
+            v-if="getBootcamps && getBootcamps.length > 0"
           >
             <ul class="pagination">
               <li class="page-item">
@@ -35,7 +35,7 @@
                 <a class="page-link" href="#">Next</a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
         </div>
       </div>
     </div>

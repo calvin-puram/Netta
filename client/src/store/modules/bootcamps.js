@@ -39,6 +39,22 @@ const actions = {
         commit('bootcamp_err', err.response.data.error);
       }
     }
+  },
+  //get bootcamps by ratings and budget
+  async getBootcampsByFilter({ commit }, data) {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
+      );
+      if (res && res.data.success) {
+        commit('bootcamp_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
   }
 };
 const mutations = {
