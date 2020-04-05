@@ -17,7 +17,7 @@
                 />
                 <div class="card-body">
                   <h5 class="card-title">
-                    <router-link to="/"
+                    <router-link :to="`bootcamp/${bootcamp.slug}`"
                       >{{ bootcamp.name }}
                       <span
                         class="float-right badge badge-success"

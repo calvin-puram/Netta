@@ -2,12 +2,16 @@
   <div class="card mb-3" v-if="bootcamp">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img :src="`img/${bootcamp.photo}`" class="card-img" alt="..." />
+        <img
+          :src="`img/${bootcamp.photo}`"
+          class="card-img"
+          alt="bootcamp image"
+        />
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">
-            <router-link to="/"
+            <router-link :to="`bootcamp/${bootcamp.slug}`"
               >{{ bootcamp.name
               }}<span
                 class="float-right badge badge-success"
