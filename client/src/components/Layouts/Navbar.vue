@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.html"
-        ><i class="fas fa-laptop-code"></i> DevCoach</a
+      <router-link class="navbar-brand" to="/"
+        ><i class="fas fa-laptop-code"></i> DevCoach</router-link
       >
+
       <button
         class="navbar-toggler"
         type="button"
@@ -29,7 +30,9 @@
             <a class="nav-link" href="#">|</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="bootcamps.html">Browse Bootcamps</a>
+            <router-link class="nav-link" :to="{ name: 'bootcamps' }"
+              >Browse Bootcamps</router-link
+            >
           </li>
         </ul>
       </div>
