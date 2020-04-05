@@ -15,10 +15,9 @@
         <!-- Main col -->
         <div class="col-md-8">
           <!-- Bootcamps -->
-          <BootcampCard />
-          <BootcampCard />
-          <BootcampCard />
-          <BootcampCard />
+          <div v-for="bootcamps in getBootcamps" :key="bootcamps._id">
+            <BootcampCard :bootcamp="bootcamps" />
+          </div>
 
           <!-- Pagination -->
           <nav aria-label="Page navigation example">
@@ -44,12 +43,20 @@
 import LocationFilter from '../components/BootcampsUtils/LocationFilter';
 import OtherFilter from '../components/BootcampsUtils/OtherFilters';
 import BootcampCard from '../components/BootcampsUtils/BootcampsCard';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
     LocationFilter,
     OtherFilter,
     BootcampCard
+  },
+  computed: mapGetters(['getBootcamps']),
+  methods: {
+    ...mapActions(['getAllBootcamps'])
+  },
+  created() {
+    this.getAllBootcamps();
   }
 };
 </script>

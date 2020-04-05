@@ -1,23 +1,37 @@
 <template>
-  <div class="card mb-3">
+  <div class="card mb-3" v-if="bootcamp">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="img/image_2.jpg" class="card-img" alt="..." />
+        <img :src="`img/${bootcamp.photo}`" class="card-img" alt="..." />
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">
-            <a href="bootcamp.html"
-              >ModernTech Bootcamp
-              <span class="float-right badge badge-success">7.5</span></a
-            >
+            <router-link to="/"
+              >{{ bootcamp.name
+              }}<span
+                class="float-right badge badge-success"
+                v-if="bootcamp.averageRating"
+                >{{ bootcamp.averageRating.toFixed(1) }}</span
+              >
+              <span class="float-right badge badge-success" v-else>7.5</span>
+            </router-link>
           </h5>
-          <span class="badge badge-dark mb-2">Boston, MA</span>
+          <span class="badge badge-dark mb-2"
+            >{{ bootcamp.location.state }},
+            {{ bootcamp.location.country }}</span
+          >
           <p class="card-text">
-            Web Development, UI/UX, Mobile Development
+            {{ bootcamp.careers.join(', ') }}
           </p>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['bootcamp']
+};
+</script>
