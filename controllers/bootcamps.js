@@ -14,11 +14,14 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
 //@route      Get api/v1/bootcamps/:id
 //@access     public
 exports.getOneBootcamps = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamps.findById(req.params.id);
+  const bootcamp = await Bootcamps.findById(req.params.slug);
 
   if (!bootcamp) {
     return next(
-      new ErrorResponse(`No Resource found with this id: ${req.params.id}`, 404)
+      new ErrorResponse(
+        `No Resource found with this id: ${req.params.slug}`,
+        404
+      )
     );
   }
 

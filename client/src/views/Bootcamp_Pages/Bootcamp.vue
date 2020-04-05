@@ -4,71 +4,58 @@
       <div class="row">
         <!-- Main col -->
         <div class="col-md-8">
-          <h1>DevWorks Bootcamp</h1>
+          <h1>{{ singleBootcamp.name }}</h1>
           <!-- Description -->
           <p>
-            Devworks is a full stack JavaScript Bootcamp located in the heart of
-            Boston that focuses on the technologies you need to get a high
-            paying job as a web developer
+            {{ singleBootcamp.description }}
           </p>
           <!-- Avg cost -->
           <p class="lead mb-4">
-            Average Course Cost: <span class="text-primary">$10,000</span>
+            Average Course Cost:
+            <span class="text-primary">${{ singleBootcamp.averageCost }}</span>
           </p>
           <!-- Courses -->
-          <div class="card mb-3">
-            <h5 class="card-header bg-primary text-white">
-              Front End Web Development
-            </h5>
-            <div class="card-body">
-              <h5 class="card-title">Duration: 8 Weeks</h5>
-              <p class="card-text">
-                This course will provide you with all of the essentials to
-                become a successful frontend web developer. You will learn to
-                master HTML, CSS and front end JavaScript, along with tools like
-                Git, VSCode and front end frameworks like Vue
-              </p>
-              <ul class="list-group mb-3">
-                <li class="list-group-item">Cost: $8,000 USD</li>
-                <li class="list-group-item">Skill Required: Beginner</li>
-                <li class="list-group-item">
-                  Scholarship Available:
-                  <i class="fas fa-check text-success"></i>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <h5 class="card-header bg-primary text-white">
-              Full Stack Web Development
-            </h5>
-            <div class="card-body">
-              <h5 class="card-title">Duration: 12 Weeks</h5>
-              <p class="card-text">
-                In this course you will learn full stack web development, first
-                learning all about the frontend with HTML/CSS/JS/Vue and then
-                the backend with Node.js/Express/MongoDB
-              </p>
-              <ul class="list-group mb-3">
-                <li class="list-group-item">Cost: $10,000 USD</li>
-                <li class="list-group-item">Skill Required: Intermediate</li>
-                <li class="list-group-item">
-                  Scholarship Available:
-                  <i class="fas fa-times text-danger"></i>
-                </li>
-              </ul>
+          <div v-for="course in singleBootcamp.courses" :key="course._id">
+            <div class="card mb-3">
+              <h5 class="card-header bg-primary text-white">
+                {{ course.title }}
+              </h5>
+              <div class="card-body">
+                <h5 class="card-title">Duration: {{ course.weeks }} Weeks</h5>
+                <p class="card-text">
+                  {{ course.description }}
+                </p>
+                <ul class="list-group mb-3">
+                  <li class="list-group-item">
+                    Cost: ${{ course.tuition }} USD
+                  </li>
+                  <li class="list-group-item">
+                    Skill Required: {{ course.minimumSkill }}
+                  </li>
+                  <li class="list-group-item">
+                    Scholarship Available:
+                    <i
+                      class="fas fa-check text-success"
+                      v-if="course.scholarshipAvailable"
+                    ></i>
+                    <i class="fas fa-times text-danger" v-else>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
         <!-- Sidebar -->
         <div class="col-md-4">
           <!-- Image -->
-          <img src="/img/image_1.jpg" class="img-thumbnail" alt="" />
+          <img :src="`/img/${singleBootcamp.photo}`" class="img-thumbnail" alt="bootcamp image" />
           <!-- Rating -->
           <h1 class="text-center my-4">
             <span class="badge badge-secondary badge-success rounded-circle p-3"
-              >8.8</span
+             v-if="singleBootcamp.averageRating" >{{ singleBootcamp.averageRating.toFixed(1) }}</span
+            >
+            <span class="badge badge-secondary badge-success rounded-circle p-3"
+             v-else >5.6</span
             >
             Rating
           </h1>
@@ -87,19 +74,28 @@
           <!-- Perks -->
           <ul class="list-group list-group-flush mt-4">
             <li class="list-group-item">
-              <i class="fas fa-check text-success"></i> Housing
+              <i class="fas fa-check text-success" v-if="singleBootcamp.housing"></i> 
+              <i class="fas fa-times text-danger" v-else></i>
+              Housing
+              
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-check text-danger"></i> Job Assistance
+              <i class="fas fa-check text-success" v-if="singleBootcamp.jobAssistance"></i>
+              <i class="fas fa-times text-danger" v-else></i>
+               Job Assistance
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-times text-success"></i> Job Guarantee
+              <i class="fas fa-times text-success" v-if="singleBootcamp.jobGuarantee"></i>
+              <i class="fas fa-times text-danger" v-else></i>
+               Job Guarantee
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-check text-success"></i> Accepts GI Bill
+              <i class="fas fa-check text-success" v-if="singleBootcamp.acceptGi"></i> 
+              <i class="fas fa-times text-danger" v-else></i>
+              Accepts GI Bill
             </li>
           </ul>
         </div>
@@ -107,6 +103,28 @@
     </div>
   </section>
 </template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import NProgress from 'nprogress';
+import store from '@store/index';
+
+export default {
+  computed: mapGetters(['singleBootcamp']),
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('SingleBootcamps', to.params.slug).then(res => {
+      if (res && res.data.success) {
+        NProgress.done();
+      }
+    });
+    next();
+  },
+  methods: {
+    ...mapActions(['SingleBootcamps'])
+  }
+};
+</script>
 
 <style scoped>
 .bootcamp {

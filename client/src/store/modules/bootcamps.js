@@ -3,11 +3,13 @@ import axios from 'axios';
 const state = {
   bootcamps: [],
   latestBootcamps: [],
+  singleBootcamp: {},
   err: null
 };
 const getters = {
   getBootcamps: () => state.bootcamps,
   getLatestBootcamps: () => state.latestBootcamps,
+  singleBootcamp: () => state.singleBootcamp,
   getErr: () => state.err
 };
 const actions = {
@@ -17,6 +19,21 @@ const actions = {
       const res = await axios.get('/api/v1/bootcamps');
       if (res && res.data.success) {
         commit('bootcamp_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+
+  // single bootcamps
+  async SingleBootcamps({ commit }, slug) {
+    try {
+      const res = await axios.get(`/api/v1/bootcamps/${slug}`);
+      if (res && res.data.success) {
+        commit('singleBootcamp_res', res.data.data);
       }
       return res;
     } catch (err) {
@@ -85,6 +102,11 @@ const mutations = {
 
   bootcampLatest_res(state, data) {
     state.latestBootcamps = data.splice(0, 5);
+    state.err = null;
+  },
+
+  singleBootcamp_res(state, data) {
+    state.singleBootcamp = data;
     state.err = null;
   }
 };

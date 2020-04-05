@@ -32,9 +32,10 @@ router
   .route('/')
   .get(advanceResults(Bootcamps, 'courses'), getBootcamps)
   .post(protect, authorize('publisher', 'admin'), createBootcamps);
+
+router.route('/:slug').get(getOneBootcamps);
 router
   .route('/:id')
-  .get(getOneBootcamps)
   .patch(protect, authorize('publisher', 'admin'), updateBootcamps)
   .delete(protect, authorize('publisher', 'admin'), deleteBootcamps);
 
