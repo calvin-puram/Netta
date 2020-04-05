@@ -6,15 +6,16 @@
         <p class="lead">
           Find, rate and read reviews on coding bootcamps
         </p>
-        <form action="bootcamps.html">
+        <form>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <input
                   type="text"
                   class="form-control"
-                  name="miles"
+                  v-model="lng"
                   placeholder="Enter Longitude"
+                  required
                 />
               </div>
             </div>
@@ -23,7 +24,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="zipcode"
+                  v-model="lat"
                   placeholder="Enter Latitude"
                 />
               </div>
@@ -33,9 +34,37 @@
             type="submit"
             value="Find Bootcamps"
             class="btn btn-primary btn-block"
+            @click="getBootcamp"
           />
         </form>
       </div>
     </div>
   </section>
 </template>
+
+<script>
+import { mapActions } from 'vuex';
+export default {
+  data() {
+    return {
+      lng: '',
+      lat: ''
+    };
+  },
+  methods: {
+    ...mapActions(['getBootcampsByRadius']),
+    getBootcamp() {
+      const data = {
+        lng: this.lng * 1,
+        lat: this.lat * 1
+      };
+
+      this.getBootcampsByRadius(data).the(res => {
+        if (res && res.data.success) {
+          this.router.push('/bootcamps');
+        }
+      });
+    }
+  }
+};
+</script>

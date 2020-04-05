@@ -5,7 +5,8 @@ const state = {
   err: null
 };
 const getters = {
-  getBootcamps: () => state.bootcamps
+  getBootcamps: () => state.bootcamps,
+  getErr: () => state.err
 };
 const actions = {
   // all bootcamps
@@ -17,8 +18,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      console.log(err.response);
-      // commit('bootcamp_err', err.response.error);
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
     }
   },
 
@@ -33,8 +35,9 @@ const actions = {
       }
       return res;
     } catch (err) {
-      console.log(err.response);
-      // commit('bootcamp_err', err.response.error);
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
     }
   }
 };

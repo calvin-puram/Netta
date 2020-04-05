@@ -34,9 +34,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  computed: mapGetters(['getErr']),
   data() {
     return {
       lng: '',
@@ -51,7 +52,13 @@ export default {
         lat: this.lat * 1
       };
 
-      this.getBootcampsByRadius(data);
+      this.getBootcampsByRadius(data).then(res => {
+        if (res && res.data.success) {
+          this.$noty.success('Bootcamps within this radius');
+        } else {
+          this.$noty.error(this.getErr);
+        }
+      });
     }
   }
 };
