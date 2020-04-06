@@ -80,11 +80,14 @@
                   order to add it to DevCamper.
                 </p>
                 <div class="form-group">
-                  <input
+                  <button
                     type="submit"
-                    value="Register"
+                    :disabled="loading"
                     class="btn btn-primary btn-block"
-                  />
+                  >
+                    Register
+                    <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
+                  </button>
                 </div>
               </form>
             </div>
@@ -105,13 +108,17 @@ export default {
       name: '',
       email: '',
       password: '',
-
+      loading: false,
       role: ''
     };
   },
   methods: {
     ...mapActions(['register']),
+    toggleLoading() {
+      this.loading = !this.loading;
+    },
     handleRegister() {
+      this.toggleLoading();
       const data = {
         name: this.name,
         email: this.email,
@@ -120,6 +127,7 @@ export default {
         role: this.role
       };
       this.register(data).then(res => {
+        this.toggleLoading();
         if (res && res.data.success) {
           this.$noty.success('User Registered successfully!');
           this.$router.push('/');

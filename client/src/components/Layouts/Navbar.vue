@@ -48,7 +48,7 @@
                 >Manage Account</a
               >
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="login.html"
+              <a @click.prevent="logoutUser" class="dropdown-item" href="#"
                 ><i class="fas fa-sign-out-alt"></i> Logout</a
               >
             </div>
@@ -69,9 +69,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  computed: mapGetters(['getToken'])
+  computed: mapGetters(['getToken']),
+  methods: {
+    ...mapActions(['logout']),
+    logoutUser() {
+      this.logout();
+    }
+  }
 };
 </script>

@@ -17,7 +17,21 @@
                 />
                 <div class="card-body">
                   <h5 class="card-title">
-                    <router-link :to="`bootcamp/${bootcamp.slug}`"
+                    <router-link
+                      v-if="getToken"
+                      :to="`bootcamp/${bootcamp.slug}`"
+                      >{{ bootcamp.name }}
+                      <span
+                        class="float-right badge badge-success"
+                        v-if="bootcamp.averageRating"
+                        >{{ bootcamp.averageRating.toFixed(1) }}</span
+                      >
+                      <span class="float-right badge badge-success" v-else
+                        >6.2</span
+                      >
+                    </router-link>
+
+                    <router-link v-if="!getToken" to="/login"
                       >{{ bootcamp.name }}
                       <span
                         class="float-right badge badge-success"
@@ -52,8 +66,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  props: ['getLatestBootcamps']
+  props: ['getLatestBootcamps'],
+  computed: mapGetters(['getToken'])
 };
 </script>
 

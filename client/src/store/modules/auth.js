@@ -12,7 +12,6 @@ const actions = {
   // Register
   async register({ commit }, data) {
     try {
-      console.log(data);
       const res = await axios.post('/api/v1/auth/register', data);
       if (res && res.data.success) {
         localStorage.setItem('token', res.data.data);
@@ -25,6 +24,30 @@ const actions = {
         commit('auth_err', err.response.data.error);
       }
     }
+  },
+
+  // login
+  async login({ commit }, data) {
+    try {
+      const res = await axios.post('/api/v1/auth/login', data);
+      if (res && res.data.success) {
+        localStorage.setItem('token', res.data.data);
+        axios.defaults.headers.common['Authorization'] = res.data.data;
+        commit('auth_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('auth_err', err.response.data.error);
+      }
+    }
+  },
+
+  // Logout
+  async logout({ commit }) {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+    commit('logout_res');
   }
 };
 const mutations = {
@@ -35,6 +58,11 @@ const mutations = {
 
   auth_err(state, err) {
     state.authErr = err;
+  },
+
+  logout_res(state) {
+    state.token = '';
+    state.authErr = null;
   }
 };
 
