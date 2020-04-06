@@ -36,6 +36,10 @@ img {
   margin: auto;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .dark-overlay {
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
