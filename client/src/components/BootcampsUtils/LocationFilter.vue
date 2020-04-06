@@ -35,9 +35,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import FormFilterMixin from '@mixins/FormFiltersMixin';
 export default {
   computed: mapGetters(['getErr']),
+  mixins: [FormFilterMixin],
   data() {
     return {
       lng: '',
@@ -53,11 +54,7 @@ export default {
       };
 
       this.getBootcampsByRadius(data).then(res => {
-        if (res && res.data.success) {
-          this.$noty.success('Bootcamps within this radius');
-        } else {
-          this.$noty.error(this.getErr);
-        }
+        this.setBootcamps(res, 'Bootcamps within this radius', this.getErr);
       });
     }
   }

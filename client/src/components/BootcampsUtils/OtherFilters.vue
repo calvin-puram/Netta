@@ -2,8 +2,12 @@
   <form @submit.prevent="getOtherFilter">
     <div class="form-group">
       <label> Rating</label>
-      <select class="custom-select mb-2" v-model="ratings">
-        <option value="1">Any</option>
+      <select
+        class="custom-select mb-2"
+        v-model="ratings"
+        @change="checkSelect"
+      >
+        <option value="">Please Select One</option>
         <option value="9">9+</option>
         <option value="8">8+</option>
         <option value="7">7+</option>
@@ -17,8 +21,8 @@
 
     <div class="form-group">
       <label> Budget</label>
-      <select class="custom-select mb-2" v-model="budget">
-        <option value="0">Any</option>
+      <select class="custom-select mb-2" v-model="budget" @change="checkSelect">
+        <option value="">Please Select One</option>
         <option value="20000">$20,000</option>
         <option value="15000">$15,000</option>
         <option value="10000">$10,000</option>
@@ -28,40 +32,54 @@
         <option value="2000">$2,000</option>
       </select>
     </div>
-    <input
+    <button
       type="submit"
-      value="Find Bootcamps"
+      :disabled="disabled"
       class="btn btn-primary btn-block"
-    />
+    >
+      Find Bootcamps
+    </button>
   </form>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import FormFilterMixin from '@mixins/FormFiltersMixin';
 
 export default {
-  components: mapGetters(['getErr']),
+  computed: mapGetters(['getErr']),
+  mixins: [FormFilterMixin],
   data() {
     return {
-      ratings: 'Any',
-      budget: 'Any'
+      ratings: '',
+      budget: '',
+      disabled: true
     };
   },
   methods: {
     ...mapActions(['getBootcampsByFilter']),
+    checkSelect() {
+      if (
+        Object.values(this.ratings).length > 0 &&
+        Object.values(this.budget).length > 0
+      ) {
+        this.disabled = false;
+      } else {
+        this.disabled = true;
+      }
+    },
     getOtherFilter() {
       const data = {
         rtn: this.ratings * 1,
         bgt: this.budget * 1
       };
       this.getBootcampsByFilter(data).then(res => {
-        if (res && res.data.data.length > 0) {
-          this.$noty.success('Bootcamps within this Budget & Rating');
-        } else if (res.data.data.length === 0) {
-          this.$noty.info('No Bootcamp within this rating & budget');
-        } else {
-          this.$noty.error(this.getErr);
-        }
+        this.setBootcamps(
+          res,
+          'Bootcamps within this Budget & Rating',
+          this.getErr,
+          'No Bootcamp within this rating & budget'
+        );
       });
     }
   }

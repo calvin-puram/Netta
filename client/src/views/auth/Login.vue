@@ -62,7 +62,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import LoadingMixin from '@mixins/LoadingMixins';
-import authMixin from '../../Mixins/authMixin';
+import authMixin from '@mixins/authMixin';
 
 export default {
   computed: mapGetters(['getAuthErr']),
