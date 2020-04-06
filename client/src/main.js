@@ -16,7 +16,6 @@ Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
 Vue.use(VueNoty);
 
 // automatic compoenent registration
-
 const requireComponent = require.context(
   './components',
 

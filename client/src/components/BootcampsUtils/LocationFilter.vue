@@ -25,20 +25,18 @@
         </div>
       </div>
     </div>
-    <input
-      type="submit"
-      value="Find Bootcamps"
-      class="btn btn-primary btn-block"
-    />
+    <BaseButton :loading="loading" name="Find Bootcamps" />
   </form>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import FormFilterMixin from '@mixins/FormFiltersMixin';
+import LoadingMixin from '@mixins/LoadingMixins';
+
 export default {
   computed: mapGetters(['getErr']),
-  mixins: [FormFilterMixin],
+  mixins: [FormFilterMixin, LoadingMixin],
   data() {
     return {
       lng: '',
@@ -48,12 +46,14 @@ export default {
   methods: {
     ...mapActions(['getBootcampsByRadius']),
     findBootcamp() {
+      this.toggleLoading();
       const data = {
         lng: this.lng * 1,
         lat: this.lat * 1
       };
 
       this.getBootcampsByRadius(data).then(res => {
+        this.toggleLoading();
         this.setBootcamps(res, 'Bootcamps within this radius', this.getErr);
       });
     }
