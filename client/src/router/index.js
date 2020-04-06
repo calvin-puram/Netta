@@ -4,6 +4,8 @@ import Home from '../views/Home.vue';
 import Bootcamps from '../views/Bootcamp_Pages/Bootcamps.vue';
 import FilterBootcamps from '../views/Bootcamp_Pages/FilterBootcamps.vue';
 import Bootcamp from '../views/Bootcamp_Pages/Bootcamp.vue';
+import Login from '../views/auth/Login.vue';
+import Register from '../views/auth/Register.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,16 @@ const routes = [
     name: 'bootcamp',
     component: Bootcamp,
     props: true
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   }
 ];
 

@@ -20,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
 
   // 3) DUPLICATE FIELDS
   if (error.code === 11000) {
-    const message = `the field provided: ${error.keyValue.name} must be unique`;
+    const message = `the field provided must be unique`;
     error = new ErrorResponse(message, 400);
   }
 

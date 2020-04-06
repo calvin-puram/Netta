@@ -1,5 +1,5 @@
 <template>
-  <section class="bootcamp mt-5">
+  <section class="bootcamp mt-5" v-if="Object.keys(singleBootcamp).length > 0">
     <div class="container">
       <div class="row">
         <!-- Main col -->
@@ -38,7 +38,7 @@
                       class="fas fa-check text-success"
                       v-if="course.scholarshipAvailable"
                     ></i>
-                    <i class="fas fa-times text-danger" v-else>
+                    <i class="fas fa-times text-danger" v-else></i>
                   </li>
                 </ul>
               </div>
@@ -48,14 +48,22 @@
         <!-- Sidebar -->
         <div class="col-md-4">
           <!-- Image -->
-          <img :src="`/img/${singleBootcamp.photo}`" class="img-thumbnail" alt="bootcamp image" />
+          <img
+            :src="`/img/${singleBootcamp.photo}`"
+            class="img-thumbnail"
+            alt="bootcamp image"
+          />
           <!-- Rating -->
           <h1 class="text-center my-4">
-            <span class="badge badge-secondary badge-success rounded-circle p-3"
-             v-if="singleBootcamp.averageRating" >{{ singleBootcamp.averageRating.toFixed(1) }}</span
+            <span
+              class="badge badge-secondary badge-success rounded-circle p-3"
+              v-if="singleBootcamp.averageRating"
+              >{{ singleBootcamp.averageRating.toFixed(1) }}</span
             >
-            <span class="badge badge-secondary badge-success rounded-circle p-3"
-             v-else >5.6</span
+            <span
+              class="badge badge-secondary badge-success rounded-circle p-3"
+              v-else
+              >5.6</span
             >
             Rating
           </h1>
@@ -74,26 +82,37 @@
           <!-- Perks -->
           <ul class="list-group list-group-flush mt-4">
             <li class="list-group-item">
-              <i class="fas fa-check text-success" v-if="singleBootcamp.housing"></i> 
+              <i
+                class="fas fa-check text-success"
+                v-if="singleBootcamp.housing"
+              ></i>
               <i class="fas fa-times text-danger" v-else></i>
               Housing
-              
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-check text-success" v-if="singleBootcamp.jobAssistance"></i>
+              <i
+                class="fas fa-check text-success"
+                v-if="singleBootcamp.jobAssistance"
+              ></i>
               <i class="fas fa-times text-danger" v-else></i>
-               Job Assistance
+              Job Assistance
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-times text-success" v-if="singleBootcamp.jobGuarantee"></i>
+              <i
+                class="fas fa-times text-success"
+                v-if="singleBootcamp.jobGuarantee"
+              ></i>
               <i class="fas fa-times text-danger" v-else></i>
-               Job Guarantee
+              Job Guarantee
             </li>
 
             <li class="list-group-item">
-              <i class="fas fa-check text-success" v-if="singleBootcamp.acceptGi"></i> 
+              <i
+                class="fas fa-check text-success"
+                v-if="singleBootcamp.acceptGi"
+              ></i>
               <i class="fas fa-times text-danger" v-else></i>
               Accepts GI Bill
             </li>
@@ -105,7 +124,7 @@
 </template>
 
 <script>
-import {  mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
 
@@ -119,8 +138,7 @@ export default {
       }
     });
     next();
-  },
-  
+  }
 };
 </script>
 

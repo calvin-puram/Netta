@@ -24,7 +24,7 @@ const sendToken = async function(user, statusCode, res) {
     .cookie('token', token, options)
     .json({
       success: true,
-      token
+      data: token
     });
 };
 
