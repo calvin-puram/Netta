@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  token: localStorage.getItem('token') || '',
+  token: JSON.parse(localStorage.getItem('token')) || '',
   authErr: null
 };
 const getters = {
@@ -14,8 +14,6 @@ const actions = {
     try {
       const res = await axios.post('/api/v1/auth/register', data);
       if (res && res.data.success) {
-        localStorage.setItem('token', res.data.data);
-        axios.defaults.headers.common['Authorization'] = res.data.data;
         commit('auth_res', res.data.data);
       }
       return res;
@@ -31,8 +29,6 @@ const actions = {
     try {
       const res = await axios.post('/api/v1/auth/login', data);
       if (res && res.data.success) {
-        localStorage.setItem('token', res.data.data);
-        axios.defaults.headers.common['Authorization'] = res.data.data;
         commit('auth_res', res.data.data);
       }
       return res;

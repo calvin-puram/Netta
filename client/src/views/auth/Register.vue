@@ -101,9 +101,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import LoadingMixin from '@mixins/LoadingMixins';
+import authMixin from '../../Mixins/authMixin';
+
 export default {
   computed: mapGetters(['getAuthErr']),
-  mixins: [LoadingMixin],
+  mixins: [LoadingMixin, authMixin],
   data() {
     return {
       name: '',
@@ -125,12 +127,7 @@ export default {
       };
       this.register(data).then(res => {
         this.toggleLoading();
-        if (res && res.data.success) {
-          this.$noty.success('User Registered successfully!');
-          this.$router.push('/');
-        } else {
-          this.$noty.error(this.getAuthErr);
-        }
+        this.setAuth(res, 'User Registered successfully!', this.getAuthErr);
       });
     }
   }

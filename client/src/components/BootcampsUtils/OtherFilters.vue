@@ -3,7 +3,7 @@
     <div class="form-group">
       <label> Rating</label>
       <select class="custom-select mb-2" v-model="ratings">
-        <option value="0" selected>Any</option>
+        <option value="1">Any</option>
         <option value="9">9+</option>
         <option value="8">8+</option>
         <option value="7">7+</option>
@@ -18,7 +18,7 @@
     <div class="form-group">
       <label> Budget</label>
       <select class="custom-select mb-2" v-model="budget">
-        <option value="1" selected>Any</option>
+        <option value="0">Any</option>
         <option value="20000">$20,000</option>
         <option value="15000">$15,000</option>
         <option value="10000">$10,000</option>
@@ -43,8 +43,8 @@ export default {
   components: mapGetters(['getErr']),
   data() {
     return {
-      ratings: '',
-      budget: ''
+      ratings: 'Any',
+      budget: 'Any'
     };
   },
   methods: {

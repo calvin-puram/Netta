@@ -9,7 +9,7 @@ import axios from 'axios';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
-const token = JSON.parse(localStorage.getItem('token'));
+const token = JSON.parse(localStorage.getItem('token')) || '';
 Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
 Vue.use(VueNoty);
 
