@@ -100,23 +100,20 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import LoadingMixin from '@mixins/LoadingMixins';
 export default {
   computed: mapGetters(['getAuthErr']),
+  mixins: [LoadingMixin],
   data() {
     return {
       name: '',
       email: '',
       password: '',
-      loading: false,
       role: ''
     };
   },
   methods: {
     ...mapActions(['register']),
-    toggleLoading() {
-      this.loading = !this.loading;
-    },
     handleRegister() {
       this.toggleLoading();
       const data = {

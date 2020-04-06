@@ -46,26 +46,27 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import LoadingMixin from '@mixins/LoadingMixins';
 export default {
   computed: mapGetters(['getErr']),
+  mixins: [LoadingMixin],
   data() {
     return {
       lng: '',
-      lat: '',
-      loading: false
+      lat: ''
     };
   },
   methods: {
     ...mapActions(['getBootcampsByRadius']),
     getBootcamp() {
-      this.loading = true;
+      this.toggleLoading();
       const data = {
         lng: this.lng * 1,
         lat: this.lat * 1
       };
 
       this.getBootcampsByRadius(data).then(res => {
-        this.loading = false;
+        this.toggleLoading();
         if (res && res.data.success) {
           this.$router.push({ name: 'bootcamps-within' });
         } else {
