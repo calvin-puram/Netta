@@ -70,6 +70,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import router from '../../router/index';
 
 export default {
   computed: mapGetters(['getToken']),
@@ -77,6 +78,7 @@ export default {
     ...mapActions(['logout']),
     logoutUser() {
       this.logout();
+      router.push('/');
     }
   }
 };

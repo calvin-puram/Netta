@@ -30,14 +30,7 @@
               </div>
             </div>
           </div>
-          <button
-            :disabled="loading"
-            type="submit"
-            class="btn btn-primary btn-block"
-          >
-            Find Bootcamps
-            <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
-          </button>
+          <BaseButton :loading="loading" name="Find Bootcamps" />
         </form>
       </div>
     </div>
