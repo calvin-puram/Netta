@@ -80,14 +80,7 @@
                   order to add it to DevCamper.
                 </p>
                 <div class="form-group">
-                  <button
-                    type="submit"
-                    :disabled="loading"
-                    class="btn btn-primary btn-block"
-                  >
-                    Register
-                    <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
-                  </button>
+                  <BaseButton :loading="loading" name="Register" />
                 </div>
               </form>
             </div>

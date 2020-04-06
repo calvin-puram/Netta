@@ -37,14 +37,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <button
-                    type="submit"
-                    :disabled="loading"
-                    class="btn btn-primary btn-block"
-                  >
-                    Login
-                    <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
-                  </button>
+                  <BaseButton :loading="loading" name="Login" />
                 </div>
               </form>
               <p>
