@@ -13,7 +13,7 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
     })
       .populate({
         path: 'bootcamp',
-        select: 'name, averageRating'
+        select: 'name averageRating slug'
       })
       .populate({
         path: 'user',

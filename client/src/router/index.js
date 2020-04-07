@@ -9,6 +9,7 @@ import Register from '../views/auth/Register.vue';
 import store from '@store/index';
 import ForgotPassword from '../views/auth/ForgotPassword.vue';
 import ResetPassword from '../views/auth/ResetPassword.vue';
+import BootcampReviews from '../views/Bootcamp_Pages/BootcampReviews.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,15 @@ const routes = [
     path: '/bootcamp/:slug',
     name: 'bootcamp',
     component: Bootcamp,
+    props: true,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/bootcamp/:id/reviews',
+    name: 'bootcamp_reviews',
+    component: BootcampReviews,
     props: true,
     meta: {
       requiresAuth: true

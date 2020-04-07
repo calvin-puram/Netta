@@ -68,9 +68,12 @@
             Rating
           </h1>
           <!-- Buttons -->
-          <a href="reviews.html" class="btn btn-dark btn-block my-3"
-            ><i class="fas fa-comments"></i> Read Reviews</a
+          <router-link
+            class="btn btn-dark btn-block my-3"
+            :to="`/bootcamp/${singleBootcamp._id}/reviews`"
+            ><i class="fas fa-comments"></i> Read Reviews</router-link
           >
+
           <a href="add-review.html" class="btn btn-light btn-block my-3"
             ><i class="fas fa-pencil-alt"></i> Write a Review</a
           >
