@@ -39,6 +39,35 @@ const actions = {
     }
   },
 
+  // Resit password
+  async reset({ commit }, email) {
+    try {
+      const res = await axios.post('/api/v1/auth/forgetpassword', email);
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('auth_err', err.response.data.error);
+      }
+    }
+  },
+
+  // update
+  async updatePassword({ commit }, data) {
+    try {
+      const res = await axios.patch(
+        `/api/v1/auth/resetpassword/${data.token}`,
+        data
+      );
+      if (res && res.data.success) {
+        commit('auth_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('auth_err', err.response.data.error);
+      }
+    }
+  },
   // Logout
   async logout({ commit }) {
     localStorage.removeItem('token');

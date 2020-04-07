@@ -23,6 +23,16 @@ const UserSchema = new Schema({
     required: [true, 'password is required'],
     minlength: 6
   },
+  passwordConfirm: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function(val) {
+        return val === this.password;
+      },
+      message: 'password do not match'
+    }
+  },
   role: {
     type: String,
     enum: {

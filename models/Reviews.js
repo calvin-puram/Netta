@@ -37,34 +37,76 @@ const ReviewsSchema = new Schema({
 
 ReviewsSchema.index({ bootcamp: 1, user: 1 }, { unique: true });
 
-ReviewsSchema.statics.getAverageRating = async function(bootcampId) {
-  const avgRating = await this.aggregate([
+// ReviewsSchema.statics.getAverageRating = async function(bootcampId) {
+//   const avgRating = await this.aggregate([
+//     {
+//       $match: { bootcamp: bootcampId }
+//     },
+//     {
+//       $group: {
+//         _id: '$bootcamp',
+//         averageRating: { $avg: '$rating' }
+//       }
+//     }
+//   ]);
+
+//   try {
+//     await this.model('Bootcamps').findByIdAndUpdate(bootcampId, {
+//       averageRating: avgRating[0].averageRating
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// ReviewsSchema.post('save', function() {
+//   this.constructor.getAverageRating(this.bootcamp);
+// });
+
+// ReviewsSchema.pre('remove', function(next) {
+//   this.constructor.getAverageRating(this.bootcamp);
+//   next();
+// });
+
+// calulate average ratings
+ReviewsSchema.statics.calcRating = async function(bootcampId) {
+  const stats = await this.aggregate([
     {
       $match: { bootcamp: bootcampId }
     },
     {
       $group: {
         _id: '$bootcamp',
+        nRating: { $sum: 1 },
         averageRating: { $avg: '$rating' }
       }
     }
   ]);
-
-  try {
+  if (stats.length > 0) {
     await this.model('Bootcamps').findByIdAndUpdate(bootcampId, {
-      averageRating: avgRating[0].averageRating
+      averageRating: stats[0].averageRating,
+      ratingsQuantity: stats[0].nRating
     });
-  } catch (err) {
-    console.log(err);
+  } else {
+    await this.model('Bootcamps').findByIdAndUpdate(bootcampId, {
+      ratingsAverage: 4.5,
+      ratingsQuantity: 0
+    });
   }
 };
 
-ReviewsSchema.post('save', function(next) {
-  this.constructor.getAverageRating(this.bootcamp);
+ReviewsSchema.post('save', function() {
+  this.constructor.calcRating(this.bootcamp);
 });
 
-ReviewsSchema.pre('remove', function(next) {
-  this.constructor.getAverageRating(this.bootcamp);
+//update ratings average
+ReviewsSchema.pre(/^findOneAnd/, async function(next) {
+  this.r = await this.findOne();
+  next();
+});
+
+ReviewsSchema.post(/^findOneAnd/, async function() {
+  await this.r.constructor.calcRating(this.r.bootcamp);
 });
 
 const Reviews = mongoose.model('Reviews', ReviewsSchema);

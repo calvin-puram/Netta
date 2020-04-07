@@ -115,9 +115,7 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const replyURL = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  const replyURL = `http://localhost:8080/resetpassword/${resetToken}`;
   const message = `You recieve the message because you requested that you have forgoten your password \n make a PUT request to ${replyURL} \n if you didn't forget your password, please ignore this email`;
 
   try {
@@ -129,10 +127,10 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      msg: 'reset password email sent successfully'
+      data: 'reset password email sent successfully'
     });
   } catch (err) {
-    console.log(`Email: ${err.message}`);
+    console.log(`Email: ${err}`);
     user.forgetPasswordResetToken = undefined;
     user.forgetPasswordExpires = undefined;
     await user.save({ validateBeforeSave: false });
@@ -158,11 +156,15 @@ exports.resetpassword = asyncHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    return next('Invalid Token ', 400);
+    return next(new ErrorResponse('Invalid Token or Token has Expired', 400));
   }
 
   try {
+    if (req.body.password !== req.body.passwordConfirm) {
+      return next(new ErrorResponse('Password do not match', 400));
+    }
     user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
     user.forgetPasswordResetToken = undefined;
     user.forgetPasswordExpires = undefined;
     await user.save();

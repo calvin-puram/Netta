@@ -14,7 +14,10 @@ const BootcampSchema = new Schema(
       trim: true,
       maxlength: [50, 'name must no be more than 50 characters long']
     },
-    slug: String,
+    slug: {
+      type: String,
+      unique: true
+    },
     description: {
       type: String,
       required: [true, 'please add a description'],
@@ -74,8 +77,10 @@ const BootcampSchema = new Schema(
     averageRating: {
       type: Number,
       min: [1, 'Rating must be at least 1'],
-      max: [10, 'Rating cannot be more than  10']
+      max: [10, 'Rating cannot be more than  10'],
+      set: val => Math.round(val * 10) / 10
     },
+    ratingsQuantity: Number,
     averageCost: Number,
     photo: {
       type: String,

@@ -8,6 +8,7 @@
 		"phone": "(111) 111-1111",
 		"email": "enroll@devworks.com",
 		"address": "8 Saka Agbaje Street, Ibadan",
+		"photo": "image_3.jpg",
 		"careers": [
 			"Web Development",
 			"UI/UX",
@@ -27,6 +28,7 @@
 		"phone": "(222) 222-2222",
 		"email": "enroll@moderntech.com",
 		"address": "24 Murtala Mohammed way Yola, Adamawa",
+		"photo": "image_4.jpg",
 		"careers": [
 			"Web Development",
 			"UI/UX",
@@ -46,6 +48,7 @@
 		"phone": "(333) 333-3333",
 		"email": "enroll@codemasters.com",
 		"address": "25 Osuntokun Avenue, Ibadan",
+		"photo": "image_2.jpg",
 		"careers": [
 			"Web Development",
 			"Data Science",
@@ -65,6 +68,7 @@
 		"phone": "(444) 444-4444",
 		"email": "enroll@devcentral.com",
 		"address": "45 Allen Junction, Ikeja Lagos",
+		"photo": "image_1.jpg",
 		"careers": [
 			"Mobile Development",
 			"Web Development",

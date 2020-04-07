@@ -42,7 +42,9 @@
               </form>
               <p>
                 Forgot Password?
-                <a href="reset-password.html">Reset Password</a>
+                <router-link :to="{ name: 'forgotPassword' }"
+                  >Reset Password</router-link
+                >
               </p>
             </div>
           </div>

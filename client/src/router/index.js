@@ -7,6 +7,8 @@ import Bootcamp from '../views/Bootcamp_Pages/Bootcamp.vue';
 import Login from '../views/auth/Login.vue';
 import Register from '../views/auth/Register.vue';
 import store from '@store/index';
+import ForgotPassword from '../views/auth/ForgotPassword.vue';
+import ResetPassword from '../views/auth/ResetPassword.vue';
 
 Vue.use(VueRouter);
 
@@ -47,6 +49,23 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register,
+    meta: {
+      requiresGuest: true
+    }
+  },
+  {
+    path: '/forgot_password',
+    name: 'forgotPassword',
+    component: ForgotPassword,
+    meta: {
+      requiresGuest: true
+    }
+  },
+  {
+    path: '/resetpassword/:token',
+    name: 'resetPassword',
+    component: ResetPassword,
+    props: true,
     meta: {
       requiresGuest: true
     }

@@ -8,7 +8,17 @@ const Reviews = require('../models/Reviews');
 //@access public
 exports.getReviews = asyncHandler(async (req, res, next) => {
   if (req.params.bootcampId) {
-    const reviews = await Reviews.find({ bootcamp: req.params.bootcampId });
+    const reviews = await Reviews.find({
+      bootcamp: req.params.bootcampId
+    })
+      .populate({
+        path: 'bootcamp',
+        select: 'name, averageRating'
+      })
+      .populate({
+        path: 'user',
+        select: 'name'
+      });
     res.status(200).json({
       success: true,
       count: reviews.length,
@@ -98,7 +108,7 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
 //@route Get api/v1/reviews/:id
 //@access private
 exports.deleteReview = asyncHandler(async (req, res, next) => {
-  let review = await Reviews.findById(req.params.id);
+  const review = await Reviews.findById(req.params.id);
 
   if (!review) {
     return next(
