@@ -21,26 +21,16 @@
                       v-if="getToken"
                       :to="`bootcamp/${bootcamp.slug}`"
                       >{{ bootcamp.name }}
-                      <span
-                        class="float-right badge badge-success"
-                        v-if="bootcamp.averageRating"
-                        >{{ bootcamp.averageRating.toFixed(1) }}</span
-                      >
-                      <span class="float-right badge badge-success" v-else
-                        >6.2</span
-                      >
+                      <span class="float-right badge badge-success">{{
+                        bootcamp.averageRating
+                      }}</span>
                     </router-link>
 
                     <router-link v-if="!getToken" to="/login"
                       >{{ bootcamp.name }}
-                      <span
-                        class="float-right badge badge-success"
-                        v-if="bootcamp.averageRating"
-                        >{{ bootcamp.averageRating.toFixed(1) }}</span
-                      >
-                      <span class="float-right badge badge-success" v-else
-                        >6.2</span
-                      >
+                      <span class="float-right badge badge-success">{{
+                        bootcamp.averageRating
+                      }}</span>
                     </router-link>
                   </h5>
                   <span class="badge badge-dark mb-2"

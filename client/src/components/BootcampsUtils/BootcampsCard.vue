@@ -13,12 +13,9 @@
           <h5 class="card-title">
             <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`"
               >{{ bootcamp.name
-              }}<span
-                class="float-right badge badge-success"
-                v-if="bootcamp.averageRating"
-                >{{ bootcamp.averageRating.toFixed(1) }}</span
-              >
-              <span class="float-right badge badge-success" v-else>7.5</span>
+              }}<span class="float-right badge badge-success">{{
+                bootcamp.averageRating
+              }}</span>
             </router-link>
 
             <router-link v-if="!getToken" to="/login"
