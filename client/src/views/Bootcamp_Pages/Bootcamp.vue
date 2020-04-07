@@ -57,20 +57,17 @@
           <h1 class="text-center my-4">
             <span
               class="badge badge-secondary badge-success rounded-circle p-3"
-              v-if="singleBootcamp.averageRating"
               >{{ singleBootcamp.averageRating.toFixed(1) }}</span
             >
-            <span
-              class="badge badge-secondary badge-success rounded-circle p-3"
-              v-else
-              >5.6</span
-            >
+
             Rating
           </h1>
           <!-- Buttons -->
           <router-link
             class="btn btn-dark btn-block my-3"
-            :to="`/bootcamp/${singleBootcamp._id}/reviews`"
+            :to="
+              `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/reviews`
+            "
             ><i class="fas fa-comments"></i> Read Reviews</router-link
           >
 

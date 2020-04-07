@@ -4,12 +4,14 @@ const state = {
   bootcamps: [],
   latestBootcamps: [],
   singleBootcamp: {},
+  bootcampReviews: [],
   err: null
 };
 const getters = {
   getBootcamps: () => state.bootcamps,
   getLatestBootcamps: () => state.latestBootcamps,
   singleBootcamp: () => state.singleBootcamp,
+  getBootcampReviews: () => state.bootcampReviews,
   getErr: () => state.err
 };
 const actions = {
@@ -88,6 +90,20 @@ const actions = {
         commit('bootcamp_err', err.response.data.error);
       }
     }
+  },
+  //  bootcamps reviews
+  async bootcampReviews({ commit }, id) {
+    try {
+      const res = await axios.get(`/api/v1/bootcamps/${id}/reviews`);
+      if (res && res.data.success) {
+        commit('bootcampReviews_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
   }
 };
 const mutations = {
@@ -107,6 +123,11 @@ const mutations = {
 
   singleBootcamp_res(state, data) {
     state.singleBootcamp = data;
+    state.err = null;
+  },
+
+  bootcampReviews_res(state, data) {
+    state.bootcampReviews = data;
     state.err = null;
   }
 };

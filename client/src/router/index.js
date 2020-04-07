@@ -33,16 +33,16 @@ const routes = [
     path: '/bootcamp/:slug',
     name: 'bootcamp',
     component: Bootcamp,
-    props: true,
+
     meta: {
       requiresAuth: true
     }
   },
   {
-    path: '/bootcamp/:id/reviews',
+    path: '/bootcamp/:id/:slug/reviews',
     name: 'bootcamp_reviews',
     component: BootcampReviews,
-    props: true,
+
     meta: {
       requiresAuth: true
     }

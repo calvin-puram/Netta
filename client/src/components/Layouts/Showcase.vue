@@ -1,72 +1,38 @@
 <template>
   <section class="showcase">
-    <div class="dark-overlay">
-      <div class="showcase-inner container">
-        <h1 class="display-4">Find a Code Bootcamp</h1>
-        <p class="lead">
-          Find, rate and read reviews on coding bootcamps
-        </p>
-        <form @submit.prevent="getBootcamp">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="lng"
-                  placeholder="Enter Longitude"
-                  required
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="lat"
-                  placeholder="Enter Latitude"
-                />
-              </div>
-            </div>
+    <div class="container ">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 ">
+          <div
+            class="showcase_context d-flex flex-column justify-content-center align-items-center"
+          >
+            <h1 class="text-secondary my-3">Find a Code Bootcamp</h1>
+            <p class="lead mb-3">
+              Find, rate and read reviews on coding bootcamps
+            </p>
+            <button class="btn btn-secondary rounded btn-lg mt-4">
+              Search Bootcamps
+            </button>
           </div>
-          <BaseButton :loading="loading" name="Find Bootcamps" />
-        </form>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <img src="/img/showcase.jpg" alt="landing image" />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
-import LoadingMixin from '@mixins/LoadingMixins';
-export default {
-  computed: mapGetters(['getErr']),
-  mixins: [LoadingMixin],
-  data() {
-    return {
-      lng: '',
-      lat: ''
-    };
-  },
-  methods: {
-    ...mapActions(['getBootcampsByRadius']),
-    getBootcamp() {
-      this.toggleLoading();
-      const data = {
-        lng: this.lng * 1,
-        lat: this.lat * 1
-      };
+<style scoped>
+.showcase {
+  min-height: 100vh;
+  padding-top: 5%;
+}
+.showcase_context {
+  height: 100%;
+}
 
-      this.getBootcampsByRadius(data).then(res => {
-        this.toggleLoading();
-        if (res && res.data.success) {
-          this.$router.push({ name: 'bootcamps-within' });
-        } else {
-          this.$noty.error(this.getErr);
-        }
-      });
-    }
-  }
-};
-</script>
+.btn {
+  background: #03ebd5 !important;
+}
+</style>
