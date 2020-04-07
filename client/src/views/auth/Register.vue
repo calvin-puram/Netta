@@ -46,7 +46,17 @@
                     required
                   />
                 </div>
-
+                <div class="form-group">
+                  <label for="password">Confirm Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    v-model="passwordConfirm"
+                    class="form-control"
+                    placeholder="Enter password"
+                    required
+                  />
+                </div>
                 <div class="card card-body mb-3">
                   <h5>User Role</h5>
                   <div class="form-check">
@@ -104,6 +114,7 @@ export default {
       name: '',
       email: '',
       password: '',
+      passwordConfirm: '',
       role: ''
     };
   },
@@ -115,7 +126,7 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
-
+        passwordConfirm: this.passwordConfirm,
         role: this.role
       };
       this.register(data).then(res => {

@@ -1,11 +1,12 @@
-const path = require('path');
 module.exports = {
-  outputDir: path.resolve(__dirname, '../public'),
+  outputDir:
+    'C:\\Users\\user\\Desktop\\personal projects\\deployed apps\\devCoach\\public',
   devServer: {
     proxy: {
       '/api': {
         target: 'http://localhost:5000/'
       }
     }
-  }
+  },
+  transpileDependencies: ['vuetify']
 };

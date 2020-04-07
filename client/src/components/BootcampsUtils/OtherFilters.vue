@@ -32,7 +32,7 @@
         <option value="2000">$2,000</option>
       </select>
     </div>
-    
+
     <button
       type="submit"
       :disabled="disabled"

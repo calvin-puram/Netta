@@ -32,12 +32,13 @@ const sendToken = async function(user, statusCode, res) {
 //@route      POST api/v1/auth/register
 //@access     public
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, passwordConfirm } = req.body;
 
   const user = await Users.create({
     name,
     email,
     password,
+    passwordConfirm,
     role
   });
 
@@ -59,7 +60,12 @@ exports.login = asyncHandler(async (req, res, next) => {
   const user = await Users.findOne({ email }).select('+password');
 
   if (!user || !(await user.comparePassword(user.password, password))) {
-    return next(new ErrorResponse('Invalid Credencials', 401));
+    return next(
+      new ErrorResponse(
+        'Invalid Credencials or email not Registered on this platform',
+        401
+      )
+    );
   }
 
   sendToken(user, 200, res);

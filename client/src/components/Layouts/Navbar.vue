@@ -1,71 +1,94 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-    <div class="container">
-      <router-link class="navbar-brand" to="/"
-        ><i class="fas fa-laptop-code"></i> DevCoach</router-link
+  <div>
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list dense>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-view-dashboard</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Dashboard</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-settings</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Settings</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app clipped-left flat color="teal">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title>
+        <router-link to="/"
+          ><i class="fas fa-laptop-code mr-1"></i
+          ><span class="logo">DevCoach</span></router-link
+        >
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text large color="white" link to="/login" v-if="!getToken"
+        ><i class="fas fa-sign-in-alt mr-1"></i>Login</v-btn
       >
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
+      <v-divider class="mx-4" inset vertical v-if="!getToken"></v-divider>
+      <v-btn text large color="white" link to="/register" v-if="!getToken"
+        ><i class="fas fa-user-plus mr-1"></i>Register</v-btn
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <!-- login -->
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item" v-if="!getToken">
-            <router-link class="nav-link" to="/login"
-              ><i class="fas fa-sign-in-alt"></i> Login</router-link
-            >
-          </li>
-          <li class="nav-item" v-if="!getToken">
-            <router-link class="nav-link" to="/register"
-              ><i class="fas fa-user-plus"></i> Register</router-link
-            >
-          </li>
+      <v-divider class="mx-4" inset vertical v-if="getToken"></v-divider>
+      <template v-if="getToken">
+        <div class="text-center">
+          <v-menu open-on-hover bottom offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn dark v-on="on" text>
+                Account<i class="fas fa-chevron-down ml-2"></i>
+              </v-btn>
+            </template>
+            <v-list dense color="teal" dark flat>
+              <v-list-item link to="/">
+                <v-list-item-title
+                  ><i class="far fa-clipboard mr-2"></i>Manage
+                  Bootcamp</v-list-item-title
+                >
+              </v-list-item>
 
-          <li class="nav-item dropdown" v-if="getToken">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-            >
-              <i class="fas fa-user"></i> Account
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="manage-bootcamp.html"
-                >Manage Bootcamp</a
-              >
-              <a class="dropdown-item" href="manage-reviews.html"
-                >Manage Reviews</a
-              >
-              <a class="dropdown-item" href="manage-account.html"
-                >Manage Account</a
-              >
-              <div class="dropdown-divider"></div>
-              <a @click.prevent="logoutUser" class="dropdown-item" href="#"
-                ><i class="fas fa-sign-out-alt"></i> Logout</a
-              >
-            </div>
-          </li>
+              <v-list-item link to="/">
+                <v-list-item-title
+                  ><i class="fas fa-users mr-2"></i>Manage
+                  Reviews</v-list-item-title
+                >
+              </v-list-item>
 
-          <li class="nav-item d-none d-sm-block">
-            <a class="nav-link" href="#">|</a>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'bootcamps' }"
-              >Browse Bootcamps</router-link
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+              <v-list-item link to="/">
+                <v-list-item-title
+                  ><i class="fas fa-user mr-2"></i> Manage
+                  Account</v-list-item-title
+                >
+              </v-list-item>
+
+              <v-list-item link @click="logoutUser">
+                <v-list-item-title
+                  ><i class="fas fa-sign-out-alt mr-2"></i
+                  >Logout</v-list-item-title
+                >
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+      </template>
+
+      <!-- login end -->
+
+      <v-divider class="mx-4" inset vertical></v-divider>
+      <v-btn text large color="white" link :to="{ name: 'bootcamps' }"
+        >Browse Bootcamps</v-btn
+      >
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
@@ -74,6 +97,13 @@ import router from '../../router/index';
 
 export default {
   computed: mapGetters(['getToken']),
+  props: {
+    source: String
+  },
+  data: () => ({
+    drawer: false
+  }),
+
   methods: {
     ...mapActions(['logout']),
     logoutUser() {
@@ -83,3 +113,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.logo,
+.fas {
+  color: #fff;
+}
+</style>

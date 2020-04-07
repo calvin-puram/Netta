@@ -8,6 +8,7 @@ import 'vuejs-noty/dist/vuejs-noty.css';
 import axios from 'axios';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
@@ -46,5 +47,6 @@ requireComponent.keys().forEach(fileName => {
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app');

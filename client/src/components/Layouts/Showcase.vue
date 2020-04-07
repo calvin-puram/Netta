@@ -6,13 +6,17 @@
           <div
             class="showcase_context d-flex flex-column justify-content-center align-items-center"
           >
-            <h1 class="text-secondary my-3">Find a Code Bootcamp</h1>
-            <p class="lead mb-3">
+            <h1 class="text-secondary heading  ">
+              Find a Code Bootcamp
+            </h1>
+            <p class="lead mb-4">
               Find, rate and read reviews on coding bootcamps
             </p>
-            <button class="btn btn-secondary rounded btn-lg mt-4">
-              Search Bootcamps
-            </button>
+            <router-link
+              class="btn btn-secondary rounded btn-lg mt-4"
+              :to="{ name: 'bootcamps' }"
+              >Explore Bootcamps</router-link
+            >
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -25,14 +29,20 @@
 
 <style scoped>
 .showcase {
-  min-height: 100vh;
-  padding-top: 5%;
+  max-height: 100vh;
 }
 .showcase_context {
-  height: 100%;
+  height: 90%;
+}
+.btn {
+  background: #03dfc1 !important;
+  border: none !important;
+}
+img {
+  width: 100%;
 }
 
-.btn {
-  background: #03ebd5 !important;
+a {
+  color: #fff !important;
 }
 </style>
