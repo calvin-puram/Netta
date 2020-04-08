@@ -16,11 +16,11 @@ const token = JSON.parse(localStorage.getItem('token')) || '';
 Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
 Vue.use(VueNoty);
 
-// automatic compoenent registration
+// automatic component registration
 const requireComponent = require.context(
   './components',
 
-  false,
+  true,
 
   /Base[A-Z]\w+\.(vue|js)$/
 );

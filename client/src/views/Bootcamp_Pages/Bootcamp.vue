@@ -68,28 +68,21 @@
             <span class="text-secondary ml-1">Rating</span>
           </h3>
           <!-- Buttons -->
-          <v-btn
-            class="my-3"
-            block
-            color="teal"
-            dark
-            link
-            :to="
+          <BaseNormalBtn
+            :route="
               `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/reviews`
             "
-          >
-            <BaseIcon prop="fas fa-comments mr-1" />
-            Read Reviews</v-btn
-          >
-
-          <v-btn class="my-3" block color="teal" dark link to="/">
-            <BaseIcon prop="fas fa-pencil-alt mr-1" />
-            Read Reviews</v-btn
+            ><BaseIcon prop="fas fa-comments mr-1" /> Read
+            Reviews</BaseNormalBtn
           >
 
-          <v-btn class="my-3" block color="teal" dark link to="/">
-            <BaseIcon prop="fas fa-globe mr-1" />
-            Visit Website</v-btn
+          <BaseNormalBtn route="/read"
+            ><BaseIcon prop="fas fa-pencil-alt mr-1" />Write
+            Reviews</BaseNormalBtn
+          >
+
+          <BaseNormalBtn route="/read"
+            ><BaseIcon prop="fas fa-globe mr-1" /> Visit Website</BaseNormalBtn
           >
 
           <!-- Map  -->

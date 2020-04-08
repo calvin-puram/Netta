@@ -10,7 +10,7 @@
             dark
             link
             :to="`/bootcamp/${singleBootcamp.slug}`"
-            v-if="singleBootcamp"
+            v-if="getBootcampReviews && singleBootcamp"
           >
             <BaseIcon prop="fas fa-chevron-left mr-1" />Bootcamp Info</v-btn
           >
@@ -38,7 +38,10 @@
           </div>
         </div>
         <!-- Sidebar -->
-        <div class="col-md-4 sidebar">
+        <div
+          class="col-md-4 sidebar"
+          v-if="getBootcampReviews && singleBootcamp"
+        >
           <!-- Rating -->
           <img
             :src="`/img/${singleBootcamp.photo}`"
@@ -56,9 +59,10 @@
             <span class="text-secondary ml-1">Rating</span>
           </h3>
           <!-- Buttons -->
-          <v-btn class="my-3" block color="teal" dark link to="/">
-            <BaseIcon prop="fas fa-pencil-alt mr-2" />
-            Review This Bootcamp</v-btn
+
+          <BaseNormalBtn route="/read"
+            ><BaseIcon prop="fas fa-pencil-alt mr-2" /> Review This
+            Bootcamp</BaseNormalBtn
           >
         </div>
       </div>
