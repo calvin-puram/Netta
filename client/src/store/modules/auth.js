@@ -2,11 +2,13 @@ import axios from 'axios';
 
 const state = {
   token: JSON.parse(localStorage.getItem('token')) || '',
-  authErr: null
+  authErr: null,
+  user: {}
 };
 const getters = {
   getToken: () => !!state.token,
-  getAuthErr: () => state.authErr
+  getAuthErr: () => state.authErr,
+  getAuthUser: () => state.user
 };
 const actions = {
   // Register
@@ -68,6 +70,20 @@ const actions = {
       }
     }
   },
+  // auth user
+  async authUser({ commit }) {
+    try {
+      const res = await axios.get(`/api/v1/auth/me`);
+      if (res && res.data.success) {
+        commit('auth_user', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('auth_err', err.response.data.error);
+      }
+    }
+  },
   // Logout
   async logout({ commit }) {
     localStorage.removeItem('token');
@@ -83,6 +99,11 @@ const mutations = {
 
   auth_err(state, err) {
     state.authErr = err;
+  },
+
+  auth_user(state, data) {
+    state.authErr = null;
+    state.user = data;
   },
 
   logout_res(state) {

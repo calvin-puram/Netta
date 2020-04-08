@@ -10,11 +10,16 @@
             dark
             link
             :to="`/bootcamp/${singleBootcamp.slug}`"
-            v-if="getBootcampReviews && singleBootcamp"
+            v-if="getBootcampReviews.length > 0 && singleBootcamp"
           >
             <BaseIcon prop="fas fa-chevron-left mr-1" />Bootcamp Info</v-btn
           >
-          <h3 class="mb-4 text-secondary">{{ singleBootcamp.name }} Reviews</h3>
+          <h3
+            class="mb-4 text-secondary"
+            v-if="getBootcampReviews.length > 0 && singleBootcamp"
+          >
+            {{ singleBootcamp.name }} Reviews
+          </h3>
 
           <div v-for="bootcamp in getBootcampReviews" :key="bootcamp._id">
             <!-- Reviews -->
@@ -25,20 +30,22 @@
                 <h5>
                   {{ bootcamp.title }}
                 </h5>
-                <router-link
-                  :to="
-                    `/bootcamp/${bootcamp._id}/${bootcamp.bootcamp.slug}/editReview`
-                  "
-                >
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-chip v-on="on" link color="teal"
-                        ><BaseIcon prop="fas fa-pencil-alt mr-1"
-                      /></v-chip>
-                    </template>
-                    <span>Edit</span>
-                  </v-tooltip>
-                </router-link>
+                <div v-if="bootcamp.user._id === getAuthUser._id">
+                  <router-link
+                    :to="
+                      `/bootcamp/${bootcamp._id}/${bootcamp.bootcamp.slug}/editReview`
+                    "
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-chip v-on="on" link color="teal"
+                          ><BaseIcon prop="fas fa-pencil-alt mr-1"
+                        /></v-chip>
+                      </template>
+                      <span>Edit</span>
+                    </v-tooltip>
+                  </router-link>
+                </div>
               </div>
 
               <div class="card-body">
@@ -53,18 +60,19 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="text-muted">Writtern By {{ bootcamp.user.name }}</p>
-
-                  <button
-                    :disabled="loading"
-                    class="btn dark-bg"
-                    @click="deleteReview(bootcamp._id)"
-                  >
-                    <BaseIcon
-                      prop="fas fa-spin fa-spinner ml-2"
-                      v-if="loading"
-                    />
-                    <BaseIcon prop="fas fa-trash mr-1" v-else />
-                  </button>
+                  <div v-if="bootcamp.user._id === getAuthUser._id">
+                    <button
+                      :disabled="loading"
+                      class="btn dark-bg"
+                      @click="deleteReview(bootcamp._id)"
+                    >
+                      <BaseIcon
+                        prop="fas fa-spin fa-spinner ml-2"
+                        v-if="loading"
+                      />
+                      <BaseIcon prop="fas fa-trash mr-1" v-else />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -73,7 +81,7 @@
         <!-- Sidebar -->
         <div
           class="col-md-4 sidebar"
-          v-if="getBootcampReviews && singleBootcamp"
+          v-if="getBootcampReviews.length > 0 && singleBootcamp"
         >
           <!-- Rating -->
           <img
@@ -113,15 +121,22 @@ import { mapGetters, mapActions } from 'vuex';
 import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
-  computed: mapGetters(['getBootcampReviews', 'singleBootcamp', 'getErr']),
+  computed: mapGetters([
+    'getBootcampReviews',
+    'singleBootcamp',
+    'getErr',
+    'getAuthUser'
+  ]),
   mixins: [LoadingMixin],
   beforeRouteEnter(to, from, next) {
     NProgress.start();
     store.dispatch('bootcampReviews', to.params.id).then(res => {
       store.dispatch('SingleBootcamps', to.params.slug).then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-        }
+        store.dispatch('authUser').then(res => {
+          if (res && res.data.success) {
+            NProgress.done();
+          }
+        });
       });
     });
     next();
