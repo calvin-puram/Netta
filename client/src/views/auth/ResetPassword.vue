@@ -4,7 +4,7 @@
       <div class="col-md-6 m-auto">
         <div class="card bg-white py-2 px-2">
           <div class="card-body">
-            <h4 class="text-center mb-2">Reset Password</h4>
+            <h4 class="text-center mb-2 text-secondary">Reset Password</h4>
             <form @submit.prevent="handleUpdatePassword">
               <div class="form-group">
                 <label>New Password</label>

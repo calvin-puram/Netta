@@ -1,7 +1,11 @@
 <template>
-  <button type="submit" :disabled="loading" class="btn btn-primary btn-block">
+  <button
+    type="submit"
+    :disabled="loading"
+    class="btn btn-outline-light  btn-block"
+  >
     {{ name }}
-    <i class="fas fa-spin fa-spinner ml-2" v-if="loading"></i>
+    <span v-if="loading"><BaseIcon prop="fas fa-spin fa-spinner ml-2"/></span>
   </button>
 </template>
 
@@ -10,3 +14,9 @@ export default {
   props: ['loading', 'name']
 };
 </script>
+
+<style scoped>
+.btn {
+  background-color: #009688 !important;
+}
+</style>

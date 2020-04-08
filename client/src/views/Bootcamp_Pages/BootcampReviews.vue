@@ -4,17 +4,22 @@
       <div class="row">
         <!-- Main col -->
         <div class="col-md-8 ">
-          <router-link
-            class="btn btn-secondary my-3"
-            v-if="singleBootcamp"
+          <v-btn
+            class="my-3"
+            color="teal"
+            dark
+            link
             :to="`/bootcamp/${singleBootcamp.slug}`"
-            ><i class="fas fa-chevron-left"></i> Bootcamp Info</router-link
+            v-if="singleBootcamp"
           >
+            <BaseIcon prop="fas fa-chevron-left mr-1" />Bootcamp Info</v-btn
+          >
+
           <h3 class="mb-4 text-secondary">{{ singleBootcamp.name }} Reviews</h3>
           <div v-for="bootcamp in getBootcampReviews" :key="bootcamp._id">
             <!-- Reviews -->
             <div class="card mb-3">
-              <h5 class="card-header bg-dark text-white">
+              <h5 class="card-header dark-bg text-white">
                 {{ bootcamp.title }}
               </h5>
               <div class="card-body">
@@ -40,19 +45,20 @@
             class="img-thumbnail"
             alt="bootcamp image"
           />
-          <h1 class="text-center my-4">
-            <span
-              class="badge badge-secondary badge-success rounded-circle p-3"
-              >{{ singleBootcamp.averageRating.toFixed(1) }}</span
-            >
-            Rating
-          </h1>
+
+          <!-- rating -->
+          <h3 class="text-center  my-4">
+            <v-avatar color="orange" size="62">
+              <span class="white--text headline">{{
+                singleBootcamp.averageRating.toFixed(1)
+              }}</span>
+            </v-avatar>
+            <span class="text-secondary ml-1">Rating</span>
+          </h3>
           <!-- Buttons -->
-          <router-link
-            v-if="singleBootcamp"
-            class="btn btn-primary btn-block my-3"
-            to="/"
-            ><i class="fas fa-pencil-alt"></i> Review This Bootcamp</router-link
+          <v-btn class="my-3" block color="teal" dark link to="/">
+            <BaseIcon prop="fas fa-pencil-alt mr-2" />
+            Review This Bootcamp</v-btn
           >
         </div>
       </div>
@@ -88,5 +94,8 @@ export default {
 }
 .sidebar {
   margin-top: 9rem;
+}
+.dark-bg {
+  background: #009688 !important;
 }
 </style>

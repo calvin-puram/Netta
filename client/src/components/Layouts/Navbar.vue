@@ -24,18 +24,20 @@
     <v-app-bar app clipped-left flat color="teal">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>
-        <router-link to="/"
-          ><i class="fas fa-laptop-code mr-1"></i
-          ><span class="logo">DevCoach</span></router-link
+        <router-link to="/">
+          <BaseIcon prop="fas fa-laptop-code mr-1" />
+          <span class="logo">DevCoach</span></router-link
         >
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text large color="white" link to="/login" v-if="!getToken"
-        ><i class="fas fa-sign-in-alt mr-1"></i>Login</v-btn
+      <v-btn text large color="white" link to="/login" v-if="!getToken">
+        <BaseIcon prop="fas fa-sign-in-alt mr-1" />
+        Login</v-btn
       >
       <v-divider class="mx-4" inset vertical v-if="!getToken"></v-divider>
-      <v-btn text large color="white" link to="/register" v-if="!getToken"
-        ><i class="fas fa-user-plus mr-1"></i>Register</v-btn
+      <v-btn text large color="white" link to="/register" v-if="!getToken">
+        <BaseIcon prop="fas fa-user-plus mr-1" />
+        Register</v-btn
       >
       <!-- login -->
 
@@ -45,35 +47,35 @@
           <v-menu open-on-hover bottom offset-y>
             <template v-slot:activator="{ on }">
               <v-btn dark v-on="on" text>
-                Account<i class="fas fa-chevron-down ml-2"></i>
+                Account<BaseIcon prop="fas fa-chevron-down ml-2" />
               </v-btn>
             </template>
             <v-list dense color="teal" dark flat>
               <v-list-item link to="/">
-                <v-list-item-title
-                  ><i class="far fa-clipboard mr-2"></i>Manage
-                  Bootcamp</v-list-item-title
+                <v-list-item-title>
+                  <BaseIcon prop="far fa-clipboard mr-2" />
+                  Manage Bootcamp</v-list-item-title
                 >
               </v-list-item>
 
               <v-list-item link to="/">
-                <v-list-item-title
-                  ><i class="fas fa-users mr-2"></i>Manage
-                  Reviews</v-list-item-title
+                <v-list-item-title>
+                  <BaseIcon prop="fas fa-users mr-2" />
+                  Manage Reviews</v-list-item-title
                 >
               </v-list-item>
 
               <v-list-item link to="/">
-                <v-list-item-title
-                  ><i class="fas fa-user mr-2"></i> Manage
-                  Account</v-list-item-title
+                <v-list-item-title>
+                  <BaseIcon prop="fas fa-user mr-2" />
+                  Manage Account</v-list-item-title
                 >
               </v-list-item>
 
               <v-list-item link @click="logoutUser">
-                <v-list-item-title
-                  ><i class="fas fa-sign-out-alt mr-2"></i
-                  >Logout</v-list-item-title
+                <v-list-item-title>
+                  <BaseIcon prop="fas fa-sign-out-alt mr-2" />
+                  Logout</v-list-item-title
                 >
               </v-list-item>
             </v-list>

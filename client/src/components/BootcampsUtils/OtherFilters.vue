@@ -33,11 +33,7 @@
       </select>
     </div>
 
-    <button
-      type="submit"
-      :disabled="disabled"
-      class="btn btn-primary btn-block"
-    >
+    <button type="submit" :disabled="disabled" class="btn text-light btn-block">
       Find Bootcamps
     </button>
   </form>
@@ -86,3 +82,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn {
+  background-color: #009688 !important;
+}
+</style>

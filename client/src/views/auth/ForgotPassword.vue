@@ -6,7 +6,7 @@
           <div class="card-body">
             <router-link to="/login">Back to login</router-link>
 
-            <h4 class="text-center mb-2">Forgot Password?</h4>
+            <h4 class="text-center mb-2 text-secondary">Forgot Password?</h4>
 
             <form @submit.prevent="handleReset">
               <div>

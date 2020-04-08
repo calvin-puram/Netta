@@ -5,8 +5,9 @@
         <div class="col-md-6 m-auto">
           <div class="card bg-white p-2 mb-2">
             <div class="card-body">
-              <h4 class="text-center mb-2">
-                <i class="fas fa-sign-in-alt"></i> Login
+              <h4 class="text-center mb-2 text-secondary">
+                <BaseIcon prop="fas fa-sign-in-alt" />
+                Login
               </h4>
               <p>
                 Log in to list your bootcamp or rate, review and favorite
