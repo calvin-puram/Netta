@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Bootcamps from '../views/Bootcamp_Pages/Bootcamps.vue';
-import Bootcamp from '../views/Bootcamp_Pages/Bootcamp.vue';
-import Login from '../views/auth/Login.vue';
-import Register from '../views/auth/Register.vue';
+import Home from '@views/Home.vue';
+import Bootcamps from '@views/Bootcamp_Pages/Bootcamps.vue';
+import Bootcamp from '@views/Bootcamp_Pages/Bootcamp.vue';
+import Login from '@views/auth/Login.vue';
+import Register from '@views/auth/Register.vue';
 import store from '@store/index';
-import ForgotPassword from '../views/auth/ForgotPassword.vue';
-import ResetPassword from '../views/auth/ResetPassword.vue';
-import BootcampReviews from '../views/Bootcamp_Pages/BootcampReviews.vue';
+import ForgotPassword from '@views/auth/ForgotPassword.vue';
+import ResetPassword from '@views/auth/ResetPassword.vue';
+import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 
 Vue.use(VueRouter);
 
