@@ -2,27 +2,23 @@
   <section class="container mt-5">
     <div class="row">
       <div class="col-md-8 m-auto">
-        <div class="card bg-white py-2 px-4">
+        <div class="card bg-white py-2 px-4" v-if="getSingleReview">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-4">
               <v-btn
                 class="my-3"
                 color="teal"
                 dark
                 link
-                :to="`/bootcamp/${singleBootcamp.slug}`"
+                :to="`/bootcamp/${getSingleReview.bootcamp.slug}`"
               >
                 <BaseIcon prop="fas fa-chevron-left mr-1" />Bootcamp Info</v-btn
               >
 
-              <h3 class="mb-2 text-secondary">{{ singleBootcamp.name }}</h3>
+              <h4 class=" mb-4 text-secondary">Edit Review</h4>
             </div>
 
-            <h4 class=" mb-4 text-secondary">Write a Review</h4>
-            <p>
-              You must have attended and graduated this bootcamp to review
-            </p>
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleEditReview">
               <div class="form-group">
                 <label for="rating"
                   >Rating: <span class="text-primary">{{ rating }}</span></label
@@ -50,13 +46,13 @@
               <div class="form-group">
                 <textarea
                   name="review"
-                  rows="10"
                   required
                   class="form-control"
                   v-model="review"
                   placeholder="Your review"
                 ></textarea>
               </div>
+
               <div class="form-group">
                 <BaseButton name="Submit Review" :loading="loading" />
               </div>
@@ -69,53 +65,55 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import store from '@store/index';
-import NProgress from 'nprogress';
+import { mapActions, mapGetters } from 'vuex';
 import LoadingMixin from '@mixins/LoadingMixins';
+import NProgress from 'nprogress';
 
 export default {
+  computed: mapGetters(['getSingleReview', 'getErr']),
   mixins: [LoadingMixin],
-  computed: mapGetters(['singleBootcamp', 'getErr']),
-  beforeRouteEnter(to, from, next) {
-    NProgress.start();
-    store.dispatch('SingleBootcamps', to.params.slug).then(res => {
-      if (res && res.data.success) {
-        NProgress.done();
-      }
-    });
-    next();
-  },
-
   data() {
     return {
-      rating: '0',
-      text: '',
-      review: ''
+      dialog: false,
+      review: '',
+      rating: '',
+      text: ''
     };
   },
   methods: {
-    ...mapActions(['createReviews']),
-    handleSubmit() {
+    ...mapActions(['editReview', 'singleReview']),
+    handleEditReview() {
       this.toggleLoading();
       const data = {
-        rating: this.rating * 1,
         title: this.text,
+        rating: this.rating,
         text: this.review,
-        bootcamp: this.$route.params.id
+        id: this.$route.params.id,
+        bootcamp: this.getSingleReview.bootcamp._id
       };
-      this.createReviews(data).then(res => {
+
+      this.editReview(data).then(res => {
         this.toggleLoading();
         if (res && res.data.success) {
-          this.$noty.success('Review created Successfully!');
-          this.$router.push(
-            `/bootcamp/${this.$route.params.id}/${this.$route.params.slug}/reviews`
-          );
+          this.$noty.success('Review updated Successfully!');
+          this.$router.push(`/bootcamp/${this.$route.params.slug}`);
         } else {
           this.$noty.error(this.getErr);
         }
       });
     }
+  },
+
+  created() {
+    NProgress.start();
+    this.singleReview(this.$route.params.id).then(res => {
+      if (res && res.data.success) {
+        this.review = this.getSingleReview.text;
+        this.rating = this.getSingleReview.rating;
+        this.text = this.getSingleReview.title;
+        NProgress.done();
+      }
+    });
   }
 };
 </script>

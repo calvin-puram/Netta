@@ -5,6 +5,7 @@ const state = {
   latestBootcamps: [],
   singleBootcamp: {},
   bootcampReviews: [],
+  singleReview: {},
   err: null
 };
 const getters = {
@@ -12,6 +13,7 @@ const getters = {
   getLatestBootcamps: () => state.latestBootcamps,
   singleBootcamp: () => state.singleBootcamp,
   getBootcampReviews: () => state.bootcampReviews,
+  getSingleReview: () => state.singleReview,
   getErr: () => state.err
 };
 const actions = {
@@ -116,6 +118,47 @@ const actions = {
         commit('bootcamp_err', err.response.data.error);
       }
     }
+  },
+  //  get single reviews
+  async singleReview({ commit }, id) {
+    try {
+      const res = await axios.get(`/api/v1/reviews/${id}`);
+      if (res && res.data.success) {
+        commit('singleReview_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //  edit  reviews
+  async editReview({ commit }, data) {
+    try {
+      const res = await axios.patch(`/api/v1/reviews/${data.id}`, data);
+      if (res && res.data.success) {
+        commit('singleReview_res', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //  delete  review
+  async deletedReview({ commit }, id) {
+    console.log(id);
+    try {
+      const res = await axios.delete(`/api/v1/reviews/${id}`);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
   }
 };
 const mutations = {
@@ -140,6 +183,10 @@ const mutations = {
 
   bootcampReviews_res(state, data) {
     state.bootcampReviews = data;
+    state.err = null;
+  },
+  singleReview_res(state, data) {
+    state.singleReview = data;
     state.err = null;
   }
 };

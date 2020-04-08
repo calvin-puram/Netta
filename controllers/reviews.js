@@ -35,7 +35,7 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
 exports.getOneReview = asyncHandler(async (req, res, next) => {
   const review = await Reviews.findById(req.params.id).populate({
     path: 'bootcamp',
-    select: 'name, description'
+    select: 'name, description slug'
   });
 
   if (!review) {
@@ -45,7 +45,7 @@ exports.getOneReview = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: true,
+    success: true,
     data: review
   });
 });
@@ -88,7 +88,7 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (review.user._id.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(`You are not authorize to perform this action`, 401)
     );
@@ -100,7 +100,7 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
   });
 
   res.status(200).json({
-    status: true,
+    success: true,
     data: review
   });
 });
@@ -126,7 +126,7 @@ exports.deleteReview = asyncHandler(async (req, res, next) => {
   await Reviews.findByIdAndRemove(req.params.id);
 
   res.status(200).json({
-    status: true,
+    success: true,
     data: {}
   });
 });

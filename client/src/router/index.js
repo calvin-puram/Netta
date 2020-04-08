@@ -10,6 +10,7 @@ import ForgotPassword from '@views/auth/ForgotPassword.vue';
 import ResetPassword from '@views/auth/ResetPassword.vue';
 import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
+import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
 
 Vue.use(VueRouter);
 
@@ -47,6 +48,15 @@ const routes = [
     path: '/bootcamp/:id/:slug/createReview',
     name: 'bootcamp_create_reviews',
     component: BootcampCreateReview,
+
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/bootcamp/:id/:slug/editReview',
+    name: 'bootcamp_edit_reviews',
+    component: BootcampEditReview,
 
     meta: {
       requiresAuth: true
