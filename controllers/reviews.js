@@ -54,14 +54,15 @@ exports.getOneReview = asyncHandler(async (req, res, next) => {
 //@route Get api/v1/bootcamp/:bootcampId/reviews
 //@access private
 exports.CreateReview = asyncHandler(async (req, res, next) => {
-  req.body.bootcamp = req.params.bootcampId;
+  // req.body.bootcamp = req.params.bootcampId;
+
   req.body.user = req.user.id;
-  const bootcamp = await Bootcamp.findById(req.params.bootcampId);
+  const bootcamp = await Bootcamp.findById(req.body.bootcamp);
 
   if (!bootcamp) {
     return next(
       new ErrorResponse(
-        `No resource found with this id: ${req.params.bootcampId}`,
+        `No resource found with this id: ${req.body.bootcamp}`,
         404
       )
     );
@@ -70,7 +71,7 @@ exports.CreateReview = asyncHandler(async (req, res, next) => {
   const review = await Reviews.create(req.body);
 
   res.status(200).json({
-    status: true,
+    success: true,
     data: review
   });
 });

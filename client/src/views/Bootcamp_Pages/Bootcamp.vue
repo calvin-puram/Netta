@@ -76,7 +76,10 @@
             Reviews</BaseNormalBtn
           >
 
-          <BaseNormalBtn route="/read"
+          <BaseNormalBtn
+            :route="
+              `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/createReview`
+            "
             ><BaseIcon prop="fas fa-pencil-alt mr-1" />Write
             Reviews</BaseNormalBtn
           >

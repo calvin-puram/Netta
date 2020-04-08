@@ -60,7 +60,10 @@
           </h3>
           <!-- Buttons -->
 
-          <BaseNormalBtn route="/read"
+          <BaseNormalBtn
+            :route="
+              `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/createReview`
+            "
             ><BaseIcon prop="fas fa-pencil-alt mr-2" /> Review This
             Bootcamp</BaseNormalBtn
           >

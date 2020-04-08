@@ -33,7 +33,7 @@
                     class="form-control"
                     placeholder="Enter password"
                     v-model="password"
-                    minlength="8"
+                    minlength="6"
                     required
                   />
                 </div>

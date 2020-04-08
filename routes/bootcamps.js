@@ -33,7 +33,7 @@ router
   .get(advanceResults(Bootcamps, 'courses'), getBootcamps)
   .post(protect, authorize('publisher', 'admin'), createBootcamps);
 
-router.route('/:slug').get(getOneBootcamps);
+router.route('/:slug').get(protect, getOneBootcamps);
 router
   .route('/:id')
   .patch(protect, authorize('publisher', 'admin'), updateBootcamps)

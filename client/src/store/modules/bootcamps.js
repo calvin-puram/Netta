@@ -104,6 +104,18 @@ const actions = {
         commit('bootcamp_err', err.response.data.error);
       }
     }
+  },
+  //  create reviews
+  async createReviews({ commit }, data) {
+    try {
+      const res = await axios.post(`/api/v1/reviews`, data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
   }
 };
 const mutations = {
