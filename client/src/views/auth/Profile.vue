@@ -5,29 +5,22 @@
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
             <h1 class="mb-2 text-secondary">Manage Account</h1>
-            <form @submit.prevent="updateDetails">
-              <div class="form-group">
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="title"
-                  required
-                  v-model="name"
-                  class="form-control"
-                  placeholder="Name"
-                />
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  v-model="email"
-                  required
-                  class="form-control"
-                  placeholder="Email"
-                />
-              </div>
+            <v-form ref="form" v-model="valid" @submit.prevent="updateDetails">
+              <v-text-field
+                v-model="name"
+                :counter="50"
+                :rules="nameRules"
+                label="Name"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="E-mail"
+                required
+              ></v-text-field>
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
@@ -40,7 +33,7 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </v-form>
           </div>
         </div>
       </div>
@@ -58,26 +51,38 @@ export default {
   computed: mapGetters(['getAuthUser', 'getErr']),
   data() {
     return {
+      valid: true,
       name: '',
-      email: ''
+      email: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 50) || 'Name must be less than 50 characters'
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ]
     };
   },
   methods: {
     ...mapActions(['authUser', 'updateUserDetails']),
     updateDetails() {
-      this.toggleLoading();
-      const data = {
-        name: this.name,
-        email: this.email
-      };
-      this.updateUserDetails(data).then(res => {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
         this.toggleLoading();
-        if (res && res.data.success) {
-          this.$noty.success('User Details Updated Successfully!');
-        } else {
-          this.$noty.error(this.getErr);
-        }
-      });
+        const data = {
+          name: this.name,
+          email: this.email
+        };
+        this.updateUserDetails(data).then(res => {
+          this.toggleLoading();
+          if (res && res.data.success) {
+            this.$noty.success('User Details Updated Successfully!');
+          } else {
+            this.$noty.error(this.getErr);
+          }
+        });
+      }
     }
   },
   created() {

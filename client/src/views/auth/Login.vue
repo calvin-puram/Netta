@@ -13,34 +13,31 @@
                 Log in to list your bootcamp or rate, review and favorite
                 bootcamps
               </p>
-              <form @submit.prevent="handleLogin">
-                <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    placeholder="Enter email"
-                    v-model="email"
-                    required
-                  />
-                </div>
-                <div class="form-group mb-4">
-                  <label for="password">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Enter password"
-                    v-model="password"
-                    minlength="6"
-                    required
-                  />
-                </div>
-                <div class="form-group">
+
+              <v-form ref="form" v-model="valid" @submit.prevent="handleLogin">
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="password"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show1 ? 'text' : 'password'"
+                  name="input-10-1"
+                  label=" Password"
+                  hint="At least 6 characters"
+                  counter
+                  @click:append="show1 = !show1"
+                ></v-text-field>
+
+                <div class="form-group mt-4">
                   <BaseButton :loading="loading" name="Login" />
                 </div>
-              </form>
+              </v-form>
               <p>
                 Forgot Password?
                 <router-link :to="{ name: 'forgotPassword' }"
@@ -65,22 +62,36 @@ export default {
   mixins: [LoadingMixin, authMixin],
   data() {
     return {
+      valid: true,
       email: '',
-      password: ''
+      password: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ],
+      show1: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters'
+      }
     };
   },
   methods: {
     ...mapActions(['login']),
     handleLogin() {
-      this.toggleLoading();
-      const data = {
-        email: this.email,
-        password: this.password
-      };
-      this.login(data).then(res => {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+
         this.toggleLoading();
-        this.setAuth(res, 'User Logged In successfully!', this.getAuthErr);
-      });
+        const data = {
+          email: this.email,
+          password: this.password
+        };
+        this.login(data).then(res => {
+          this.toggleLoading();
+          this.setAuth(res, 'User Logged In successfully!', this.getAuthErr);
+        });
+      }
     }
   }
 };
