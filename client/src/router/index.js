@@ -13,6 +13,7 @@ import UpdatePassword from '@views/auth/UpdatePassword.vue';
 import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
 import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
+import ManageReview from '@views/admin/ManageReviews.vue';
 
 Vue.use(VueRouter);
 
@@ -64,6 +65,16 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/manage_reviews',
+    name: 'manage_reviews',
+    component: ManageReview,
+
+    meta: {
+      requiresAuth: true
+    }
+  },
+  //AUTH
   {
     path: '/login',
     name: 'login',

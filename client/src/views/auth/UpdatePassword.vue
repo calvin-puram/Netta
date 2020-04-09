@@ -22,7 +22,7 @@
                 v-model="password"
                 :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                 :rules="[rules.required, rules.min]"
-                :type="show1 ? 'text' : 'password'"
+                :type="show2 ? 'text' : 'password'"
                 name="input-10-2"
                 label="New Password"
                 hint="At least 6 characters"

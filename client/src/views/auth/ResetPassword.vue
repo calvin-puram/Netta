@@ -5,32 +5,40 @@
         <div class="card bg-white py-2 px-2">
           <div class="card-body">
             <h4 class="text-center mb-2 text-secondary">Reset Password</h4>
-            <form @submit.prevent="handleUpdatePassword">
-              <div class="form-group">
-                <label>New Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  v-model="password"
-                  class="form-control"
-                  placeholder="New Password"
-                />
-              </div>
-              <div class="form-group">
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  v-model="passwordConfirm"
-                  class="form-control"
-                  placeholder="Confirm Password"
-                />
-              </div>
 
-              <div class="form-group">
+            <v-form
+              ref="form"
+              v-model="valid"
+              @submit.prevent="handleUpdatePassword"
+            >
+              <v-text-field
+                v-model="password"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.min]"
+                :type="show1 ? 'text' : 'password'"
+                name="input-10-1"
+                label="New Password"
+                hint="At least 6 characters"
+                counter
+                @click:append="show1 = !show1"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="passwordConfirm"
+                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.min]"
+                :type="show3 ? 'text' : 'password'"
+                name="input-10-3"
+                label="Confirm Password"
+                hint="At least 6 characters"
+                counter
+                @click:append="show3 = !show3"
+              ></v-text-field>
+
+              <div class="form-group mt-4">
                 <BaseButton :loading="loading" name="Update Password" />
               </div>
-            </form>
+            </v-form>
           </div>
         </div>
       </div>
@@ -49,27 +57,38 @@ export default {
   mixins: [authMixin, LoadingMixin],
   data() {
     return {
+      valid: true,
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      show1: false,
+      show3: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters'
+      }
     };
   },
   methods: {
     ...mapActions(['updatePassword']),
     handleUpdatePassword() {
-      const data = {
-        password: this.password,
-        passwordConfirm: this.passwordConfirm,
-        token: this.token
-      };
-      this.toggleLoading();
-      this.updatePassword(data).then(res => {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+
+        const data = {
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+          token: this.token
+        };
         this.toggleLoading();
-        this.setAuth(
-          res,
-          'User Password Updated successfully!',
-          this.getAuthErr
-        );
-      });
+        this.updatePassword(data).then(res => {
+          this.toggleLoading();
+          this.setAuth(
+            res,
+            'User Password Updated successfully!',
+            this.getAuthErr
+          );
+        });
+      }
     }
   }
 };

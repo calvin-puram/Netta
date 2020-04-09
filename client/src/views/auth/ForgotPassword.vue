@@ -8,24 +8,20 @@
 
             <h4 class="text-center mb-2 text-secondary">Forgot Password?</h4>
 
-            <form @submit.prevent="handleReset">
+            <v-form ref="form" v-model="valid" @submit.prevent="handleReset">
               <div>
-                <div class="form-group">
-                  <label>Enter Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    v-model="email"
-                    required
-                    placeholder="Enter Registered Email address"
-                  />
-                </div>
-                <div class="form-group">
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+                ></v-text-field>
+
+                <div class="form-group mt-3">
                   <BaseButton :loading="loading" name="Reset Password" />
                 </div>
               </div>
-            </form>
+            </v-form>
           </div>
         </div>
       </div>
@@ -42,22 +38,30 @@ export default {
   mixins: [LoadingMixin],
   data() {
     return {
-      email: ''
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ]
     };
   },
   methods: {
     ...mapActions(['reset']),
     handleReset() {
-      this.toggleLoading();
-      this.reset({ email: this.email }).then(res => {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+
         this.toggleLoading();
-        if (res && res.data.success) {
-          this.$noty.success('reset password email sent successfully');
-          this.$router.push('/');
-        } else {
-          this.$noty.error(this.getAuthErr);
-        }
-      });
+        this.reset({ email: this.email }).then(res => {
+          this.toggleLoading();
+          if (res && res.data.success) {
+            this.$noty.success('reset password email sent successfully');
+            this.$router.push('/');
+          } else {
+            this.$noty.error(this.getAuthErr);
+          }
+        });
+      }
     }
   }
 };

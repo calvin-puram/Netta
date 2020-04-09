@@ -13,52 +13,52 @@
                 Register to list your bootcamp or rate, review and favorite
                 bootcamps
               </p>
-              <form @submit.prevent="handleRegister">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    class="form-control"
-                    v-model="name"
-                    placeholder="Enter full name"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    v-model="email"
-                    placeholder="Enter email"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    v-model="password"
-                    class="form-control"
-                    placeholder="Enter password"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password">Confirm Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    v-model="passwordConfirm"
-                    class="form-control"
-                    placeholder="Enter password"
-                    required
-                  />
-                </div>
-                <div class="card card-body mb-3">
+
+              <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="handleRegister"
+              >
+                <v-text-field
+                  v-model="name"
+                  :counter="50"
+                  :rules="nameRules"
+                  label="Name"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="password"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show1 ? 'text' : 'password'"
+                  name="input-10-1"
+                  label="New Password"
+                  hint="At least 6 characters"
+                  counter
+                  @click:append="show1 = !show1"
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="passwordConfirm"
+                  :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show3 ? 'text' : 'password'"
+                  name="input-10-3"
+                  label="Confirm Password"
+                  hint="At least 6 characters"
+                  counter
+                  @click:append="show3 = !show3"
+                ></v-text-field>
+
+                <div class="card card-body mb-3 mt-3">
                   <h5>User Role</h5>
                   <div class="form-check">
                     <input
@@ -93,7 +93,7 @@
                 <div class="form-group">
                   <BaseButton :loading="loading" name="Register" />
                 </div>
-              </form>
+              </v-form>
             </div>
           </div>
         </div>
@@ -116,24 +116,44 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
-      role: ''
+      role: '',
+      valid: true,
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 50) || 'Name must be less than 50 characters'
+      ],
+
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ],
+      show1: false,
+      show3: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters'
+      }
     };
   },
   methods: {
     ...mapActions(['register']),
     handleRegister() {
-      this.toggleLoading();
-      const data = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm,
-        role: this.role
-      };
-      this.register(data).then(res => {
+      if (this.$refs.form.validate()) {
         this.toggleLoading();
-        this.setAuth(res, 'User Registered successfully!', this.getAuthErr);
-      });
+        this.snackbar = true;
+
+        const data = {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+          role: this.role
+        };
+        this.register(data).then(res => {
+          this.toggleLoading();
+          this.setAuth(res, 'User Registered successfully!', this.getAuthErr);
+        });
+      }
     }
   }
 };

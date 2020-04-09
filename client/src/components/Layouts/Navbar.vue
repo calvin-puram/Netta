@@ -58,7 +58,7 @@
                 >
               </v-list-item>
 
-              <v-list-item link to="/">
+              <v-list-item link to="/manage_reviews">
                 <v-list-item-title>
                   <BaseIcon prop="fas fa-users mr-2" />
                   Manage Reviews</v-list-item-title
