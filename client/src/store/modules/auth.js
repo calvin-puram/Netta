@@ -98,6 +98,18 @@ const actions = {
       }
     }
   },
+  // update user password
+  async updateAuthUserPassword({ commit }, data) {
+    try {
+      const res = await axios.patch(`/api/v1/auth/updatepassword`, data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('auth_err', err.response.data.error);
+      }
+    }
+  },
   // Logout
   async logout({ commit }) {
     localStorage.removeItem('token');

@@ -205,14 +205,13 @@ exports.updatedetails = asyncHandler(async (req, res, next) => {
 //@route      PATCH api/v1/auth/updatepassword
 //@access     private
 exports.updatepassword = asyncHandler(async (req, res, next) => {
-  const { currentPassword, newPassword } = req.body;
-  if (!currentPassword || !newPassword) {
-    return next(
-      new ErrorResponse(
-        'current password and new password fields are required',
-        400
-      )
-    );
+  console.log(req.body);
+  if (req.body.newPassword !== req.body.passwordConfirm) {
+    return next(new ErrorResponse('Password do not match', 400));
+  }
+  const { currentPassword, newPassword, passwordConfirm } = req.body;
+  if (!currentPassword || !newPassword || !passwordConfirm) {
+    return next(new ErrorResponse('All fields are required', 400));
   }
 
   const user = await Users.findById(req.user.id).select('+password');
@@ -222,6 +221,7 @@ exports.updatepassword = asyncHandler(async (req, res, next) => {
   }
 
   user.password = newPassword;
+  user.passwordConfirm = passwordConfirm;
   await user.save();
 
   sendToken(user, 200, res);
