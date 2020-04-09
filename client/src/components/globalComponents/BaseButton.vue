@@ -18,5 +18,6 @@ export default {
 <style scoped>
 .btn {
   background-color: #009688 !important;
+  color: #fff !important;
 }
 </style>
