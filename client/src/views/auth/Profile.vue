@@ -85,7 +85,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     NProgress.start();
     this.authUser().then(res => {
       if (res && res.data.success) {

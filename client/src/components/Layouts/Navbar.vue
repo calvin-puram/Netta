@@ -51,14 +51,18 @@
               </v-btn>
             </template>
             <v-list dense color="teal" dark flat>
-              <v-list-item link to="/">
+              <v-list-item link to="/" v-if="getAuthUser.role === 'admin'">
                 <v-list-item-title>
                   <BaseIcon prop="far fa-clipboard mr-2" />
                   Manage Bootcamp</v-list-item-title
                 >
               </v-list-item>
 
-              <v-list-item link to="/manage_reviews">
+              <v-list-item
+                link
+                to="/manage_reviews"
+                v-if="getAuthUser.role === 'admin'"
+              >
                 <v-list-item-title>
                   <BaseIcon prop="fas fa-users mr-2" />
                   Manage Reviews</v-list-item-title
@@ -98,7 +102,7 @@ import { mapGetters, mapActions } from 'vuex';
 import router from '../../router/index';
 
 export default {
-  computed: mapGetters(['getToken']),
+  computed: mapGetters(['getToken', 'getAuthUser']),
   props: {
     source: String
   },
@@ -107,11 +111,14 @@ export default {
   }),
 
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'authUser']),
     logoutUser() {
       this.logout();
       router.push('/');
     }
+  },
+  create() {
+    this.authUser();
   }
 };
 </script>
