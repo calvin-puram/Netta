@@ -14,6 +14,7 @@ import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
 import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
 import ManageReview from '@views/admin/ManageReviews.vue';
+import ManageBootcamp from '@views/admin/ManageBootcamp.vue';
 
 Vue.use(VueRouter);
 
@@ -65,10 +66,20 @@ const routes = [
       requiresAuth: true
     }
   },
+  //admin
   {
     path: '/manage_reviews',
     name: 'manage_reviews',
     component: ManageReview,
+
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/manage_bootcamp',
+    name: 'manage_bootcamp',
+    component: ManageBootcamp,
 
     meta: {
       requiresAuth: true

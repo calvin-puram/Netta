@@ -51,7 +51,11 @@
               </v-btn>
             </template>
             <v-list dense color="teal" dark flat>
-              <v-list-item link to="/" v-if="getAuthUser.role === 'admin'">
+              <v-list-item
+                link
+                to="/manage_bootcamp"
+                v-if="getAuthUser.role === 'admin'"
+              >
                 <v-list-item-title>
                   <BaseIcon prop="far fa-clipboard mr-2" />
                   Manage Bootcamp</v-list-item-title
