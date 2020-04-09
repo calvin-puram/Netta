@@ -65,7 +65,7 @@
                 >
               </v-list-item>
 
-              <v-list-item link to="/">
+              <v-list-item link to="/profile">
                 <v-list-item-title>
                   <BaseIcon prop="fas fa-user mr-2" />
                   Manage Account</v-list-item-title

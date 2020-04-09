@@ -8,6 +8,8 @@ import Register from '@views/auth/Register.vue';
 import store from '@store/index';
 import ForgotPassword from '@views/auth/ForgotPassword.vue';
 import ResetPassword from '@views/auth/ResetPassword.vue';
+import Profile from '@views/auth/Profile.vue';
+import UpdatePassword from '@views/auth/UpdatePassword.vue';
 import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
 import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
@@ -93,6 +95,24 @@ const routes = [
     props: true,
     meta: {
       requiresGuest: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    props: true,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/update_password',
+    name: 'update_password',
+    component: UpdatePassword,
+    props: true,
+    meta: {
+      requiresAuth: true
     }
   }
 ];
