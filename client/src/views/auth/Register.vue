@@ -27,7 +27,7 @@
                   required
                 ></v-text-field>
                 <!-- EMAIL -->
-                <BaseEmail label="E-mail" model="email" />
+                <BaseEmail label="E-mail" :model="email" />
 
                 <v-text-field
                   v-model="password"

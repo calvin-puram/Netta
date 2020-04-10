@@ -6,15 +6,11 @@
           <div class="card-body">
             <h1 class="mb-2 text-secondary">Manage Account</h1>
             <v-form ref="form" v-model="valid" @submit.prevent="updateDetails">
-              <v-text-field
-                v-model="name"
-                :counter="50"
-                :rules="nameRules"
-                label="Name"
-                required
-              ></v-text-field>
+              <!-- NAME -->
+              <BaseName label="Name" :model="name" />
+
               <!-- EMAIL -->
-              <BaseEmail label="E-mail" model="email" />
+              <BaseEmail label="E-mail" :model="email" />
 
               <div class="form-group">
                 <div class="row">
@@ -48,11 +44,7 @@ export default {
     return {
       valid: true,
       name: '',
-      email: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 50) || 'Name must be less than 50 characters'
-      ]
+      email: ''
     };
   },
   methods: {

@@ -16,7 +16,7 @@
 
               <v-form ref="form" v-model="valid" @submit.prevent="handleLogin">
                 <!-- EMAIL -->
-                <BaseEmail label="E-mail" model="email" />
+                <BaseEmail label="E-mail" :model="email" />
 
                 <v-text-field
                   v-model="password"

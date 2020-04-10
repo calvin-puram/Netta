@@ -15,12 +15,8 @@
                 If multiple locations, use the main or largest
               </p>
               <!-- NAME -->
-              <v-text-field
-                v-model="name"
-                label="Name"
-                :rules="nameRules"
-                required
-              ></v-text-field>
+              <BaseName :model="name" label="Name" />
+
               <!-- ADDRESS -->
 
               <v-text-field
@@ -138,7 +134,7 @@ export default {
         'Others'
       ],
       others: ['Housing', 'Job Assistance', 'Job Guarantee', 'Accept GI Bill'],
-      nameRules: [v => !!v || 'Name is required'],
+
       addressRules: [v => !!v || 'Address is required'],
       descriptionRules: [v => !!v || 'Bootcamp Description is required'],
 

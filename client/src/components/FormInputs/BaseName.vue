@@ -1,21 +1,18 @@
 <template>
   <v-text-field
     v-model="model"
-    :rules="emailRules"
     :label="label"
+    :rules="nameRules"
     required
   ></v-text-field>
 </template>
 
 <script>
 export default {
-  props: ['label', 'model'],
+  props: ['model', 'label'],
   data() {
     return {
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-      ]
+      nameRules: [v => !!v || 'Name is required']
     };
   }
 };
