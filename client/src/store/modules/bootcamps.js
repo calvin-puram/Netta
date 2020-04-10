@@ -44,6 +44,18 @@ const actions = {
       }
     }
   },
+  //create courses
+  async createCourse({ commit }, data) {
+    try {
+      const res = await axios.post('/api/v1/courses', data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
 
   // single bootcamps
   async SingleBootcamps({ commit }, slug) {

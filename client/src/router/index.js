@@ -70,7 +70,7 @@ const routes = [
   },
   // courses
   {
-    path: '/create_bootcamp_courses',
+    path: '/create_bootcamp_courses/:slug/:id',
     name: 'create_courses',
     component: BootcampAddCourse,
 

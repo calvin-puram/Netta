@@ -62,7 +62,9 @@
           <h3 class="text-center  my-4">
             <v-avatar color="orange" size="62">
               <span class="white--text headline">{{
-                singleBootcamp.averageRating.toFixed(1)
+                singleBootcamp.averageRating
+                  ? singleBootcamp.averageRating.toFixed(1)
+                  : 0
               }}</span>
             </v-avatar>
             <span class="text-secondary ml-1">Rating</span>

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
 const CourseSchema = new Schema({
@@ -61,7 +62,7 @@ CourseSchema.statics.getAvgCost = async function(bootcampId) {
       averageCost: Math.ceil(obj[0].averageCost / 10) * 10
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 

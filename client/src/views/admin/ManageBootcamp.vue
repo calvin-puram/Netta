@@ -19,8 +19,10 @@
                     <div class="card-body">
                       <h5 class="card-title">
                         <router-link
-                          :to="`/bootcamp/${bootcamp()._slug}`"
-                          v-if="bootcamp().courses.length > 0"
+                          :to="`/bootcamp/${bootcamp().slug}`"
+                          v-if="
+                            bootcamp().courses && bootcamp().courses.length > 0
+                          "
                         >
                           <div
                             class="d-flex justify-content-between align-items-center"
@@ -38,7 +40,14 @@
                         </router-link>
 
                         <!-- if no bootcamp courses -->
-                        <router-link to="/create_bootcamp_courses" v-else>
+                        <router-link
+                          :to="
+                            `/create_bootcamp_courses/${bootcamp().slug}/${
+                              bootcamp()._id
+                            }`
+                          "
+                          v-else
+                        >
                           <div
                             class="d-flex justify-content-between align-items-center"
                           >
@@ -87,7 +96,12 @@
               </form>
               <BaseNormalBtn route="/">Edit Bootcamp Details</BaseNormalBtn>
 
-              <BaseNormalBtn route="/create_bootcamp_courses"
+              <BaseNormalBtn
+                :route="
+                  `/create_bootcamp_courses/${bootcamp().slug}/${
+                    bootcamp()._id
+                  }`
+                "
                 >Add Courses</BaseNormalBtn
               >
 
@@ -112,7 +126,7 @@
     <!-- ADMIN OR PUBLISHER HAVE NO BOOTCAMP -->
     <section
       class="container mt-5"
-      v-if="Object.values(bootcamp()).length === 0"
+      v-if="bootcamp() && Object.keys(bootcamp()).length === 0"
     >
       <div class="row">
         <div class="col-md-8 m-auto">

@@ -42,7 +42,7 @@
 
                     <div class="grey--text ml-4">
                       {{ bootcamp.averageRating }} ({{
-                        bootcamp.ratingsQuantity
+                        bootcamp.ratingsQuantity ? bootcamp.ratingsQuantity : 0
                       }})
                     </div>
                   </v-row>

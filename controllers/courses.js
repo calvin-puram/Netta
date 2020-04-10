@@ -46,19 +46,22 @@ exports.getOneCourse = asyncHandler(async (req, res, next) => {
 //@route      POST api/v1/bootcamp/:bootcampId/course
 //@access     private
 exports.createCourse = asyncHandler(async (req, res, next) => {
-  req.body.bootcamp = req.params.bootcampId;
-  const bootcamp = await Bootcamp.findById(req.params.bootcampId);
+  req.body.user = req.user.id;
+  const bootcamp = await Bootcamp.findById(req.body.bootcamp);
 
   if (!bootcamp) {
     return next(
       new ErrorResponse(
-        `No Resource found with this id: ${req.params.bootcampId}`,
+        `No Resource found with this id: ${req.body.bootcamp}`,
         404
       )
     );
   }
   // check if user is the publisher or and admin
-  if (bootcamp.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (
+    bootcamp.user._id.toString() !== req.user.id &&
+    req.user.role !== 'admin'
+  ) {
     return next(
       new ErrorResponse(
         `the user ${req.user.name} is not authorize to perform this action`,
