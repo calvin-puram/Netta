@@ -174,9 +174,20 @@ const actions = {
   },
   //  delete  review
   async deletedReview({ commit }, id) {
-    console.log(id);
     try {
       const res = await axios.delete(`/api/v1/reviews/${id}`);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //delete bootcamp
+  async deleteBootcamp({ commit }, id) {
+    try {
+      const res = await axios.delete(`/api/v1/bootcamps/${id}`);
 
       return res;
     } catch (err) {

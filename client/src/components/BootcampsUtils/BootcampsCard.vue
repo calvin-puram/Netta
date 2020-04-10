@@ -5,7 +5,14 @@
     focusable
   >
     <v-expansion-panel>
-      <v-expansion-panel-header>{{ bootcamp.name }}</v-expansion-panel-header>
+      <v-expansion-panel-header>
+        <div class="d-flex justify-content-between align-items-center">
+          {{ bootcamp.name }}
+          <span class="mr-2" @click="handleDeleteBootcamp"
+            ><BaseIcon prop="fas fa-trash"
+          /></span>
+        </div>
+      </v-expansion-panel-header>
       <v-expansion-panel-content>
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -66,10 +73,23 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   props: ['bootcamp'],
-  computed: mapGetters(['getToken'])
+  computed: mapGetters(['getToken', 'getErr']),
+  methods: {
+    ...mapActions(['deleteBootcamp']),
+    handleDeleteBootcamp() {
+      this.deleteBootcamp(this.bootcamp._id).then(res => {
+        if (res && res.data.success) {
+          this.$noty.success('Bootcamp deleted Successfully!');
+          this.$router.push('/bootcamps');
+        } else {
+          this.$noty.error(this.getErr);
+        }
+      });
+    }
+  }
 };
 </script>

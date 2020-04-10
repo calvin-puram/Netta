@@ -124,10 +124,7 @@
       </div>
     </section>
     <!-- ADMIN OR PUBLISHER HAVE NO BOOTCAMP -->
-    <section
-      class="container mt-5"
-      v-if="bootcamp() && Object.keys(bootcamp()).length === 0"
-    >
+    <section class="container mt-5" v-if="!bootcamp()">
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
