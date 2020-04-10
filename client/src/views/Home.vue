@@ -23,9 +23,11 @@ export default {
   beforeRouteEnter(to, from, next) {
     NProgress.start();
     store.dispatch('SortBootcamps').then(res => {
-      if (res && res.data.success) {
-        NProgress.done();
-      }
+      store.dispatch('authUser').then(res => {
+        if (res && res.data.success) {
+          NProgress.done();
+        }
+      });
     });
     next();
   }

@@ -54,7 +54,10 @@
               <v-list-item
                 link
                 to="/manage_bootcamp"
-                v-if="getAuthUser.role === 'admin'"
+                v-if="
+                  getAuthUser.role === 'admin' ||
+                    getAuthUser.role === 'publisher'
+                "
               >
                 <v-list-item-title>
                   <BaseIcon prop="far fa-clipboard mr-2" />

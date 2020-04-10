@@ -13,13 +13,8 @@
                 label="Name"
                 required
               ></v-text-field>
-
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                required
-              ></v-text-field>
+              <!-- EMAIL -->
+              <BaseEmail label="E-mail" model="email" />
 
               <div class="form-group">
                 <div class="row">
@@ -57,10 +52,6 @@ export default {
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 50) || 'Name must be less than 50 characters'
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
       ]
     };
   },

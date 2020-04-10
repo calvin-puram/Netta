@@ -15,12 +15,8 @@
               </p>
 
               <v-form ref="form" v-model="valid" @submit.prevent="handleLogin">
-                <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  label="E-mail"
-                  required
-                ></v-text-field>
+                <!-- EMAIL -->
+                <BaseEmail label="E-mail" model="email" />
 
                 <v-text-field
                   v-model="password"
@@ -65,10 +61,7 @@ export default {
       valid: true,
       email: '',
       password: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-      ],
+
       show1: false,
       rules: {
         required: value => !!value || 'Required.',

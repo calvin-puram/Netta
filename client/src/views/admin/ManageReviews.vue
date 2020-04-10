@@ -1,5 +1,5 @@
 <template>
-  <section class="container mt-5">
+  <section class="container mt-5" v-if="getBootcamps.length > 0">
     <div class="row">
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4">
