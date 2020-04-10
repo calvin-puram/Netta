@@ -15,7 +15,12 @@
                 If multiple locations, use the main or largest
               </p>
               <!-- NAME -->
-              <BaseName :model="name" label="Name" />
+              <v-text-field
+                v-model="name"
+                label="Name"
+                :rules="nameRules"
+                required
+              ></v-text-field>
 
               <!-- ADDRESS -->
 
@@ -34,7 +39,12 @@
                 required
               ></v-text-field>
               <!-- EMAIL -->
-              <BaseEmail label="E-mail" model="email" />
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="E-Mail"
+                required
+              ></v-text-field>
 
               <!-- WEBSITE -->
               <v-text-field
@@ -74,24 +84,45 @@
               <div class="container">
                 <div class="row">
                   <div class="col-md-6 col sm-12">
-                    <BaseCheckbox label="Housing" model="housing" />
+                    <!-- HOUSING -->
+                    <v-checkbox
+                      v-model="housing"
+                      label="Housing"
+                      color="success"
+                      hide-details
+                    ></v-checkbox>
                   </div>
 
                   <div class="col-md-6 col sm-12">
-                    <BaseCheckbox
+                    <!-- JOB ASSISTANCE -->
+                    <v-checkbox
+                      v-model="jobAssistance"
                       label="Job Assistance"
-                      model="jobAssistance"
-                    />
+                      color="success"
+                      hide-details
+                    ></v-checkbox>
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 col sm-12">
-                    <BaseCheckbox label="Job Guarantee" model="jobGuarantee" />
+                    <!-- JOB GUARANTEE -->
+                    <v-checkbox
+                      v-model="jobGuarantee"
+                      label="Job Guarantee"
+                      color="success"
+                      hide-details
+                    ></v-checkbox>
                   </div>
 
                   <div class="col-md-6 col sm-12">
-                    <BaseCheckbox label="Accept GI Bill" model="accepGI" />
+                    <!-- ACCEPT GI BILL -->
+                    <v-checkbox
+                      v-model="acceptGI"
+                      label="Accept GI Bill"
+                      color="success"
+                      hide-details
+                    ></v-checkbox>
                   </div>
                 </div>
               </div>
@@ -122,9 +153,10 @@ export default {
       website: '',
       phone: '',
       housing: false,
-      jobAssstance: false,
+      jobAssistance: false,
       jobGuarantee: false,
       acceptGI: false,
+      email: '',
       items: [
         'Web Development',
         'Mobile Development',
@@ -150,6 +182,11 @@ export default {
         v =>
           /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(v) ||
           'Phone Number must be valid'
+      ],
+      nameRules: [v => !!v || 'Name is required'],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
       ]
     };
   },
@@ -171,6 +208,8 @@ export default {
           jobGuarantee: this.jobGuarantee,
           acceptGi: this.acceptGI
         };
+
+        console.log(data);
       }
     }
   }

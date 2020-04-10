@@ -7,10 +7,20 @@
             <h1 class="mb-2 text-secondary">Manage Account</h1>
             <v-form ref="form" v-model="valid" @submit.prevent="updateDetails">
               <!-- NAME -->
-              <BaseName label="Name" :model="name" />
+              <v-text-field
+                v-model="name"
+                label="Name"
+                :rules="nameRules"
+                required
+              ></v-text-field>
 
               <!-- EMAIL -->
-              <BaseEmail label="E-mail" :model="email" />
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="E-Mail"
+                required
+              ></v-text-field>
 
               <div class="form-group">
                 <div class="row">
@@ -44,7 +54,12 @@ export default {
     return {
       valid: true,
       name: '',
-      email: ''
+      email: '',
+      nameRules: [v => !!v || 'Name is required'],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ]
     };
   },
   methods: {

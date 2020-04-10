@@ -27,7 +27,12 @@
                   required
                 ></v-text-field>
                 <!-- EMAIL -->
-                <BaseEmail label="E-mail" :model="email" />
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-Mail"
+                  required
+                ></v-text-field>
 
                 <v-text-field
                   v-model="password"
@@ -123,7 +128,11 @@ export default {
       rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 6 || 'Min 6 characters'
-      }
+      },
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ]
     };
   },
   methods: {
