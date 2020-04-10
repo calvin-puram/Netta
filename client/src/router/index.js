@@ -13,6 +13,7 @@ import UpdatePassword from '@views/auth/UpdatePassword.vue';
 import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
 import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
+import BootcampAddCourse from '@views/Bootcamp_Pages/BootcampAddCourse.vue';
 import BootcampAdd from '@views/Bootcamp_Pages/BootcampAdd.vue';
 import ManageReview from '@views/admin/ManageReviews.vue';
 import ManageBootcamp from '@views/admin/ManageBootcamp.vue';
@@ -62,6 +63,16 @@ const routes = [
     path: '/bootcamp/:id/:slug/editReview',
     name: 'bootcamp_edit_reviews',
     component: BootcampEditReview,
+
+    meta: {
+      requiresAuth: true
+    }
+  },
+  // courses
+  {
+    path: '/create_bootcamp_courses',
+    name: 'create_courses',
+    component: BootcampAddCourse,
 
     meta: {
       requiresAuth: true

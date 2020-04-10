@@ -18,7 +18,27 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="card-title">
-                        <router-link to="">
+                        <router-link
+                          :to="`/bootcamp/${bootcamp()._slug}`"
+                          v-if="bootcamp().courses.length > 0"
+                        >
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <span>{{ bootcamp().name }}</span>
+
+                            <v-rating
+                              class="float-right"
+                              v-model="bootcamp().averageRating"
+                              background-color="purple lighten-3"
+                              color="teal"
+                              small
+                            ></v-rating>
+                          </div>
+                        </router-link>
+
+                        <!-- if no bootcamp courses -->
+                        <router-link to="/create_bootcamp_courses" v-else>
                           <div
                             class="d-flex justify-content-between align-items-center"
                           >
@@ -67,10 +87,16 @@
               </form>
               <BaseNormalBtn route="/">Edit Bootcamp Details</BaseNormalBtn>
 
-              <BaseNormalBtn route="/">Manage Courses</BaseNormalBtn>
+              <BaseNormalBtn route="/create_bootcamp_courses"
+                >Add Courses</BaseNormalBtn
+              >
 
               <BaseNormalBtn route="/">Remove Bootcamp</BaseNormalBtn>
 
+              <p class="text-danger mt-5">
+                * You must add courses that your Bootcamp offers before the
+                bootcamp will be display on this platform.
+              </p>
               <p class="text-muted mt-5">
                 * You can only add one bootcamp per account.
               </p>
@@ -84,7 +110,10 @@
       </div>
     </section>
     <!-- ADMIN OR PUBLISHER HAVE NO BOOTCAMP -->
-    <section class="container mt-5">
+    <section
+      class="container mt-5"
+      v-if="Object.values(bootcamp()).length === 0"
+    >
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
@@ -96,6 +125,10 @@
               <BaseNormalBtn route="/create_bootcamp"
                 >Add Bootcamp</BaseNormalBtn
               >
+              <p class="text-danger mt-5">
+                * You must add courses that your Bootcamp offers before the
+                bootcamp will be display on this platform.
+              </p>
               <p class="text-muted mt-5">
                 * You can only add one bootcamp per account.
               </p>

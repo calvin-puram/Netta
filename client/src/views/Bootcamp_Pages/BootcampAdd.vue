@@ -17,7 +17,7 @@
               <!-- NAME -->
               <v-text-field
                 v-model="name"
-                label="Name"
+                label="Bootcamp Name"
                 :rules="nameRules"
                 required
               ></v-text-field>
@@ -136,14 +136,18 @@
         </div>
       </div>
       <div class="form-group">
-        <BaseButton name="Add Bootcamp" />
+        <BaseButton name="Add Bootcamp" :loading="loading" />
       </div>
     </v-form>
   </section>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import LoadingMixin from '@mixins/LoadingMixins';
 export default {
+  computed: mapGetters(['getErr']),
+  mixins: [LoadingMixin],
   data() {
     return {
       valid: true,
@@ -162,7 +166,7 @@ export default {
         'Mobile Development',
         'UI/UX',
         'Data Science',
-        'Bussiness',
+        'Business',
         'Others'
       ],
       others: ['Housing', 'Job Assistance', 'Job Guarantee', 'Accept GI Bill'],
@@ -191,8 +195,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['createBootcamps']),
     handleBootcampCreate() {
       if (this.$refs.form.validate()) {
+        this.toggleLoading();
         this.snackbar = true;
 
         const data = {
@@ -209,7 +215,15 @@ export default {
           acceptGi: this.acceptGI
         };
 
-        console.log(data);
+        this.createBootcamps(data).then(res => {
+          this.toggleLoading();
+          if (res && res.data.success) {
+            this.$noty.success('bootcamp created successfully');
+            this.$router.push('/manage_bootcamp');
+          } else {
+            this.$noty.error(this.getErr);
+          }
+        });
       }
     }
   }

@@ -32,6 +32,19 @@ const actions = {
     }
   },
 
+  //create bootcamp
+  async createBootcamps({ commit }, data) {
+    try {
+      const res = await axios.post('/api/v1/bootcamps', data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+
   // single bootcamps
   async SingleBootcamps({ commit }, slug) {
     try {

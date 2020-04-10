@@ -11,7 +11,12 @@
           <div>
             <!-- vuetity card -->
             <template>
-              <v-card max-width="374" class="card" dense>
+              <v-card
+                max-width="374"
+                class="card"
+                dense
+                v-if="bootcamp.courses.length > 0"
+              >
                 <v-img height="250" :src="`/img/${bootcamp.photo}`"></v-img>
 
                 <v-card-title>

@@ -1,5 +1,9 @@
 <template>
-  <v-expansion-panels class="mb-3" v-if="bootcamp" focusable>
+  <v-expansion-panels
+    class="mb-3"
+    v-if="bootcamp && bootcamp.courses.length > 0"
+    focusable
+  >
     <v-expansion-panel>
       <v-expansion-panel-header>{{ bootcamp.name }}</v-expansion-panel-header>
       <v-expansion-panel-content>

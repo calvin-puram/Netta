@@ -15,7 +15,7 @@ const advanceResults = (model, populate) => {
       const sortby = req.query.sort.split(',').join(' ');
       filteredQuery = filteredQuery.sort(sortby);
     } else {
-      filteredQuery = filteredQuery.sort('createdAt');
+      filteredQuery = filteredQuery.sort('-createdAt');
     }
 
     // 3  FIELDS LIMITING
