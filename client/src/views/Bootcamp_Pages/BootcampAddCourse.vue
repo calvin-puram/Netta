@@ -5,9 +5,37 @@
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
             <!-- back button -->
-            <v-btn class="my-3" color="teal" dark link to="/">
-              <BaseIcon prop="fas fa-chevron-left mr-1" />Manage Courses</v-btn
-            >
+            <div>
+              <!-- bootcamp has no course disable the button -->
+              <v-btn
+                class="my-3"
+                v-if="singleBootcamp.courses.length === 0"
+                color="teal"
+                :disabled="singleBootcamp.courses.length === 0"
+                link
+                :to="
+                  `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/manage_courses`
+                "
+              >
+                <BaseIcon prop="fas fa-chevron-left mr-1" />Manage
+                Courses</v-btn
+              >
+
+              <!-- if the bootcamp has courses -->
+              <v-btn
+                v-if="singleBootcamp.courses.length > 0"
+                class="my-3"
+                color="teal"
+                dark
+                link
+                :to="
+                  `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/manage_courses`
+                "
+              >
+                <BaseIcon prop="fas fa-chevron-left mr-1" />Manage
+                Courses</v-btn
+              >
+            </div>
 
             <div class="d-flex justify-content-between align-items-center mt-2">
               <h4 class="mb-2 text-secondary">{{ singleBootcamp.name }}</h4>

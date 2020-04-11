@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@views/Home.vue';
-import Bootcamps from '@views/Bootcamp_Pages/Bootcamps.vue';
-import Bootcamp from '@views/Bootcamp_Pages/Bootcamp.vue';
+// AUTH
 import Login from '@views/auth/Login.vue';
 import Register from '@views/auth/Register.vue';
 import store from '@store/index';
@@ -10,6 +9,9 @@ import ForgotPassword from '@views/auth/ForgotPassword.vue';
 import ResetPassword from '@views/auth/ResetPassword.vue';
 import Profile from '@views/auth/Profile.vue';
 import UpdatePassword from '@views/auth/UpdatePassword.vue';
+// BOOTCAMP
+import Bootcamps from '@views/Bootcamp_Pages/Bootcamps.vue';
+import Bootcamp from '@views/Bootcamp_Pages/Bootcamp.vue';
 import BootcampReviews from '@views/Bootcamp_Pages/BootcampReviews.vue';
 import BootcampCreateReview from '@views/Bootcamp_Pages/BootcampCreateReview.vue';
 import BootcampEditReview from '@views/Bootcamp_Pages/BootcampEditReview.vue';
@@ -17,8 +19,10 @@ import BootcampAddCourse from '@views/Bootcamp_Pages/BootcampAddCourse.vue';
 import BootcampEditCourse from '@views/Bootcamp_Pages/BootcampEditCourse.vue';
 import BootcampAdd from '@views/Bootcamp_Pages/BootcampAdd.vue';
 import BootcampEdit from '@views/Bootcamp_Pages/BootcampEdit.vue';
+// ADMIN
 import ManageReview from '@views/admin/ManageReviews.vue';
 import ManageBootcamp from '@views/admin/ManageBootcamp.vue';
+import ManageCourse from '@views/admin/ManageCourse.vue';
 
 Vue.use(VueRouter);
 
@@ -93,6 +97,15 @@ const routes = [
     path: '/bootcamp/:id/:bootId/:slug/bootcamp_course',
     name: 'bootcamp_course',
     component: BootcampEditCourse,
+
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/bootcamp/:id/:slug/manage_courses',
+    name: 'manage_course',
+    component: ManageCourse,
 
     meta: {
       requiresAuth: true
