@@ -209,11 +209,7 @@ export default {
     });
     next();
   },
-  data() {
-    return {
-      checkUserHasReview: false
-    };
-  },
+
   methods: {
     ...mapActions(['deletedReview']),
     deleteReview(review) {

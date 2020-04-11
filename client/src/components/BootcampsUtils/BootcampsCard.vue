@@ -8,9 +8,17 @@
       <v-expansion-panel-header>
         <div class="d-flex justify-content-between align-items-center">
           {{ bootcamp.name }}
-          <span class="mr-2" @click="handleDeleteBootcamp"
-            ><BaseIcon prop="fas fa-trash"
-          /></span>
+
+          <!-- display delete icon for admin and publisher only -->
+          <div
+            v-if="
+              getAuthUser.role === 'admin' || getAuthUser._id === bootcamp.user
+            "
+          >
+            <span class="mr-2" @click="handleDeleteBootcamp"
+              ><BaseIcon prop="fas fa-trash"
+            /></span>
+          </div>
         </div>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
@@ -74,10 +82,21 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import store from '@store/index';
+import NProgress from 'nprogress';
 
 export default {
   props: ['bootcamp'],
-  computed: mapGetters(['getToken', 'getErr']),
+  computed: mapGetters(['getToken', 'getErr', 'getAuthUser']),
+  beforeRouteEnter(to, from, next) {
+    NProgress.start();
+    store.dispatch('authUser').then(res => {
+      if (res && res.data.success) {
+        NProgress.done();
+      }
+    });
+    next();
+  },
   methods: {
     ...mapActions(['deleteBootcamp']),
     handleDeleteBootcamp() {
