@@ -73,10 +73,10 @@
                         @click="deleteReview(bootcamp._id)"
                       >
                         <BaseIcon
-                          prop="fas fa-spin fa-spinner ml-2"
+                          prop="fas fa-spin fa-spinner "
                           v-if="loading"
                         />
-                        <BaseIcon prop="fas fa-trash mr-1" v-else />
+                        <BaseIcon prop="fas fa-trash " v-else />
                       </button>
                     </div>
                   </div>

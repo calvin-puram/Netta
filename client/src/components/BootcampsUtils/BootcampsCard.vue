@@ -15,9 +15,16 @@
               getAuthUser.role === 'admin' || getAuthUser._id === bootcamp.user
             "
           >
-            <span class="mr-2" @click="handleDeleteBootcamp"
-              ><BaseIcon prop="fas fa-trash"
-            /></span>
+            <!-- delete bootcamp -->
+
+            <button
+              :disabled="loading"
+              class="btn dark-bg mr-2"
+              @click="handleDeleteBootcamp"
+            >
+              <BaseIcon prop="fas fa-spin fa-spinner " v-if="loading" />
+              <BaseIcon prop="fas fa-trash " v-else />
+            </button>
           </div>
         </div>
       </v-expansion-panel-header>
@@ -73,6 +80,9 @@
                 {{ bootcamp.careers.join(', ') }}
               </p>
             </div>
+            <div class="float-right">
+              <h1>yes</h1>
+            </div>
           </div>
         </div>
       </v-expansion-panel-content>
@@ -84,8 +94,10 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from '@store/index';
 import NProgress from 'nprogress';
+import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
+  mixins: [LoadingMixin],
   props: ['bootcamp'],
   computed: mapGetters(['getToken', 'getErr', 'getAuthUser']),
   beforeRouteEnter(to, from, next) {
@@ -100,7 +112,9 @@ export default {
   methods: {
     ...mapActions(['deleteBootcamp']),
     handleDeleteBootcamp() {
+      this.toggleLoading();
       this.deleteBootcamp(this.bootcamp._id).then(res => {
+        this.toggleLoading();
         if (res && res.data.success) {
           this.$noty.success('Bootcamp deleted Successfully!');
           this.$router.push('/manage_bootcamp');
@@ -112,3 +126,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.dark-bg {
+  background: #009688 !important;
+}
+.fas {
+  color: #fff;
+}
+</style>
