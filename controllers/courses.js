@@ -89,7 +89,7 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
     );
   }
   // check if user is the publisher or and admin
-  if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (course.user._id.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `the user ${req.user.name} is not authorize to perform this action`,
@@ -122,7 +122,7 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
   }
 
   // check if user is the publisher or and admin
-  if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (course.user._id.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `the user ${req.user.name} is not authorize to perform this action`,
@@ -132,8 +132,8 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
   }
 
   course.remove();
-  res.status(204).json({
+  res.status(200).json({
     success: true,
-    data: null
+    data: {}
   });
 });

@@ -94,7 +94,11 @@
                   value="Upload Image"
                 />
               </form>
-              <BaseNormalBtn route="/">Edit Bootcamp Details</BaseNormalBtn>
+              <BaseNormalBtn
+                v-if="bootcamp().courses.length > 0"
+                :route="`/bootcamp/${bootcamp().slug}`"
+                >Edit Bootcamp Details</BaseNormalBtn
+              >
 
               <BaseNormalBtn
                 :route="
@@ -105,7 +109,11 @@
                 >Add Courses</BaseNormalBtn
               >
 
-              <BaseNormalBtn route="/">Remove Bootcamp</BaseNormalBtn>
+              <BaseNormalBtn
+                v-if="bootcamp().courses.length > 0"
+                :route="`/bootcamp/${bootcamp().slug}`"
+                >Remove Bootcamp</BaseNormalBtn
+              >
 
               <p class="text-danger mt-5">
                 * You must add courses that your Bootcamp offers before the

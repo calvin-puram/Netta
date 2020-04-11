@@ -6,6 +6,7 @@ const state = {
   singleBootcamp: {},
   bootcampReviews: [],
   singleReview: {},
+  singleCourse: {},
   err: null
 };
 const getters = {
@@ -14,6 +15,7 @@ const getters = {
   singleBootcamp: () => state.singleBootcamp,
   getBootcampReviews: () => state.bootcampReviews,
   getSingleReview: () => state.singleReview,
+  getOneCourse: () => state.singleCourse,
   getErr: () => state.err
 };
 const actions = {
@@ -48,6 +50,44 @@ const actions = {
   async createCourse({ commit }, data) {
     try {
       const res = await axios.post('/api/v1/courses', data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //get single course
+  async getSingleCourse({ commit }, id) {
+    try {
+      const res = await axios.get(`/api/v1/courses/${id}`);
+      if (res && res.data.success) {
+        commit('single_course', res.data.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //delete courses
+  async deleteCourse({ commit }, id) {
+    try {
+      const res = await axios.delete(`/api/v1/courses/${id}`);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+  //update courses
+  async updateCourse({ commit }, data) {
+    try {
+      const res = await axios.patch(`/api/v1/courses/${data.id}`, data);
 
       return res;
     } catch (err) {
@@ -235,6 +275,10 @@ const mutations = {
   },
   singleReview_res(state, data) {
     state.singleReview = data;
+    state.err = null;
+  },
+  single_course(state, data) {
+    state.singleCourse = data;
     state.err = null;
   }
 };
