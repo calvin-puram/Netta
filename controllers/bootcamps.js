@@ -71,7 +71,10 @@ exports.updateBootcamps = asyncHandler(async (req, res, next) => {
     );
   }
   //check if he is not the publisher or admin
-  if (bootcamp.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (
+    bootcamp.user._id.toString() !== req.user.id &&
+    req.user.role !== 'admin'
+  ) {
     return next(
       new ErrorResponse(
         `the user ${req.user.name} is not authorize to perform this action`,

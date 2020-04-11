@@ -195,6 +195,18 @@ const actions = {
         commit('bootcamp_err', err.response.data.error);
       }
     }
+  },
+  //update bootcamp
+  async updateBootcamp({ commit }, data) {
+    try {
+      const res = await axios.patch(`/api/v1/bootcamps/${data.id}`, data);
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
   }
 };
 const mutations = {

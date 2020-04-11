@@ -61,7 +61,7 @@
                     class="d-flex justify-content-between align-items-center"
                   >
                     <span>{{ bootcamp.name }}</span>
-
+                    <!-- display ratings star -->
                     <v-rating
                       class="float-right"
                       v-model="bootcamp.averageRating"
@@ -69,19 +69,47 @@
                       color="teal"
                       small
                     ></v-rating>
+                    <!-- end display ratings star -->
                   </div>
                 </router-link>
               </h5>
+              <!-- display location details -->
               <span class="badge badge-dark mb-2"
                 >{{ bootcamp.location.state }},
                 {{ bootcamp.location.country }}</span
               >
+              <!-- end of location details -->
+              <!-- display careers -->
               <p class="card-text">
                 {{ bootcamp.careers.join(', ') }}
               </p>
+              <!-- end of careers -->
             </div>
             <div class="float-right">
-              <h1>yes</h1>
+              <!-- edit bootcamp -->
+              <div
+                v-if="
+                  getAuthUser.role === 'admin' ||
+                    getAuthUser._id === bootcamp.user
+                "
+              >
+                <router-link
+                  :to="
+                    `/bootcamp/${bootcamp._id}/${bootcamp.slug}/bootcamp_edit`
+                  "
+                >
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-chip v-on="on" link color="teal"
+                        ><BaseIcon prop="fas fa-pencil-alt mr-1"
+                      /></v-chip>
+                    </template>
+                    <span>Edit</span>
+                  </v-tooltip>
+                </router-link>
+              </div>
+
+              <!-- end of edit bootcemp -->
             </div>
           </div>
         </div>
