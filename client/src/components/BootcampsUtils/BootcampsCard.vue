@@ -84,7 +84,7 @@ export default {
       this.deleteBootcamp(this.bootcamp._id).then(res => {
         if (res && res.data.success) {
           this.$noty.success('Bootcamp deleted Successfully!');
-          this.$router.push('/bootcamps');
+          this.$router.push('/manage_bootcamp');
         } else {
           this.$noty.error(this.getErr);
         }

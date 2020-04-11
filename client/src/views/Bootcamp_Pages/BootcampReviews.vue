@@ -162,6 +162,22 @@
       <h3 class="text-secondary text-center mt-12">
         {{ `So suprise that  ${singleBootcamp.name} has no review yet` }}
       </h3>
+
+      <!-- write review btn -->
+
+      <div class="text-center">
+        <v-btn
+          class="my-5"
+          color="teal"
+          dark
+          link
+          :to="
+            `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/createReview`
+          "
+        >
+          <BaseIcon prop="fas fa-pencil-alt mr-1" />Write Review</v-btn
+        >
+      </div>
     </section>
   </div>
 </template>
