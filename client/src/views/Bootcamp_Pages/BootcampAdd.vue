@@ -2,7 +2,7 @@
   <section class="container mt-5">
     <h1 class="mb-2 text-secondary">Add Bootcamp</h1>
     <p>
-      Important: You must be affiliated with a bootcamp to add to DevCamper
+      Important: You must be affiliated with a bootcamp to add to DevCoach
     </p>
 
     <v-form ref="form" v-model="valid" @submit.prevent="handleBootcampCreate">

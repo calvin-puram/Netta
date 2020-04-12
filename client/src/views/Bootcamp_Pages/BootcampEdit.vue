@@ -1,8 +1,8 @@
 <template>
-  <section class="container mt-5">
+  <section class="container mt-5" v-if="!loading">
     <h1 class="mb-2 text-secondary">Add Bootcamp</h1>
     <p>
-      Important: You must be affiliated with a bootcamp to add to DevCamper
+      Important: You must be affiliated with a bootcamp to add to DevCoach
     </p>
 
     <v-form ref="form" v-model="valid" @submit.prevent="handleBootcampUpdate">
@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="form-group">
-        <BaseButton name="Add Bootcamp" :loading="loading" />
+        <BaseButton name="Add Bootcamp" :loading="getLoading" />
       </div>
     </v-form>
   </section>
@@ -149,7 +149,12 @@ import NProgress from 'nprogress';
 import store from '@store/index';
 
 export default {
-  computed: mapGetters(['getErr', 'singleBootcamp', 'getAuthUser']),
+  computed: mapGetters([
+    'getErr',
+    'singleBootcamp',
+    'getAuthUser',
+    'getLoading'
+  ]),
   mixins: [LoadingMixin],
   data() {
     return {
@@ -202,7 +207,6 @@ export default {
     ...mapActions(['updateBootcamp', 'SingleBootcamps']),
     handleBootcampUpdate() {
       if (this.$refs.form.validate()) {
-        this.toggleLoading();
         this.snackbar = true;
 
         const data = {
@@ -220,7 +224,6 @@ export default {
           id: this.$route.params.id
         };
         this.updateBootcamp(data).then(res => {
-          this.toggleLoading();
           if (res && res.data.success) {
             this.$noty.success('Bootcamp updated successfully!');
             this.$router.push('/bootcamps');
@@ -232,6 +235,7 @@ export default {
     }
   },
   created() {
+    this.toggleLoading();
     NProgress.start();
     this.SingleBootcamps(this.$route.params.slug).then(res => {
       if (res && res.data.success) {
@@ -247,6 +251,7 @@ export default {
         this.email = this.singleBootcamp.email;
         this.items = this.singleBootcamp.careers;
         NProgress.done();
+        this.toggleLoading();
       }
     });
   }

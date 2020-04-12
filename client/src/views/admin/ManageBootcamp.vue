@@ -2,7 +2,7 @@
   <div>
     <section
       class="container mt-5"
-      v-if="!loading && Object.keys(bootcamp()).length > 0"
+      v-if="!loading && bootcamp() && Object.keys(bootcamp()).length > 0"
     >
       <div class="row">
         <div class="col-md-8 m-auto">

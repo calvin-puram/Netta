@@ -25,6 +25,10 @@
                   <!-- button to edit course -->
                   <div>
                     <router-link
+                      v-if="
+                        getAuthUser.role === 'admin' ||
+                          getAuthUser._id === singleBootcamp.user
+                      "
                       :to="
                         `/bootcamp/${course._id}/${singleBootcamp._id}/${singleBootcamp.slug}/bootcamp_course`
                       "
