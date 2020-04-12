@@ -1,5 +1,5 @@
 <template>
-  <section class="container mt-5">
+  <section class="container mt-5" v-if="!loading">
     <div class="row">
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4">
@@ -69,7 +69,7 @@
               ></v-checkbox>
 
               <div class="form-group mt-4">
-                <BaseButton name="Add Course" :loading="loading" />
+                <BaseButton name="Add Course" :loading="getLoading" />
               </div>
             </v-form>
           </div>
@@ -87,7 +87,7 @@ import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['getErr', 'getOneCourse']),
+  computed: mapGetters(['getErr', 'getOneCourse', 'getLoading']),
   data() {
     return {
       description: '',
@@ -114,7 +114,6 @@ export default {
     ...mapActions(['getSingleCourse', 'updateCourse']),
     handleBootcampCourseEdit() {
       if (this.$refs.form.validate()) {
-        this.toggleLoading();
         this.snackbar = true;
 
         const data = {
@@ -128,7 +127,6 @@ export default {
           id: this.$route.params.id
         };
         this.updateCourse(data).then(res => {
-          this.toggleLoading();
           if (res && res.data.success) {
             this.$noty.success('course updated successfully');
             this.$router.push(`/bootcamp/${this.$route.params.slug}`);
@@ -140,6 +138,7 @@ export default {
     }
   },
   created() {
+    this.toggleLoading();
     NProgress.start();
     this.getSingleCourse(this.$route.params.id).then(res => {
       if (res && res.data.success) {
@@ -151,6 +150,7 @@ export default {
         this.title = this.getOneCourse.title;
 
         NProgress.done();
+        this.toggleLoading();
       }
     });
   }

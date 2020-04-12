@@ -128,7 +128,7 @@
               <div>
                 <BaseNormalBtn
                   v-if="bootcamp().courses.length > 0"
-                  :route="`/bootcamp/${bootcamp().slug}`"
+                  route="/bootcamps"
                   >Remove Bootcamp</BaseNormalBtn
                 >
               </div>

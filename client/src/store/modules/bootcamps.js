@@ -93,8 +93,11 @@ const actions = {
   //update courses
   async updateCourse({ commit }, data) {
     try {
+      commit('loading_res');
       const res = await axios.patch(`/api/v1/courses/${data.id}`, data);
-
+      if (res && res.data.success) {
+        commit('loading_req');
+      }
       return res;
     } catch (err) {
       if (err && err.response.data) {

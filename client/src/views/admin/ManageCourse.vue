@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- if there is course -->
-    <section class="container mt-5">
+    <section class="container mt-5" v-if="!loading">
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
@@ -103,24 +103,29 @@
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
+import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
+  mixins: [LoadingMixin],
   computed: mapGetters(['getBootcamps', 'getAuthUser']),
-  beforeRouteEnter(to, from, next) {
-    NProgress.start();
-    store.dispatch('getAllBootcamps').then(res => {
-      store.dispatch('authUser').then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-        }
-      });
-    });
-    next();
-  },
+
   methods: {
+    ...mapActions(['getAllBootcamps', 'authUser']),
     bootcamp() {
       return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
     }
+  },
+  created() {
+    this.toggleLoading();
+    NProgress.start();
+    this.getAllBootcamps().then(res => {
+      this.authUser().then(res => {
+        if (res && res.data.success) {
+          NProgress.done();
+          this.toggleLoading();
+        }
+      });
+    });
   }
 };
 </script>
