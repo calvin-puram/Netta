@@ -1,5 +1,5 @@
 <template>
-  <section class="container mt-5">
+  <section class="container mt-5" v-if="!loading">
     <div class="row">
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4" v-if="getSingleReview">
@@ -54,7 +54,7 @@
               </div>
 
               <div class="form-group">
-                <BaseButton name="Submit Review" :loading="loading" />
+                <BaseButton name="Submit Review" :loading="getLoading" />
               </div>
             </form>
           </div>
@@ -70,7 +70,7 @@ import LoadingMixin from '@mixins/LoadingMixins';
 import NProgress from 'nprogress';
 
 export default {
-  computed: mapGetters(['getSingleReview', 'getErr']),
+  computed: mapGetters(['getSingleReview', 'getErr', 'getLoading']),
   mixins: [LoadingMixin],
   data() {
     return {
@@ -83,7 +83,6 @@ export default {
   methods: {
     ...mapActions(['editReview', 'singleReview']),
     handleEditReview() {
-      this.toggleLoading();
       const data = {
         title: this.text,
         rating: this.rating,
@@ -93,7 +92,6 @@ export default {
       };
 
       this.editReview(data).then(res => {
-        this.toggleLoading();
         if (res && res.data.success) {
           this.$noty.success('Review updated Successfully!');
           this.$router.push(`/bootcamp/${this.$route.params.slug}`);
@@ -105,6 +103,7 @@ export default {
   },
 
   created() {
+    this.toggleLoading();
     NProgress.start();
     this.singleReview(this.$route.params.id).then(res => {
       if (res && res.data.success) {
@@ -112,6 +111,7 @@ export default {
         this.rating = this.getSingleReview.rating;
         this.text = this.getSingleReview.title;
         NProgress.done();
+        this.toggleLoading();
       }
     });
   }

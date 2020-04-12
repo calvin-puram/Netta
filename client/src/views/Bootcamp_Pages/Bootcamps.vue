@@ -1,5 +1,5 @@
 <template>
-  <section class="browse my-5">
+  <section class="browse my-5" v-if="!loading">
     <div class="container">
       <div class="row">
         <!-- Sidebar -->
@@ -46,25 +46,31 @@
 import LocationFilter from '@bootcampsUtils/LocationFilter';
 import OtherFilter from '@bootcampsUtils/OtherFilters';
 import BootcampCard from '@bootcampsUtils/BootcampsCard';
-import { mapGetters } from 'vuex';
+import LoadingMixin from '@mixins/LoadingMixins';
+import { mapGetters, mapActions } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
 
 export default {
+  mixins: [LoadingMixin],
   components: {
     LocationFilter,
     OtherFilter,
     BootcampCard
   },
   computed: mapGetters(['getBootcamps']),
-  beforeRouteEnter(to, from, next) {
+  methods: {
+    ...mapActions(['getAllBootcamps'])
+  },
+  created() {
+    this.toggleLoading();
     NProgress.start();
-    store.dispatch('getAllBootcamps').then(res => {
+    this.getAllBootcamps().then(res => {
       if (res && res.data.success) {
         NProgress.done();
+        this.toggleLoading();
       }
     });
-    next();
   }
 };
 </script>

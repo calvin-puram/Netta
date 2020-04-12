@@ -145,7 +145,7 @@
     <!-- if no bootcamp reviews -->
     <section
       class="bootcamp mt-5"
-      v-if="getBootcampReviews && getBootcampReviews.length === 0"
+      v-if="!getLoading && getBootcampReviews.length === 0"
     >
       <!-- back button -->
 
@@ -193,7 +193,8 @@ export default {
     'getBootcampReviews',
     'singleBootcamp',
     'getErr',
-    'getAuthUser'
+    'getAuthUser',
+    'getLoading'
   ]),
   mixins: [LoadingMixin],
   beforeRouteEnter(to, from, next) {

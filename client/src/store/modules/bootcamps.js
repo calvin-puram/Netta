@@ -7,6 +7,7 @@ const state = {
   bootcampReviews: [],
   singleReview: {},
   singleCourse: {},
+  loading: false,
   err: null
 };
 const getters = {
@@ -16,6 +17,7 @@ const getters = {
   getBootcampReviews: () => state.bootcampReviews,
   getSingleReview: () => state.singleReview,
   getOneCourse: () => state.singleCourse,
+  getLoading: () => state.loading,
   getErr: () => state.err
 };
 const actions = {
@@ -75,7 +77,11 @@ const actions = {
   //delete courses
   async deleteCourse({ commit }, id) {
     try {
+      commit('loading_res');
       const res = await axios.delete(`/api/v1/courses/${id}`);
+      if (res && res.data.success) {
+        commit('loading_req');
+      }
 
       return res;
     } catch (err) {
@@ -147,7 +153,7 @@ const actions = {
   // sort bootcamps
   async SortBootcamps({ commit }) {
     try {
-      const res = await axios.get('/api/v1/bootcamps?sort=createdAt');
+      const res = await axios.get('/api/v1/bootcamps?sort=-createdAt');
       if (res && res.data.success) {
         commit('bootcampLatest_res', res.data.data);
       }
@@ -161,8 +167,10 @@ const actions = {
   //  bootcamps reviews
   async bootcampReviews({ commit }, id) {
     try {
+      commit('loading_res');
       const res = await axios.get(`/api/v1/bootcamps/${id}/reviews`);
       if (res && res.data.success) {
+        commit('loading_req');
         commit('bootcampReviews_res', res.data.data);
       }
       return res;
@@ -201,9 +209,11 @@ const actions = {
   //  edit  reviews
   async editReview({ commit }, data) {
     try {
+      commit('loading_res');
       const res = await axios.patch(`/api/v1/reviews/${data.id}`, data);
       if (res && res.data.success) {
         commit('singleReview_res', res.data.data);
+        commit('loading_req');
       }
       return res;
     } catch (err) {
@@ -257,6 +267,7 @@ const mutations = {
 
   bootcamp_err(state, error) {
     state.err = error;
+    state.loading = false;
   },
 
   bootcampLatest_res(state, data) {
@@ -279,6 +290,14 @@ const mutations = {
   },
   single_course(state, data) {
     state.singleCourse = data;
+    state.err = null;
+  },
+  loading_res(state) {
+    state.loading = true;
+    state.err = null;
+  },
+  loading_req(state) {
+    state.loading = false;
     state.err = null;
   }
 };

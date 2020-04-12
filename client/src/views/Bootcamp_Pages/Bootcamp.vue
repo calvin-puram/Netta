@@ -1,5 +1,5 @@
 <template>
-  <section class="bootcamp mt-5" v-if="Object.keys(singleBootcamp).length > 0">
+  <section class="bootcamp mt-5" v-if="!loading">
     <div class="container">
       <div class="row">
         <!-- Main col -->
@@ -60,7 +60,10 @@
                       class="btn dark-bg mr-2"
                       @click="handleDeleteCourse(course._id)"
                     >
-                      <BaseIcon prop="fas fa-spin fa-spinner " v-if="loading" />
+                      <BaseIcon
+                        prop="fas fa-spin fa-spinner "
+                        v-if="getLoading"
+                      />
                       <BaseIcon prop="fas fa-trash " v-else />
                     </button>
                   </div>
@@ -209,24 +212,17 @@ import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['singleBootcamp', 'getErr', 'getAuthUser']),
-  beforeRouteEnter(to, from, next) {
-    NProgress.start();
-    store.dispatch('SingleBootcamps', to.params.slug).then(res => {
-      store.dispatch('authUser').then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-        }
-      });
-    });
-    next();
-  },
+  computed: mapGetters([
+    'singleBootcamp',
+    'getErr',
+    'getAuthUser',
+    'getLoading'
+  ]),
+
   methods: {
-    ...mapActions(['deleteCourse']),
+    ...mapActions(['deleteCourse', 'SingleBootcamps', 'authUser']),
     handleDeleteCourse(id) {
-      this.toggleLoading();
       this.deleteCourse(id).then(res => {
-        this.toggleLoading();
         if (res && res.data.success) {
           this.$noty.success('course deleted successfully');
           this.$router.push('/manage_bootcamp');
@@ -235,6 +231,18 @@ export default {
         }
       });
     }
+  },
+  created() {
+    this.toggleLoading();
+    NProgress.start();
+    this.SingleBootcamps(this.$route.params.slug).then(res => {
+      this.authUser().then(res => {
+        if (res && res.data.success) {
+          NProgress.done();
+          this.toggleLoading();
+        }
+      });
+    });
   }
 };
 </script>
