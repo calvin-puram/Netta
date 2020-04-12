@@ -76,20 +76,7 @@ const actions = {
       }
     }
   },
-  // auth user
-  // async authUser({ commit }) {
-  //   try {
-  //     const res = await axios.get(`/api/v1/auth/me`);
-  //     if (res && res.data.success) {
-  //       commit('auth_user', res.data.data);
-  //     }
-  //     return res;
-  //   } catch (err) {
-  //     if (err && err.response.data) {
-  //       commit('auth_err', err.response.data.error);
-  //     }
-  //   }
-  // },
+
   // update user details
   async updateUserDetails({ commit }, data) {
     try {
@@ -138,10 +125,6 @@ const mutations = {
     state.authLoading = false;
   },
 
-  // auth_user(state, data) {
-  //   state.authErr = null;
-  //   state.user = data;
-  // },
   loading_res(state) {
     state.authLoading = true;
     state.authErr = null;
