@@ -1,5 +1,5 @@
 <template>
-  <section class="container mt-5">
+  <section class="container mt-5" v-if="!loading">
     <div class="row">
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4">
@@ -25,7 +25,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                    <BaseButton name="Save" :loading="loading" />
+                    <BaseButton name="Save" :loading="getAuthLoading" />
                   </div>
                   <div class="col-md-6">
                     <router-link to="/update_password">
@@ -49,7 +49,7 @@ import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['getAuthUser', 'getErr']),
+  computed: mapGetters(['getAuthUser', 'getErr', 'getAuthLoading']),
   data() {
     return {
       valid: true,
@@ -67,13 +67,12 @@ export default {
     updateDetails() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
-        this.toggleLoading();
+
         const data = {
           name: this.name,
           email: this.email
         };
         this.updateUserDetails(data).then(res => {
-          this.toggleLoading();
           if (res && res.data.success) {
             this.$noty.success('User Details Updated Successfully!');
           } else {
@@ -83,13 +82,15 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
+    this.toggleLoading();
     NProgress.start();
     this.authUser().then(res => {
       if (res && res.data.success) {
         this.name = this.getAuthUser.name;
         this.email = this.getAuthUser.email;
         NProgress.done();
+        this.toggleLoading();
       }
     });
   }

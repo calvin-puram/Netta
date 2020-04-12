@@ -1,6 +1,9 @@
 <template>
   <div>
-    <section class="container mt-5" v-if="bootcamp()">
+    <section
+      class="container mt-5"
+      v-if="!loading && Object.keys(bootcamp()).length > 0"
+    >
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
@@ -147,7 +150,7 @@
       </div>
     </section>
     <!-- ADMIN OR PUBLISHER HAVE NO BOOTCAMP -->
-    <section class="container mt-5" v-if="!bootcamp()">
+    <section class="container mt-5" v-if="!loading && !bootcamp()">
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
@@ -182,24 +185,29 @@
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
+import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
+  mixins: [LoadingMixin],
   computed: mapGetters(['getBootcamps', 'getAuthUser']),
-  beforeRouteEnter(to, from, next) {
+
+  methods: {
+    ...mapActions(['getAllBootcamps', 'authUser']),
+    bootcamp() {
+      return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
+    }
+  },
+  created() {
+    this.toggleLoading();
     NProgress.start();
-    store.dispatch('getAllBootcamps').then(res => {
-      store.dispatch('authUser').then(res => {
+    this.getAllBootcamps().then(res => {
+      this.authUser().then(res => {
         if (res && res.data.success) {
+          this.toggleLoading();
           NProgress.done();
         }
       });
     });
-    next();
-  },
-  methods: {
-    bootcamp() {
-      return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
-    }
   }
 };
 </script>

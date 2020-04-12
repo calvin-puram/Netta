@@ -3,12 +3,14 @@ import axios from 'axios';
 const state = {
   token: JSON.parse(localStorage.getItem('token')) || '',
   authErr: null,
+  authLoading: false,
   user: {}
 };
 const getters = {
   getToken: () => !!state.token,
   getAuthErr: () => state.authErr,
-  getAuthUser: () => state.user
+  getAuthUser: () => state.user,
+  getAuthLoading: () => state.authLoading
 };
 const actions = {
   // Register
@@ -87,9 +89,11 @@ const actions = {
   // update user details
   async updateUserDetails({ commit }, data) {
     try {
+      commit('loading_res');
       const res = await axios.patch(`/api/v1/auth/updatedetails`, data);
       if (res && res.data.success) {
         commit('auth_user', res.data.data);
+        commit('loading_req');
       }
       return res;
     } catch (err) {
@@ -125,11 +129,20 @@ const mutations = {
 
   auth_err(state, err) {
     state.authErr = err;
+    state.authLoading = false;
   },
 
   auth_user(state, data) {
     state.authErr = null;
     state.user = data;
+  },
+  loading_res(state) {
+    state.authLoading = true;
+    state.authErr = null;
+  },
+  loading_req(state) {
+    state.authLoading = false;
+    state.authErr = null;
   },
 
   logout_res(state) {
