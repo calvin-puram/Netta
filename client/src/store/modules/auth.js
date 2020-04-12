@@ -1,10 +1,14 @@
 import axios from 'axios';
 
 const state = {
-  token: JSON.parse(localStorage.getItem('token')) || '',
+  token: JSON.parse(localStorage.getItem('data'))
+    ? JSON.parse(localStorage.getItem('data')).token
+    : '',
   authErr: null,
   authLoading: false,
-  user: {}
+  user: JSON.parse(localStorage.getItem('data'))
+    ? JSON.parse(localStorage.getItem('data')).user
+    : {}
 };
 const getters = {
   getToken: () => !!state.token,
@@ -73,26 +77,26 @@ const actions = {
     }
   },
   // auth user
-  async authUser({ commit }) {
-    try {
-      const res = await axios.get(`/api/v1/auth/me`);
-      if (res && res.data.success) {
-        commit('auth_user', res.data.data);
-      }
-      return res;
-    } catch (err) {
-      if (err && err.response.data) {
-        commit('auth_err', err.response.data.error);
-      }
-    }
-  },
+  // async authUser({ commit }) {
+  //   try {
+  //     const res = await axios.get(`/api/v1/auth/me`);
+  //     if (res && res.data.success) {
+  //       commit('auth_user', res.data.data);
+  //     }
+  //     return res;
+  //   } catch (err) {
+  //     if (err && err.response.data) {
+  //       commit('auth_err', err.response.data.error);
+  //     }
+  //   }
+  // },
   // update user details
   async updateUserDetails({ commit }, data) {
     try {
       commit('loading_res');
       const res = await axios.patch(`/api/v1/auth/updatedetails`, data);
       if (res && res.data.success) {
-        commit('auth_user', res.data.data);
+        commit('auth_user', res.data.data, res.data.data);
         commit('loading_req');
       }
       return res;
@@ -116,15 +120,17 @@ const actions = {
   },
   // Logout
   async logout({ commit }) {
-    localStorage.removeItem('token');
+    localStorage.removeItem('data');
+
     delete axios.defaults.headers.common['Authorization'];
     commit('logout_res');
   }
 };
 const mutations = {
-  auth_res(state, token) {
-    state.token = token;
+  auth_res(state, data) {
+    state.token = data.token;
     state.authErr = null;
+    state.user = data.user;
   },
 
   auth_err(state, err) {
@@ -132,10 +138,10 @@ const mutations = {
     state.authLoading = false;
   },
 
-  auth_user(state, data) {
-    state.authErr = null;
-    state.user = data;
-  },
+  // auth_user(state, data) {
+  //   state.authErr = null;
+  //   state.user = data;
+  // },
   loading_res(state) {
     state.authLoading = true;
     state.authErr = null;

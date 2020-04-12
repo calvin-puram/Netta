@@ -118,15 +118,18 @@ export default {
   }),
 
   methods: {
-    ...mapActions(['logout', 'authUser']),
+    ...mapActions(['logout']),
     logoutUser() {
       this.logout();
-      router.push('/');
+
+      if (router.history.current.name !== 'Home') {
+        router.push('/');
+      }
     }
-  },
-  create() {
-    this.authUser();
   }
+  // create() {
+  //   this.authUser();
+  // }
 };
 </script>
 

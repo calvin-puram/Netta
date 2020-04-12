@@ -224,7 +224,7 @@ export default {
   ]),
 
   methods: {
-    ...mapActions(['deleteCourse', 'SingleBootcamps', 'authUser']),
+    ...mapActions(['deleteCourse', 'SingleBootcamps']),
     handleDeleteCourse(id) {
       this.deleteCourse(id).then(res => {
         if (res && res.data.success) {
@@ -240,12 +240,10 @@ export default {
     this.toggleLoading();
     NProgress.start();
     this.SingleBootcamps(this.$route.params.slug).then(res => {
-      this.authUser().then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-          this.toggleLoading();
-        }
-      });
+      if (res && res.data.success) {
+        NProgress.done();
+        this.toggleLoading();
+      }
     });
   }
 };

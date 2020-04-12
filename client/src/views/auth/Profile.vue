@@ -63,7 +63,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['authUser', 'updateUserDetails']),
+    ...mapActions(['updateUserDetails']),
     updateDetails() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
@@ -85,14 +85,10 @@ export default {
   created() {
     this.toggleLoading();
     NProgress.start();
-    this.authUser().then(res => {
-      if (res && res.data.success) {
-        this.name = this.getAuthUser.name;
-        this.email = this.getAuthUser.email;
-        NProgress.done();
-        this.toggleLoading();
-      }
-    });
+    this.name = this.getAuthUser.name;
+    this.email = this.getAuthUser.email;
+    NProgress.done();
+    this.toggleLoading();
   }
 };
 </script>

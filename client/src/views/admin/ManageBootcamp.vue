@@ -142,7 +142,7 @@
               </p>
               <p class="text-muted">
                 * You must be affiliated with the bootcamp in some way in order
-                to add it to DevCamper.
+                to add it to DevCoach.
               </p>
             </div>
           </div>
@@ -192,7 +192,7 @@ export default {
   computed: mapGetters(['getBootcamps', 'getAuthUser']),
 
   methods: {
-    ...mapActions(['getAllBootcamps', 'authUser']),
+    ...mapActions(['getAllBootcamps']),
     bootcamp() {
       return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
     }
@@ -201,12 +201,10 @@ export default {
     this.toggleLoading();
     NProgress.start();
     this.getAllBootcamps().then(res => {
-      this.authUser().then(res => {
-        if (res && res.data.success) {
-          this.toggleLoading();
-          NProgress.done();
-        }
-      });
+      if (res && res.data.success) {
+        this.toggleLoading();
+        NProgress.done();
+      }
     });
   }
 };

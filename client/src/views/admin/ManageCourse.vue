@@ -110,7 +110,7 @@ export default {
   computed: mapGetters(['getBootcamps', 'getAuthUser']),
 
   methods: {
-    ...mapActions(['getAllBootcamps', 'authUser']),
+    ...mapActions(['getAllBootcamps']),
     bootcamp() {
       return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
     }
@@ -119,12 +119,10 @@ export default {
     this.toggleLoading();
     NProgress.start();
     this.getAllBootcamps().then(res => {
-      this.authUser().then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-          this.toggleLoading();
-        }
-      });
+      if (res && res.data.success) {
+        NProgress.done();
+        this.toggleLoading();
+      }
     });
   }
 };

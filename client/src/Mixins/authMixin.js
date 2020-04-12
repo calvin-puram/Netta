@@ -4,7 +4,8 @@ export default {
   methods: {
     setAuth(res, successMsg, errorMsg) {
       if (res && res.data.success) {
-        localStorage.setItem('token', JSON.stringify(res.data.data));
+        localStorage.setItem('data', JSON.stringify(res.data.data));
+
         axios.defaults.headers.common['Authorization'] = res.data.data;
         this.$noty.success(successMsg);
         this.$router.push('/');

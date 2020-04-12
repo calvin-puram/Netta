@@ -201,11 +201,9 @@ export default {
     NProgress.start();
     store.dispatch('bootcampReviews', to.params.id).then(res => {
       store.dispatch('SingleBootcamps', to.params.slug).then(res => {
-        store.dispatch('authUser').then(res => {
-          if (res && res.data.success) {
-            NProgress.done();
-          }
-        });
+        if (res && res.data.success) {
+          NProgress.done();
+        }
       });
     });
     next();
