@@ -3,7 +3,7 @@ const pug = require('pug');
 const path = require('path');
 const htmlToText = require('html-to-text');
 
-module.default = class SendEmail {
+module.exports = class SendEmail {
   constructor(user, url) {
     this.to = user.email;
     this.firstName = user.name.split(' ')[0];
@@ -29,7 +29,7 @@ module.default = class SendEmail {
   async send(template, subject) {
     //render html template
     const html = pug.renderFile(
-      path.join(__dirname, `views/emails/${template}.pug`),
+      path.join(__dirname, `../views/emails/${template}.pug`),
       {
         firstName: this.firstName,
         url: this.url,

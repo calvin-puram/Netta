@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const Users = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-const sendEmail = require('../utils/email');
+const SendEmail = require('../utils/email');
 
 //send token via cookie and response body
 const sendToken = async function(user, statusCode, res) {
@@ -44,7 +44,8 @@ exports.register = asyncHandler(async (req, res, next) => {
     passwordConfirm,
     role
   });
-
+  const url = 'http://localhost:8080/bootcamps';
+  await new SendEmail(user, url).sendWelcome();
   sendToken(user, 200, res);
 });
 
@@ -128,11 +129,11 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
   const message = `You recieve the message because you requested that you have forgoten your password \n make a PUT request to ${replyURL} \n if you didn't forget your password, please ignore this email`;
 
   try {
-    await sendEmail({
-      email: user.email,
-      subject: 'Your Password Reset Token',
-      message
-    });
+    // await sendEmail({
+    //   email: user.email,
+    //   subject: 'Your Password Reset Token',
+    //   message
+    // });
 
     res.status(200).json({
       success: true,
