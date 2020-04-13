@@ -11,6 +11,7 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const pug = require('pug');
 const connectDb = require('./config/db.js');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -31,6 +32,9 @@ const reviewsRoutes = require('./routes/reviews');
 const app = express();
 app.use(helmet());
 app.use(cors());
+
+app.set('viwe engine', 'pug');
+app.set('views;', path.join(__dirname, 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
