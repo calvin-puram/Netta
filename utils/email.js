@@ -49,7 +49,16 @@ module.exports = class SendEmail {
     await this.sendTransport().sendMail(message);
   }
 
+  // send user welcome message
   async sendWelcome() {
     await this.send('welcome', 'Welcome to DevCoach');
+  }
+
+  // send reset password message
+  async passwordReset() {
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid only for 10 minutes)'
+    );
   }
 };
