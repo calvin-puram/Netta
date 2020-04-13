@@ -88,7 +88,7 @@
                 </div>
                 <p class="text-danger">
                   * You must be affiliated with the bootcamp in some way in
-                  order to add it to DevCamper.
+                  order to add it to DevCoach.
                 </p>
                 <div class="form-group">
                   <BaseButton :loading="loading" name="Register" />
