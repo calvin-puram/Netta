@@ -125,15 +125,9 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const replyURL = `http://localhost:8080/resetpassword/${resetToken}`;
-  const message = `You recieve the message because you requested that you have forgoten your password \n make a PUT request to ${replyURL} \n if you didn't forget your password, please ignore this email`;
-
   try {
-    // await sendEmail({
-    //   email: user.email,
-    //   subject: 'Your Password Reset Token',
-    //   message
-    // });
+    const replyURL = `http://localhost:8080/resetpassword/${resetToken}`;
+    await new SendEmail(user, replyURL).passwordReset();
 
     res.status(200).json({
       success: true,
