@@ -1,7 +1,15 @@
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
+
 const Bootcamps = require('../models/Bootcamps');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
+
+cloudinary.config({
+  cloud_name: 'job2ko',
+  api_key: '277458436385648',
+  api_secret: 'D6EUeK6Nog6jGI-sLT9sw5IXEvg'
+});
 
 //@desc       Get All Bootcamps
 //@route      Get api/v1/bootcamps
@@ -166,7 +174,10 @@ exports.fileupload = asyncHandler(async (req, res, next) => {
   }
 
   //check if he is not admin or the publisher
-  if (bootcamp.user._id.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (
+    bootcamp.user._id.toString() !== req.user.id &&
+    req.user.role !== 'admin'
+  ) {
     return next(
       new ErrorResponse(
         `the user ${req.user.name} is not authorize to perform this action`,
@@ -196,11 +207,12 @@ exports.fileupload = asyncHandler(async (req, res, next) => {
   file.name = `photo-${bootcamp._id}${path.parse(file.name).ext}`;
 
   //store the file
-  file.mv(`${process.env.FILE_PATH}/${file.name}`, async err => {
-    if (err) {
-      console.error(err);
-      return next(new ErrorResponse(`problem with image upload`, 500));
-    }
+  // file.mv(`${process.env.FILE_PATH}/${file.name}`, async err => {
+  //   if (err) {
+  //     console.error(err);
+  //     return next(new ErrorResponse(`problem with image upload`, 500));
+  //   }
+  console.log(file)
     //save filename to db
     await Bootcamps.findByIdAndUpdate(req.params.id, { photo: file.name });
     res.status(200).json({
