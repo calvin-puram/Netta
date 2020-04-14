@@ -1,14 +1,14 @@
-const path = require('path');
 const cloudinary = require('cloudinary').v2;
 
 const Bootcamps = require('../models/Bootcamps');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
+//cloudinary confiq
 cloudinary.config({
-  cloud_name: 'calvin2ko',
-  api_key: '627944325865635',
-  api_secret: 'f8F2CO1MfYbylcj5Fk9EqZ_uboA'
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET
 });
 
 //@desc       Get All Bootcamps
