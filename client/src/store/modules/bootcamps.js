@@ -8,6 +8,7 @@ const state = {
   singleReview: {},
   singleCourse: {},
   loading: false,
+  photo: '',
   err: null
 };
 const getters = {
@@ -18,6 +19,7 @@ const getters = {
   getSingleReview: () => state.singleReview,
   getOneCourse: () => state.singleCourse,
   getLoading: () => state.loading,
+  getPhoto: () => state.photo,
   getErr: () => state.err
 };
 const actions = {
@@ -167,6 +169,26 @@ const actions = {
       }
     }
   },
+  // upload bootcamp photo
+  async uploadedimage({ commit }, data) {
+    try {
+      commit('loading_res');
+      const res = await axios.patch(
+        `/api/v1/bootcamps/${data.id}/photo`,
+        data.formData
+      );
+      if (res && res.data.success) {
+        commit('bootcamp_photo', res.data.data);
+        commit('loading_req');
+      }
+
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
   //  bootcamps reviews
   async bootcampReviews({ commit }, id) {
     try {
@@ -304,6 +326,10 @@ const mutations = {
   },
   loading_req(state) {
     state.loading = false;
+    state.err = null;
+  },
+  bootcamp_photo(state, data) {
+    state.photo = data;
     state.err = null;
   }
 };

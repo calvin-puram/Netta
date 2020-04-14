@@ -32,7 +32,7 @@
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
-              :src="`img/${bootcamp.photo}`"
+              :src="`${bootcamp.photo}`"
               class="card-img"
               alt="bootcamp image"
             />

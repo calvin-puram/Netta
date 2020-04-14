@@ -103,7 +103,7 @@
         <div class="col-md-4">
           <!-- Image -->
           <img
-            :src="`/img/${singleBootcamp.photo}`"
+            :src="`${singleBootcamp.photo}`"
             class="img-thumbnail"
             alt="bootcamp image"
           />

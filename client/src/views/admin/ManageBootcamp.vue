@@ -12,12 +12,25 @@
               <div class="card mb-3">
                 <div class="row no-gutters">
                   <div class="col-md-4">
+                    <!-- if default photo -->
                     <img
-                      :src="`/img/${bootcamp().photo}`"
+                      v-if="bootcamp().photo === 'no-photo.jpg'"
+                      :src="`img/${bootcamp().photo}`"
+                      class="card-img"
+                      alt="botcamp image"
+                    />
+                    <!-- photo from cloudinary -->
+                    <img
+                      v-else
+                      height="200px"
+                      :src="
+                        `${getPhoto.length > 0 ? getPhoto : bootcamp().photo}`
+                      "
                       class="card-img"
                       alt="botcamp image"
                     />
                   </div>
+
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="card-title">
@@ -78,30 +91,25 @@
                 </div>
               </div>
               <!-- upload bootcamp photo -->
-              <form
-                class="mb-4"
+              <v-form
+                class="mb-4 mt-3"
+                ref="form"
+                v-model="valid"
                 enctype="multipart/form-data"
                 @submit.prevent="uploadFile(bootcamp()._id)"
               >
                 <div class="form-group">
-                  <div class="custom-file">
-                    <input
-                      type="file"
-                      name="photo"
-                      class="custom-file-input"
-                      id="photo"
-                    />
-                    <label class="custom-file-label" for="photo"
-                      >Add Bootcamp Image</label
-                    >
-                  </div>
+                  <v-file-input
+                    value=""
+                    :rules="rules"
+                    required
+                    label="Upload Bootcamp Photo"
+                    show-size
+                    v-model="file"
+                  ></v-file-input>
                 </div>
-                <input
-                  type="submit"
-                  class="btn btn-light btn-block"
-                  value="Upload Image"
-                />
-              </form>
+                <BaseButton name="Upload Image" :loading="getLoading" />
+              </v-form>
               <!-- edit bootcamp details -->
               <BaseNormalBtn
                 v-if="bootcamp().courses.length > 0"
@@ -118,6 +126,7 @@
                 "
                 >Add Courses</BaseNormalBtn
               >
+
               <!-- manage courses -->
               <div v-if="bootcamp().courses.length > 0">
                 <BaseNormalBtn
@@ -194,24 +203,48 @@ import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['getBootcamps', 'getAuthUser']),
-
+  computed: mapGetters([
+    'getBootcamps',
+    'getAuthUser',
+    'getErr',
+    'getLoading',
+    'getPhoto'
+  ]),
+  data() {
+    return {
+      file: null,
+      valid: true,
+      rules: [
+        value =>
+          !value ||
+          value.size < 1000000 ||
+          'photo size should be less than 1 MB!'
+      ]
+    };
+  },
   methods: {
     ...mapActions(['getAllBootcamps', 'uploadedimage']),
     bootcamp() {
       return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
     },
+
     uploadFile(id) {
-      let formData = new FormData();
-      formData.append('file', this.file);
-      this.uploadedimage(formData, id).then(res => {
-        if (res && res.data.success) {
-          router.push('/bootcamps');
-          this.$noty.success('bootcamp image uploaded successfully!');
-        } else {
-          // this.$noty.error(this.geterror);
-        }
-      });
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+
+        let formData = new FormData();
+
+        formData.append('file', this.file);
+        this.uploadedimage({ formData, id }).then(res => {
+          if (res && res.data.success) {
+            // this.$router.push('/bootcamps');
+            this.$noty.success('bootcamp image uploaded successfully!');
+            this.file = null;
+          } else {
+            this.$noty.error(this.getErr);
+          }
+        });
+      }
     }
   },
   created() {
