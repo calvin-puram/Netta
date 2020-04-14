@@ -17,7 +17,9 @@
               <tbody v-for="bootcamp in getBootcamps" :key="bootcamp._id">
                 <tr>
                   <td>{{ bootcamp.name }}</td>
-                  <td>{{ bootcamp.averageRating }}</td>
+                  <td>
+                    {{ bootcamp.averageRating ? bootcamp.averageRating : 0.0 }}
+                  </td>
                   <td>{{ new Date(bootcamp.createdAt).toDateString() }}</td>
                   <td>
                     <router-link
