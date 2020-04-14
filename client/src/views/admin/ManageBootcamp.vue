@@ -77,7 +77,12 @@
                   </div>
                 </div>
               </div>
-              <form class="mb-4">
+              <!-- upload bootcamp photo -->
+              <form
+                class="mb-4"
+                enctype="multipart/form-data"
+                @submit.prevent="uploadFile(bootcamp()._id)"
+              >
                 <div class="form-group">
                   <div class="custom-file">
                     <input
@@ -192,9 +197,21 @@ export default {
   computed: mapGetters(['getBootcamps', 'getAuthUser']),
 
   methods: {
-    ...mapActions(['getAllBootcamps']),
+    ...mapActions(['getAllBootcamps', 'uploadedimage']),
     bootcamp() {
       return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
+    },
+    uploadFile(id) {
+      let formData = new FormData();
+      formData.append('file', this.file);
+      this.uploadedimage(formData, id).then(res => {
+        if (res && res.data.success) {
+          router.push('/bootcamps');
+          this.$noty.success('bootcamp image uploaded successfully!');
+        } else {
+          // this.$noty.error(this.geterror);
+        }
+      });
     }
   },
   created() {
