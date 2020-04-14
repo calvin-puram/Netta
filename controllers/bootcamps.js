@@ -6,9 +6,9 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
 cloudinary.config({
-  cloud_name: 'job2ko',
-  api_key: '277458436385648',
-  api_secret: 'D6EUeK6Nog6jGI-sLT9sw5IXEvg'
+  cloud_name: 'calvin2ko',
+  api_key: '627944325865635',
+  api_secret: 'f8F2CO1MfYbylcj5Fk9EqZ_uboA'
 });
 
 //@desc       Get All Bootcamps
@@ -185,12 +185,14 @@ exports.fileupload = asyncHandler(async (req, res, next) => {
       )
     );
   }
+
   //check if file exists
   if (!req.files) {
     return next(new ErrorResponse(`please upload a file`, 400));
   }
 
   const { file } = req.files;
+
   //check if the file is an image
   if (!file.mimetype.startsWith('image')) {
     return next(new ErrorResponse(`please upload an image file`, 400));
@@ -203,21 +205,15 @@ exports.fileupload = asyncHandler(async (req, res, next) => {
     );
   }
 
-  //create custom file name
-  file.name = `photo-${bootcamp._id}${path.parse(file.name).ext}`;
+  cloudinary.uploader.upload(file.tempFilePath, async (error, result) => {
+    if (error) {
+      return next(new ErrorResponse(`problem with image upload`, 500));
+    }
 
-  //store the file
-  // file.mv(`${process.env.FILE_PATH}/${file.name}`, async err => {
-  //   if (err) {
-  //     console.error(err);
-  //     return next(new ErrorResponse(`problem with image upload`, 500));
-  //   }
-  console.log(file)
-    //save filename to db
-    await Bootcamps.findByIdAndUpdate(req.params.id, { photo: file.name });
+    await Bootcamps.findByIdAndUpdate(req.params.id, { photo: result.url });
     res.status(200).json({
       success: true,
-      data: file.name
+      data: result.url
     });
   });
 });

@@ -49,7 +49,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //file upload
-app.use(fileupload());
+app.use(
+  fileupload({
+    useTempFiles: true
+  })
+);
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
