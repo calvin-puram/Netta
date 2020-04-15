@@ -9,7 +9,7 @@
                 <BaseIcon prop="fas fa-user-plus" />
                 Register
               </h4>
-              <p>
+              <p class="text-center mt-5">
                 Register to list your bootcamp or rate, review and favorite
                 bootcamps
               </p>
@@ -21,7 +21,6 @@
               >
                 <v-text-field
                   v-model="name"
-                  :counter="50"
                   :rules="nameRules"
                   label="Name"
                   required
@@ -126,8 +125,7 @@ export default {
       show1: false,
       show3: false,
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 6 || 'Min 6 characters'
+        required: value => !!value || 'Required.'
       },
       emailRules: [
         v => !!v || 'E-mail is required',

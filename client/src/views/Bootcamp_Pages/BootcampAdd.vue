@@ -1,7 +1,7 @@
 <template>
   <section class="container mt-5">
-    <h1 class="mb-2 text-secondary">Add Bootcamp</h1>
-    <p>
+    <h4 class="text-center mb-4 text-secondary">Add Bootcamp</h4>
+    <p class="text-center">
       Important: You must be affiliated with a bootcamp to add to DevCoach
     </p>
 
@@ -11,9 +11,7 @@
           <div class="card bg-white py-2 px-4">
             <div class="card-body">
               <h3 class="text-secondary">Location & Contact</h3>
-              <p class="text-muted">
-                If multiple locations, use the main or largest
-              </p>
+
               <!-- NAME -->
               <v-text-field
                 v-model="name"
@@ -63,6 +61,7 @@
               <!-- DESCRIPTION -->
               <v-textarea
                 v-model="description"
+                :counter="500"
                 clearable
                 clear-icon="cancel"
                 required
@@ -72,6 +71,7 @@
               ></v-textarea>
               <!-- CAREERS -->
               <v-select
+                class="mt-5"
                 v-model="items"
                 :items="items"
                 attach
@@ -172,7 +172,10 @@ export default {
       others: ['Housing', 'Job Assistance', 'Job Guarantee', 'Accept GI Bill'],
 
       addressRules: [v => !!v || 'Address is required'],
-      descriptionRules: [v => !!v || 'Bootcamp Description is required'],
+      descriptionRules: {
+        required: value => !!value || 'Bootcamp Description is Required.',
+        max: v => v.length >= 500 || 'Max 500 characters'
+      },
 
       webRules: [
         v => !!v || 'Website URL is required',
