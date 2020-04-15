@@ -251,5 +251,8 @@ export default {
 }
 /* mobile phone screen sm <= 425px */
 @media screen and (max-width: 425px) {
+  .sidebar {
+    margin-top: 1rem;
+  }
 }
 </style>

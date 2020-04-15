@@ -100,7 +100,7 @@
           </div>
         </div>
         <!-- Sidebar -->
-        <div class="col-md-4">
+        <div class="col-md-4 ">
           <!-- Image -->
           <img
             :src="`${singleBootcamp.photo}`"
