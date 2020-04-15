@@ -18,6 +18,7 @@
             <!-- delete bootcamp -->
 
             <button
+              v-if="getToken"
               :disabled="loading"
               class="btn dark-bg mr-2"
               @click="handleDeleteBootcamp"
@@ -90,6 +91,7 @@
                 "
               >
                 <router-link
+                  v-if="getToken"
                   :to="
                     `/bootcamp/${bootcamp._id}/${bootcamp.slug}/bootcamp_edit`
                   "

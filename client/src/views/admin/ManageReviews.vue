@@ -1,11 +1,11 @@
 <template>
   <section class="container mt-5" v-if="getBootcamps.length > 0">
     <div class="row">
-      <div class="col-md-8 m-auto">
+      <div class="col-md-8 col-sm-12 ">
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
             <h1 class="mb-4 text-secondary">Manage Reviews</h1>
-            <table class="table table-striped responsive">
+            <table class="table table-responsive table-dark ">
               <thead>
                 <tr>
                   <th scope="col">Bootcamp</th>
@@ -22,23 +22,27 @@
                   </td>
                   <td>{{ new Date(bootcamp.createdAt).toDateString() }}</td>
                   <td>
-                    <router-link
-                      :to="
-                        `/bootcamp/${bootcamp._id}/${bootcamp.slug}/createReview`
-                      "
-                    >
-                      <v-btn color="teal mr-3" dark
-                        ><BaseIcon prop="fas fa-pencil-alt"
-                      /></v-btn>
-                    </router-link>
+                    <div>
+                      <router-link
+                        :to="
+                          `/bootcamp/${bootcamp._id}/${bootcamp.slug}/createReview`
+                        "
+                      >
+                        <v-btn color="teal mr-3 table_actions_1" dark
+                          ><BaseIcon prop="fas fa-pencil-alt"
+                        /></v-btn>
+                      </router-link>
 
-                    <router-link
-                      :to="`/bootcamp/${bootcamp._id}/${bootcamp.slug}/reviews`"
-                    >
-                      <v-btn color="teal " dark
-                        ><BaseIcon prop="fas fa-trash"
-                      /></v-btn>
-                    </router-link>
+                      <router-link
+                        :to="
+                          `/bootcamp/${bootcamp._id}/${bootcamp.slug}/reviews`
+                        "
+                      >
+                        <v-btn color="teal " dark
+                          ><BaseIcon prop="fas fa-trash"
+                        /></v-btn>
+                      </router-link>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -68,3 +72,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .table_actions_1 {
+    margin-bottom: 1rem;
+  }
+
+  h1.text-secondary {
+    font-size: 20px;
+  }
+}
+</style>

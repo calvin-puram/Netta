@@ -4,7 +4,7 @@
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4" v-if="getSingleReview">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="col-md-6 col-sm-12 mb-4">
               <v-btn
                 class="my-3"
                 color="teal"

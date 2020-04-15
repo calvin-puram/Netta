@@ -103,4 +103,11 @@ export default {
 .form {
   margin-top: 6rem !important;
 }
+
+@media screen and (max-width: 425px) {
+  .card-body p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
 </style>

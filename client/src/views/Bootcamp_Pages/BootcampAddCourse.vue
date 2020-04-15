@@ -37,7 +37,7 @@
               >
             </div>
 
-            <div class="d-flex justify-content-between align-items-center mt-2">
+            <div class="col-md-6 col-sm-12 mt-2">
               <h4 class="mb-2 text-secondary">{{ singleBootcamp.name }}</h4>
               <h4 class=" mb-4 text-secondary">Add Course</h4>
             </div>
