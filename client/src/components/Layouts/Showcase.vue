@@ -46,4 +46,39 @@ img {
 a {
   color: #fff !important;
 }
+
+/* tablet screen xs <= 768px */
+@media screen and (max-width: 768px) {
+  .showcase {
+    min-height: 100vh;
+  }
+  img {
+    height: 50%;
+  }
+  .showcase_context .heading {
+    font-size: 38px;
+    font-style: oblique;
+    margin: 2rem 0;
+  }
+  .showcase_context .lead {
+    font-size: 23px;
+    text-align: center;
+  }
+}
+
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  img {
+    height: 200px;
+  }
+  .showcase_context .heading {
+    font-size: 27px;
+    font-style: oblique;
+    margin: 1rem 0;
+  }
+  .showcase_context .lead {
+    font-size: 17px;
+    text-align: center;
+  }
+}
 </style>

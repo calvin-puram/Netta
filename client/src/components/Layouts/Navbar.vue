@@ -246,10 +246,4 @@ export default {
 .side_nav_color {
   color: #fff;
 }
-
-/* @media screen and (max-width: 320px) {
-  .v-btn--flat .v-btn--text .theme--dark .v-size--default {
-    display: none;
-  }
-} */
 </style>
