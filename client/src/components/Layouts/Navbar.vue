@@ -1,47 +1,149 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <v-navigation-drawer v-model="drawer" app clipped color="teal">
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
+        <!-- logo -->
+        <v-list-item class="d-md-none  d-xs-flex justify-center align-center">
+          <v-toolbar-title>
+            <router-link to="/">
+              <BaseIcon prop="fas fa-laptop-code fa-logo mr-1" />
+              <span class="logo">DevCoach</span></router-link
+            >
+          </v-toolbar-title>
         </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
+        <v-divider class="d-md-none  d-xs-flex"></v-divider>
+        <!-- login -->
+        <v-list-item link v-if="!getToken" to="/login" class="mb-3">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-sign-in-alt mr-2 " />Login</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <!-- register -->
+        <v-list-item link v-if="!getToken" to="/register" class="mb-3">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-user-plus mr-2 " />Register</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+
+        <!-- bootcamps -->
+        <v-divider v-if="!getToken"></v-divider>
+        <v-list-item link to="/bootcamps" v-if="!getToken">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-columns mr-2" />Browse Bootcamps</span
+            >
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <!-- if logged in -->
+      <v-list v-if="getToken">
+        <!-- manage bootcamp -->
+        <v-list-item
+          link
+          to="/manage_bootcamp"
+          v-if="
+            getAuthUser.role === 'admin' || getAuthUser.role === 'publisher'
+          "
+        >
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="far fa-clipboard mr-2" />Manage Bootcamp</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <!-- manage reviews -->
+        <v-list-item
+          link
+          to="/manage_reviews"
+          v-if="getAuthUser.role === 'admin'"
+        >
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-users mr-2" /> Manage Reviews</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <!-- profile -->
+        <v-list-item link to="/profile">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-user mr-2" /> Manage Account</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+
+        <!-- logout -->
+        <v-list-item link @click="logoutUser">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-sign-out-alt mr-2" /> Logout</span
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <!-- bootcamps -->
+        <v-divider></v-divider>
+        <v-list-item link to="/bootcamps">
+          <v-list-item-title>
+            <span class=" side_nav_color subtitle-1 font-italic"
+              ><BaseIcon prop="fas fa-columns mr-2" />Browse Bootcamps</span
+            >
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left flat color="teal">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
+      <v-toolbar-title class="d-none d-sm-flex">
         <router-link to="/">
-          <BaseIcon prop="fas fa-laptop-code mr-1" />
+          <BaseIcon prop="fas fa-laptop-code fa-logo mr-1" />
           <span class="logo">DevCoach</span></router-link
         >
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text large color="white" link to="/login" v-if="!getToken">
+
+      <v-btn
+        class="d-none d-sm-flex"
+        text
+        large
+        color="white"
+        link
+        to="/login"
+        v-if="!getToken"
+      >
         <BaseIcon prop="fas fa-sign-in-alt mr-1" />
         Login</v-btn
       >
-      <v-divider class="mx-4" inset vertical v-if="!getToken"></v-divider>
-      <v-btn text large color="white" link to="/register" v-if="!getToken">
+      <v-divider
+        class="mx-4 d-none d-sm-flex"
+        inset
+        vertical
+        v-if="!getToken"
+      ></v-divider>
+      <v-btn
+        class="d-none d-sm-flex"
+        text
+        large
+        color="white"
+        link
+        to="/register"
+        v-if="!getToken"
+      >
         <BaseIcon prop="fas fa-user-plus mr-1" />
         Register</v-btn
       >
       <!-- login -->
 
-      <v-divider class="mx-4" inset vertical v-if="getToken"></v-divider>
+      <v-divider
+        class="mx-4 d-none d-sm-flex"
+        inset
+        vertical
+        v-if="getToken"
+      ></v-divider>
       <template v-if="getToken">
         <div class="text-center">
           <v-menu open-on-hover bottom offset-y>
@@ -96,8 +198,14 @@
 
       <!-- login end -->
 
-      <v-divider class="mx-4" inset vertical></v-divider>
-      <v-btn text large color="white" link :to="{ name: 'bootcamps' }"
+      <v-divider class="mx-4 d-none d-sm-flex" inset vertical></v-divider>
+      <v-btn
+        class="d-none d-sm-flex"
+        text
+        large
+        color="white"
+        link
+        :to="{ name: 'bootcamps' }"
         >Browse Bootcamps</v-btn
       >
     </v-app-bar>
@@ -127,15 +235,21 @@ export default {
       }
     }
   }
-  // create() {
-  //   this.authUser();
-  // }
 };
 </script>
 
 <style scoped>
 .logo,
-.fas {
+.fa-logo,
+.fas,
+.far,
+.side_nav_color {
   color: #fff;
 }
+
+/* @media screen and (max-width: 320px) {
+  .v-btn--flat .v-btn--text .theme--dark .v-size--default {
+    display: none;
+  }
+} */
 </style>
