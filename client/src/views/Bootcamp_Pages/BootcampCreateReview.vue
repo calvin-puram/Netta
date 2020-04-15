@@ -4,7 +4,7 @@
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="col-md-6 col-sm-12">
               <v-btn
                 class="my-3"
                 color="teal"
@@ -119,3 +119,17 @@ export default {
   }
 };
 </script>
+
+<style>
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .bootcamps {
+    margin-top: 3rem;
+  }
+  h3.text-secondary,
+  h4.text-secondary {
+    font-size: 20px;
+    margin-top: 1rem;
+  }
+}
+</style>
