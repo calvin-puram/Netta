@@ -41,9 +41,7 @@
             <div class="card-body">
               <h5 class="card-title">
                 <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
+                  <div class="col-md-6 col-sm-12">
                     <span>{{ bootcamp.name }}</span>
 
                     <v-rating
@@ -57,9 +55,7 @@
                 </router-link>
 
                 <router-link v-if="!getToken" to="/login"
-                  ><div
-                    class="d-flex justify-content-between align-items-center"
-                  >
+                  ><div class="col-md-6 col-sm-12">
                     <span>{{ bootcamp.name }}</span>
                     <!-- display ratings star -->
                     <v-rating
@@ -74,13 +70,13 @@
                 </router-link>
               </h5>
               <!-- display location details -->
-              <span class="badge badge-dark mb-2"
+              <span class="badge badge_location badge-dark mb-2"
                 >{{ bootcamp.location.state }},
                 {{ bootcamp.location.country }}</span
               >
               <!-- end of location details -->
               <!-- display careers -->
-              <p class="card-text">
+              <p class="card-text bootcamp_careers">
                 {{ bootcamp.careers.join(', ') }}
               </p>
               <!-- end of careers -->
@@ -161,5 +157,21 @@ export default {
 }
 .fas {
   color: #fff;
+}
+
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .card-img {
+    margin-top: 1rem;
+  }
+
+  a div {
+    text-align: center;
+  }
+
+  .badge_location,
+  .bootcamp_careers {
+    margin: 1rem 0;
+  }
 }
 </style>
