@@ -3,7 +3,7 @@
     <!-- if there is course -->
     <section class="container mt-5" v-if="!loading">
       <div class="row">
-        <div class="col-md-8 m-auto">
+        <div class="col-md-8  col-xs-12 mx-auto">
           <div class="card bg-white py-2 px-4">
             <div class="card-body">
               <!-- manage bootcamp button -->
@@ -17,7 +17,7 @@
                   <div class="col-md-4">
                     <img
                       :src="`${bootcamp().photo}`"
-                      class="card-img"
+                      class="card-img mt-2"
                       alt="bootcamp image"
                     />
                   </div>
@@ -26,9 +26,7 @@
                       <h5 class="card-title">
                         <!-- bootcamp name with rating -->
                         <router-link :to="`/bootcamp/${bootcamp().slug}`">
-                          <div
-                            class="d-flex justify-content-between align-items-center"
-                          >
+                          <div class="col-md-6 col-sm-12 text-center my-3">
                             <span>{{ bootcamp().name }}</span>
 
                             <v-rating
@@ -41,11 +39,11 @@
                           </div>
                         </router-link>
                       </h5>
-                      <span class="badge badge-dark mb-2"
+                      <span class="badge badge-dark mb-2 my-3"
                         >{{ bootcamp().location.state }},
                         {{ bootcamp().location.country }}</span
                       >
-                      <p class="card-text">
+                      <p class="card-text mt-2">
                         {{ bootcamp().careers.join(', ') }}
                       </p>
                     </div>
@@ -62,7 +60,7 @@
                 "
                 >Add Courses</BaseNormalBtn
               >
-              <table class="table table-striped">
+              <table class="table table-dark table-responsive table-sm">
                 <thead>
                   <tr>
                     <th scope="col">Title</th>
@@ -77,7 +75,7 @@
                     <td>
                       <!-- edit course -->
                       <router-link :to="`/bootcamp/${bootcamp().slug}/`">
-                        <v-btn color="teal mr-3" dark
+                        <v-btn color="teal mr-3 table_actions_1" dark
                           ><BaseIcon prop="fas fa-pencil-alt"
                         /></v-btn>
                       </router-link>
@@ -127,3 +125,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .table_actions_1 {
+    margin-bottom: 1rem;
+  }
+}
+</style>
