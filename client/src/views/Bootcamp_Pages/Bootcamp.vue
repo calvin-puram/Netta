@@ -261,4 +261,13 @@ export default {
 .fas {
   color: #fff;
 }
+
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  h2.text-secondary {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
 </style>
