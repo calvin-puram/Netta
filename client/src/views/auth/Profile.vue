@@ -4,7 +4,7 @@
       <div class="col-md-8 m-auto">
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
-            <h1 class="mb-2 text-secondary">Manage Account</h1>
+            <h1 class="mb-2 text-secondary profile_heading">Manage Account</h1>
             <v-form ref="form" v-model="valid" @submit.prevent="updateDetails">
               <!-- NAME -->
               <v-text-field
@@ -92,3 +92,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  h1 {
+    font-size: 20px;
+    text-align: center;
+    padding: 1rem 0;
+  }
+}
+</style>
