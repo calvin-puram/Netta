@@ -249,4 +249,7 @@ export default {
 .fas {
   color: #fff;
 }
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+}
 </style>

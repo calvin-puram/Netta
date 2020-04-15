@@ -5,7 +5,7 @@
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
             <h1 class="mb-4 text-secondary">Manage Reviews</h1>
-            <table class="table table-striped">
+            <table class="table table-striped responsive">
               <thead>
                 <tr>
                   <th scope="col">Bootcamp</th>

@@ -40,9 +40,7 @@
                             bootcamp().courses && bootcamp().courses.length > 0
                           "
                         >
-                          <div
-                            class="d-flex justify-content-between align-items-center"
-                          >
+                          <div class="col-md-6 col-sm-12 text-center">
                             <span>{{ bootcamp().name }}</span>
 
                             <v-rating
@@ -64,9 +62,7 @@
                           "
                           v-else
                         >
-                          <div
-                            class="d-flex justify-content-between align-items-center"
-                          >
+                          <div class="col-md-6 col-sm-12 text-center">
                             <span>{{ bootcamp().name }}</span>
 
                             <v-rating
@@ -259,3 +255,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  h1.text-secondary {
+    font-size: 20px;
+  }
+}
+</style>
