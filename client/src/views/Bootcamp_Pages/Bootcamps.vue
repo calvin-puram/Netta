@@ -13,7 +13,7 @@
           <OtherFilter />
         </div>
         <!-- Main col -->
-        <div class="col-md-8">
+        <div class="col-md-8 bootcamps">
           <!-- Bootcamps -->
           <div v-for="bootcamps in getBootcamps" :key="bootcamps._id">
             <BootcampCard :bootcamp="bootcamps" />
@@ -78,5 +78,12 @@ export default {
 <style scoped>
 .browse {
   margin-top: 7rem !important;
+}
+
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .bootcamps {
+    margin-top: 3rem;
+  }
 }
 </style>
