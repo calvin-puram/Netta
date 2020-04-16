@@ -1,6 +1,9 @@
 <template>
   <div>
-    <section class="bootcamp mt-5" v-if="getBootcampReviews.length > 0">
+    <section
+      class="bootcamp mt-5"
+      v-if="!loading && getBootcampReviews.length > 0"
+    >
       <div class="container">
         <div class="row">
           <!-- Main col -->
@@ -68,13 +71,13 @@
                     </p>
                     <div v-if="bootcamp.user._id === getAuthUser._id">
                       <button
-                        :disabled="loading"
+                        :disabled="getLoading"
                         class="btn dark-bg"
                         @click="deleteReview(bootcamp._id)"
                       >
                         <BaseIcon
                           prop="fas fa-spin fa-spinner "
-                          v-if="loading"
+                          v-if="getLoading"
                         />
                         <BaseIcon prop="fas fa-trash " v-else />
                       </button>
@@ -91,6 +94,13 @@
           >
             <!-- Rating -->
             <img
+              v-if="singleBootcamp.photo === 'no-photo.jpg'"
+              :src="`/img/${singleBootcamp.photo}`"
+              class="img-thumbnail"
+              alt="bootcamp image"
+            />
+            <img
+              v-else
               :src="`${singleBootcamp.photo}`"
               class="img-thumbnail"
               alt="bootcamp image"
@@ -145,7 +155,7 @@
     <!-- if no bootcamp reviews -->
     <section
       class="bootcamp mt-5"
-      v-if="!getLoading && getBootcampReviews.length === 0"
+      v-if="!loading && getBootcampReviews.length === 0"
     >
       <!-- back button -->
 
@@ -197,24 +207,11 @@ export default {
     'getLoading'
   ]),
   mixins: [LoadingMixin],
-  beforeRouteEnter(to, from, next) {
-    NProgress.start();
-    store.dispatch('bootcampReviews', to.params.id).then(res => {
-      store.dispatch('SingleBootcamps', to.params.slug).then(res => {
-        if (res && res.data.success) {
-          NProgress.done();
-        }
-      });
-    });
-    next();
-  },
 
   methods: {
-    ...mapActions(['deletedReview']),
+    ...mapActions(['deletedReview', 'bootcampReviews', 'SingleBootcamps']),
     deleteReview(review) {
-      this.toggleLoading();
       this.deletedReview(review).then(res => {
-        this.toggleLoading();
         if (res && res.data.success) {
           this.$noty.success('Review deleted Successfully!');
           this.$router.push(`/bootcamp/${this.$route.params.slug}`);
@@ -232,6 +229,18 @@ export default {
       );
       return userHasReview.length > 0;
     }
+  },
+  created() {
+    NProgress.start();
+    this.toggleLoading();
+    this.bootcampReviews(this.$route.params.id).then(res => {
+      this.SingleBootcamps(this.$route.params.slug).then(res => {
+        if (res && res.data.success) {
+          this.toggleLoading();
+          NProgress.done();
+        }
+      });
+    });
   }
 };
 </script>

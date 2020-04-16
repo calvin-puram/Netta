@@ -45,9 +45,7 @@ exports.getOneBootcamps = asyncHandler(async (req, res, next) => {
 //@route      POST api/v1/bootcamps/
 //@access     private
 exports.createBootcamps = asyncHandler(async (req, res, next) => {
-  //get the publisher via the req
-  req.body.user = req.user.id;
-  const publishedBootcamps = await Bootcamps.findOne({ user: req.user.id });
+  const publishedBootcamps = await Bootcamps.findOne({ user: req.body.user });
 
   // published one bootcamp if not admin
   if (publishedBootcamps && req.user.role !== 'admin') {
@@ -90,6 +88,9 @@ exports.updateBootcamps = asyncHandler(async (req, res, next) => {
       )
     );
   }
+
+  bootcamp.address = req.body.address;
+  await bootcamp.save();
 
   bootcamp = await Bootcamps.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -201,7 +202,7 @@ exports.fileupload = asyncHandler(async (req, res, next) => {
   //check if file size is more than 1mb
   if (file.size > process.env.FILE_UPLOADS_SIZE) {
     return next(
-      new ErrorResponse(`image file size must not be more than 1mb`, 400)
+      new ErrorResponse(`image file size must not be more than 2mb`, 400)
     );
   }
 

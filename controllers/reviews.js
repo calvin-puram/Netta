@@ -54,9 +54,6 @@ exports.getOneReview = asyncHandler(async (req, res, next) => {
 //@route Get api/v1/bootcamp/:bootcampId/reviews
 //@access private
 exports.CreateReview = asyncHandler(async (req, res, next) => {
-  // req.body.bootcamp = req.params.bootcampId;
-
-  req.body.user = req.user.id;
   const bootcamp = await Bootcamp.findById(req.body.bootcamp);
 
   if (!bootcamp) {

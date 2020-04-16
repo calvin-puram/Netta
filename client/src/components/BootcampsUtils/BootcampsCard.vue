@@ -33,8 +33,15 @@
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
+              v-if="bootcamp.photo === 'no-photo.jpg'"
+              :src="`/img/${bootcamp.photo}`"
+              class="card-img mt-3"
+              alt="bootcamp image"
+            />
+            <img
+              v-else
               :src="`${bootcamp.photo}`"
-              class="card-img"
+              class="card-img mt-3"
               alt="bootcamp image"
             />
           </div>
@@ -125,7 +132,7 @@ import LoadingMixin from '@mixins/LoadingMixins';
 export default {
   mixins: [LoadingMixin],
   props: ['bootcamp'],
-  computed: mapGetters(['getToken', 'getErr', 'getAuthUser']),
+  computed: mapGetters(['getToken', 'getErr', 'getAuthUser', 'getPhoto']),
   beforeRouteEnter(to, from, next) {
     NProgress.start();
     store.dispatch('authUser').then(res => {

@@ -61,13 +61,13 @@
               <!-- DESCRIPTION -->
               <v-textarea
                 v-model="description"
-                :counter="500"
+                :counter="200"
                 clearable
                 clear-icon="cancel"
                 required
                 :rules="descriptionRules"
                 label="Description"
-                hint="No more than 500 characters"
+                hint="No more than 200 characters"
               ></v-textarea>
               <!-- CAREERS -->
               <v-select
@@ -146,7 +146,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import LoadingMixin from '@mixins/LoadingMixins';
 export default {
-  computed: mapGetters(['getErr']),
+  computed: mapGetters(['getErr', 'getAuthUser']),
   mixins: [LoadingMixin],
   data() {
     return {
@@ -172,10 +172,10 @@ export default {
       others: ['Housing', 'Job Assistance', 'Job Guarantee', 'Accept GI Bill'],
 
       addressRules: [v => !!v || 'Address is required'],
-      descriptionRules: {
-        required: value => !!value || 'Bootcamp Description is Required.',
-        max: v => v.length >= 500 || 'Max 500 characters'
-      },
+      descriptionRules: [
+        value => !!value || 'Bootcamp Description is Required.',
+        v => v.length <= 200 || 'Max 200 characters'
+      ],
 
       webRules: [
         v => !!v || 'Website URL is required',
@@ -215,7 +215,8 @@ export default {
           housing: this.housing,
           jobAssistance: this.jobAssistance,
           jobGuarantee: this.jobGuarantee,
-          acceptGi: this.acceptGI
+          acceptGi: this.acceptGI,
+          user: this.getAuthUser._id
         };
 
         this.createBootcamps(data).then(res => {

@@ -85,11 +85,12 @@
               <v-textarea
                 v-model="description"
                 clearable
+                :counter="500"
                 clear-icon="cancel"
                 required
                 :rules="descriptionRules"
                 label="Description"
-                hint="No more than 500 characters"
+                hint="No more than 200 characters"
               ></v-textarea>
 
               <v-checkbox
@@ -147,7 +148,11 @@ export default {
         v => !!v || 'course tuition is required',
         v => /^[0-9]*$/.test(v) || 'Only Numbers are allowed'
       ],
-      descriptionRules: [v => !!v || 'Bootcamp Description is required']
+
+      descriptionRules: [
+        value => !!value || 'Bootcamp Description is Required.',
+        v => v.length <= 500 || 'Max 500 characters'
+      ]
     };
   },
   methods: {

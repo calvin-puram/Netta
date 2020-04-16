@@ -17,7 +17,12 @@
                 dense
                 v-if="bootcamp.courses.length > 0"
               >
-                <v-img height="250" :src="`${bootcamp.photo}`"></v-img>
+                <v-img
+                  v-if="bootcamp.photo === 'no-photo.jpg'"
+                  height="250"
+                  :src="`/img/${bootcamp.photo}`"
+                ></v-img>
+                <v-img v-else height="250" :src="`${bootcamp.photo}`"></v-img>
 
                 <v-card-title>
                   <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`"

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <section
-      class="container mt-5"
-      v-if="!loading && bootcamp() && Object.keys(bootcamp()).length > 0"
-    >
+    <section class="container mt-5" v-if="!loading && bootcamp()">
       <div class="row">
         <div class="col-md-8 m-auto">
           <div class="card bg-white py-2 px-4">
@@ -213,15 +210,19 @@ export default {
       rules: [
         value =>
           !value ||
-          value.size < 1000000 ||
-          'photo size should be less than 1 MB!'
+          value.size < 2000000 ||
+          'photo size should be less than 2 MB!'
       ]
     };
   },
   methods: {
     ...mapActions(['getAllBootcamps', 'uploadedimage']),
     bootcamp() {
-      return this.getBootcamps.find(doc => doc.user === this.getAuthUser._id);
+      const data = this.getBootcamps.find(
+        doc => doc.user === this.getAuthUser._id
+      );
+      console.log(this.getBootcamps);
+      return data;
     },
 
     uploadFile(id) {
@@ -233,7 +234,7 @@ export default {
         formData.append('file', this.file);
         this.uploadedimage({ formData, id }).then(res => {
           if (res && res.data.success) {
-            // this.$router.push('/bootcamps');
+            this.$router.push('/bootcamps');
             this.$noty.success('bootcamp image uploaded successfully!');
             this.file = null;
           } else {

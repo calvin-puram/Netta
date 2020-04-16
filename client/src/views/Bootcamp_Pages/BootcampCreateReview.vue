@@ -76,7 +76,7 @@ import LoadingMixin from '@mixins/LoadingMixins';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['singleBootcamp', 'getErr']),
+  computed: mapGetters(['singleBootcamp', 'getErr', 'getAuthUser']),
   beforeRouteEnter(to, from, next) {
     NProgress.start();
     store.dispatch('SingleBootcamps', to.params.slug).then(res => {
@@ -102,7 +102,8 @@ export default {
         rating: this.rating * 1,
         title: this.text,
         text: this.review,
-        bootcamp: this.$route.params.id
+        bootcamp: this.$route.params.id,
+        user: this.getAuthUser._id
       };
       this.createReviews(data).then(res => {
         this.toggleLoading();

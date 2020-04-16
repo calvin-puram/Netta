@@ -103,6 +103,13 @@
         <div class="col-md-4 ">
           <!-- Image -->
           <img
+            v-if="singleBootcamp.photo === 'no-photo.jpg'"
+            :src="`/img/${singleBootcamp.photo}`"
+            class="img-thumbnail"
+            alt="bootcamp image"
+          />
+          <img
+            v-else
             :src="`${singleBootcamp.photo}`"
             class="img-thumbnail"
             alt="bootcamp image"
@@ -220,7 +227,8 @@ export default {
     'singleBootcamp',
     'getErr',
     'getAuthUser',
-    'getLoading'
+    'getLoading',
+    'getPhoto'
   ]),
 
   methods: {

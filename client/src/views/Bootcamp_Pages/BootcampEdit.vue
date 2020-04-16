@@ -1,9 +1,6 @@
 <template>
   <section class="container mt-5" v-if="!loading">
-    <h1 class="mb-2 text-secondary">Add Bootcamp</h1>
-    <p>
-      Important: You must be affiliated with a bootcamp to add to DevCoach
-    </p>
+    <h1 class="mb-2 text-secondary">Edit Bootcamp</h1>
 
     <v-form ref="form" v-model="valid" @submit.prevent="handleBootcampUpdate">
       <div class="row">
@@ -64,11 +61,12 @@
               <v-textarea
                 v-model="description"
                 clearable
+                :counter="200"
                 clear-icon="cancel"
                 required
                 :rules="descriptionRules"
                 label="Description"
-                hint="No more than 500 characters"
+                hint="No more than 200 characters"
               ></v-textarea>
               <!-- CAREERS -->
               <v-select
@@ -180,7 +178,11 @@ export default {
       others: ['Housing', 'Job Assistance', 'Job Guarantee', 'Accept GI Bill'],
 
       addressRules: [v => !!v || 'Address is required'],
-      descriptionRules: [v => !!v || 'Bootcamp Description is required'],
+
+      descriptionRules: [
+        value => !!value || 'Bootcamp Description is Required.',
+        v => v.length <= 200 || 'Max 200 characters'
+      ],
 
       webRules: [
         v => !!v || 'Website URL is required',

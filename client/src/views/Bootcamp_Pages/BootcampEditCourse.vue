@@ -55,6 +55,7 @@
                 v-model="description"
                 clearable
                 clear-icon="cancel"
+                :counter="500"
                 required
                 :rules="descriptionRules"
                 label="Description"
@@ -107,7 +108,11 @@ export default {
         v => !!v || 'course tuition is required',
         v => /^[0-9]*$/.test(v) || 'Only Numbers are allowed'
       ],
-      descriptionRules: [v => !!v || 'Bootcamp Description is required']
+
+      descriptionRules: [
+        value => !!value || 'Bootcamp Description is Required.',
+        v => v.length <= 500 || 'Max 500 characters'
+      ]
     };
   },
   methods: {

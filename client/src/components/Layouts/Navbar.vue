@@ -270,7 +270,7 @@ export default {
 }
 
 .app_footer {
-  margin-top: 16rem;
+  margin-top: 10rem;
   color: #fff;
 }
 
