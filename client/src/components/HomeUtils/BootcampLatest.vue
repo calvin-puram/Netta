@@ -60,7 +60,7 @@
                 <div class="container">
                   <div class="row">
                     <div
-                      class="col-md-6 col-lg-3   mx-auto text-center"
+                      class="   mx-auto text-center"
                       v-for="career in bootcamp.careers"
                       :key="career"
                     >
@@ -126,7 +126,7 @@ export default {
   }
 
   .card {
-    height: 49rem !important;
+    height: 40rem !important;
   }
 }
 </style>
