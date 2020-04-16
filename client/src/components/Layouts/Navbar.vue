@@ -94,6 +94,21 @@
           </v-list-item-title>
         </v-list-item>
       </v-list>
+
+      <div class="app_footer">
+        <v-divider></v-divider>
+        <v-card-title class="teal" dark>
+          <h6 class="text-center">
+            Get connected with us
+          </h6>
+
+          <v-spacer></v-spacer>
+
+          <v-btn v-for="icon in icons" :key="icon" class="mx-4" dark icon>
+            <v-icon size="24px">{{ icon }}</v-icon>
+          </v-btn>
+        </v-card-title>
+      </div>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left flat color="teal">
@@ -222,7 +237,14 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: false
+    drawer: false,
+    icons: [
+      'fab fa-facebook',
+      'fab fa-twitter',
+      'fab fa-google-plus',
+      'fab fa-linkedin',
+      'fab fa-instagram'
+    ]
   }),
 
   methods: {
@@ -245,5 +267,17 @@ export default {
 .far,
 .side_nav_color {
   color: #fff;
+}
+
+.app_footer {
+  margin-top: 16rem;
+  color: #fff;
+}
+
+/* mobile phone screen sm <= 425px */
+@media screen and (max-width: 425px) {
+  .app_footer {
+    margin-top: 10rem;
+  }
 }
 </style>
