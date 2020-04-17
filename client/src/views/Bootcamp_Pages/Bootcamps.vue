@@ -77,7 +77,7 @@ export default {
 
 <style scoped>
 .browse {
-  margin-top: 7rem !important;
+  margin-top: 5rem !important;
 }
 
 /* mobile phone screen sm <= 425px */

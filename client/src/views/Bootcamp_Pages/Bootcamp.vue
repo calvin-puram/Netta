@@ -259,7 +259,7 @@ export default {
 
 <style scoped>
 .bootcamp {
-  margin-top: 7rem !important;
+  margin-top: 5rem !important;
 }
 
 .dark-bg,
