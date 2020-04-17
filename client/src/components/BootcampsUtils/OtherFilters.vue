@@ -21,12 +21,12 @@
       <select class="custom-select mb-2" v-model="budget" @change="checkSelect">
         <option value="">Please Select One</option>
         <option value="20000">$20,000</option>
-        <option value="15000">$15,000</option>
-        <option value="10000">$10,000</option>
         <option value="8000">$8,000</option>
-        <option value="6000">$6,000</option>
-        <option value="4000">$4,000</option>
+        <option value="5000">$5,000</option>
         <option value="2000">$2,000</option>
+        <option value="1000">$1,000</option>
+        <option value="500">$500</option>
+        <option value="100">$100</option>
       </select>
     </div>
 

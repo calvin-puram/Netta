@@ -107,9 +107,6 @@ export default {
 
 /* tablet screen xs <= 768px */
 @media screen and (max-width: 768px) {
-  .latest {
-    margin-top: 8rem;
-  }
   .heading_lastest {
     font-style: oblique;
     font-size: 30px;

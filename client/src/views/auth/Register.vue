@@ -125,7 +125,8 @@ export default {
       show1: false,
       show3: false,
       rules: {
-        required: value => !!value || 'Required.'
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters'
       },
       emailRules: [
         v => !!v || 'E-mail is required',
