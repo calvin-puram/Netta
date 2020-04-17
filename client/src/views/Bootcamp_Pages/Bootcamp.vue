@@ -258,10 +258,6 @@ export default {
 </script>
 
 <style scoped>
-.bootcamp {
-  margin-top: 5rem !important;
-}
-
 .dark-bg,
 .course_bg {
   background: #009688 !important;

@@ -246,9 +246,6 @@ export default {
 </script>
 
 <style scoped>
-.bootcamp {
-  margin-top: 5rem !important;
-}
 .sidebar {
   margin-top: 9rem;
 }

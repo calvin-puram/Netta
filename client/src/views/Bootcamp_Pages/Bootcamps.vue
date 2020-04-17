@@ -76,10 +76,6 @@ export default {
 </script>
 
 <style scoped>
-.browse {
-  margin-top: 5rem !important;
-}
-
 /* mobile phone screen sm <= 425px */
 @media screen and (max-width: 425px) {
   .bootcamps {
