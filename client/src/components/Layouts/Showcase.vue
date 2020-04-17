@@ -69,7 +69,7 @@ a {
 /* mobile phone screen sm <= 425px */
 @media screen and (max-width: 425px) {
   img {
-    height: 300px;
+    height: 400px;
   }
   .showcase_context .heading {
     font-size: 27px;
