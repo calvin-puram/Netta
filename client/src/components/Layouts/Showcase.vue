@@ -53,7 +53,7 @@ a {
     min-height: 100vh;
   }
   img {
-    height: 50%;
+    height: 100%;
   }
   .showcase_context .heading {
     font-size: 38px;
