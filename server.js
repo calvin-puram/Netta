@@ -33,6 +33,7 @@ const reviewsRoutes = require('./routes/reviews');
 const app = express();
 app.use(helmet());
 app.use(cors());
+app.enable('trust proxy');
 
 app.set('viwe engine', 'pug');
 app.set('views;', path.join(__dirname, 'views'));
