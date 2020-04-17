@@ -11,7 +11,8 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
-const pug = require('pug');
+require('pug');
+const compression = require('compression');
 const connectDb = require('./config/db.js');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -65,6 +66,7 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(limiter);
 app.use(hpp());
+app.use(compression());
 
 app.use('/api/v1/bootcamps', bootcampsRoutes);
 app.use('/api/v1/courses', coursesRoutes);
