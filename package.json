@@ -1,7 +1,7 @@
 {
   "name": "devcoach",
   "version": "1.0.0",
-  "description": "DevCoach Backend Api",
+  "description": "DevCoach Fullstack App",
   "author": "calvin Job <puram.calvin@gmail.com>",
   "scripts": {
     "client": "npm run serve --prefix client",
