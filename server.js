@@ -77,6 +77,14 @@ app.use('/api/v1/reviews', reviewsRoutes);
 //errors
 app.use(errorHandler);
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+
+  app.get('*', (req, res, next) =>
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+  );
+}
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
