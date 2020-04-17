@@ -4,7 +4,6 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
   //log the error to the dev
-  // console.log(chalk.red(err));
 
   // 1) CAST ERROR
   if (error.name === 'CastError') {

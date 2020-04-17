@@ -221,7 +221,7 @@ export default {
       const data = this.getBootcamps.find(
         doc => doc.user === this.getAuthUser._id
       );
-      console.log(this.getBootcamps);
+
       return data;
     },
 

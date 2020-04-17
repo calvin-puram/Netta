@@ -94,7 +94,6 @@ exports.logout = asyncHandler(async (req, res, next) => {
 //@route      GET api/v1/auth/me
 //@access     private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  // console.log(req.user)
   const user = await Users.findById(req.user.id);
 
   res.status(200).json({
@@ -203,7 +202,6 @@ exports.updatedetails = asyncHandler(async (req, res, next) => {
 //@route      PATCH api/v1/auth/updatepassword
 //@access     private
 exports.updatepassword = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
   if (req.body.newPassword !== req.body.passwordConfirm) {
     return next(new ErrorResponse('Password do not match', 400));
   }
