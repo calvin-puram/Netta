@@ -103,3 +103,11 @@ process.on('unhandledRejection', err => {
     process.exit(1);
   });
 });
+
+//handle heroku SIGTERM
+process.on('SIGTERM', () => {
+  console.log('SIGTERM: server shutting gracefully!');
+  server.close(() => {
+    console.log('process terminated');
+  });
+});

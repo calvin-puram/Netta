@@ -44,7 +44,10 @@ exports.register = asyncHandler(async (req, res, next) => {
     passwordConfirm,
     role
   });
-  const url = 'http://localhost:8080/bootcamps';
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8080/bootcamps'
+      : 'https://devcoaching.herokuapp.com/bootcamps';
   await new SendEmail(user, url).sendWelcome();
   sendToken(user, 200, res);
 });
@@ -125,7 +128,10 @@ exports.forgetpassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   try {
-    const replyURL = `http://localhost:8080/resetpassword/${resetToken}`;
+    const replyURL =
+      process.env.NODE_ENV === 'development'
+        ? `http://localhost:8080/resetpassword/${resetToken}`
+        : `https://devcoaching.herokuapp.com/resetpassword/${resetToken}`;
     await new SendEmail(user, replyURL).passwordReset();
 
     res.status(200).json({
