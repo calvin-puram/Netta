@@ -11,7 +11,7 @@
     >
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-marker :lat-lng="withPopup">
-        <l-popup>bootcamp </l-popup>
+        <l-popup>{{ bootcamp.name }} </l-popup>
       </l-marker>
     </l-map>
   </div>
@@ -29,17 +29,26 @@ export default {
     LMarker,
     LPopup
   },
+  props: ['bootcamp'],
   data() {
     return {
       zoom: 15,
-      center: latLng(47.41322, -1.219482),
+      center: latLng(
+        this.bootcamp.location.coordinates[1],
+        this.bootcamp.location.coordinates[0]
+      ),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
+      withPopup: latLng(
+        this.bootcamp.location.coordinates[1],
+        this.bootcamp.location.coordinates[0]
+      ),
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentCenter: latLng(
+        this.bootcamp.location.coordinates[1],
+        this.bootcamp.location.coordinates[0]
+      ),
 
       mapOptions: {
         zoomSnap: 0.5

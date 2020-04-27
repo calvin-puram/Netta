@@ -247,7 +247,7 @@ export default {
 
 <style scoped>
 .sidebar {
-  margin-top: 9rem;
+  margin-top: 7rem;
 }
 .dark-bg {
   background: #009688 !important;

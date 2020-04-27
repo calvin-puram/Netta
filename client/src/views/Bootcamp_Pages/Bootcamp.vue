@@ -133,15 +133,19 @@
             ><BaseIcon prop="fas fa-comments mr-1" /> Read
             Reviews</BaseNormalBtn
           >
-
-          <BaseNormalBtn route="/read"
-            ><BaseIcon prop="fas fa-globe mr-1" /> Visit Website</BaseNormalBtn
-          >
+          <a
+            :href="singleBootcamp.website"
+            target="_blank"
+            class="btn btn-block btn-color"
+            ><BaseIcon prop="fas fa-globe mr-2" /><span class="text-light"
+              >Visit Website</span
+            >
+          </a>
 
           <!-- Map  -->
-          <div class="mt-12"><BootcampMap /></div>
+          <div class="mt-12"><BootcampMap :bootcamp="singleBootcamp" /></div>
           <!-- Perks -->
-          <v-card class="mx-auto mt-7" max-width="500" tile>
+          <v-card class="mx-auto mt-12" max-width="500" tile>
             <v-list disabled>
               <v-list-item-group color="primary">
                 <v-list-item>
@@ -262,7 +266,8 @@ export default {
 
 <style scoped>
 .dark-bg,
-.course_bg {
+.course_bg,
+.btn-color {
   background: #009688 !important;
 }
 .fas {
