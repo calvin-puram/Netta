@@ -139,7 +139,7 @@
           >
 
           <!-- Map  -->
-          <!-- <div id='map' style='width: 100%; height: 300px;'></div> -->
+          <div id="map" style="width: 100%; height: 300px;">map</div>
           <!-- Perks -->
           <v-card class="mx-auto mt-7" max-width="500" tile>
             <v-list disabled>
