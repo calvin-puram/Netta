@@ -139,7 +139,7 @@
           >
 
           <!-- Map  -->
-          <div id="map" style="width: 100%; height: 300px;">map</div>
+          <div class="mt-12"><BootcampMap /></div>
           <!-- Perks -->
           <v-card class="mx-auto mt-7" max-width="500" tile>
             <v-list disabled>
@@ -220,6 +220,7 @@ import { mapGetters, mapActions } from 'vuex';
 import NProgress from 'nprogress';
 import store from '@store/index';
 import LoadingMixin from '@mixins/LoadingMixins';
+import BootcampMap from '@bootcampsUtils/BootcampMap';
 
 export default {
   mixins: [LoadingMixin],
@@ -230,7 +231,9 @@ export default {
     'getLoading',
     'getPhoto'
   ]),
-
+  components: {
+    BootcampMap
+  },
   methods: {
     ...mapActions(['deleteCourse', 'SingleBootcamps']),
     handleDeleteCourse(id) {
