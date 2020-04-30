@@ -2,34 +2,9 @@
   <v-expansion-panels
     class="mb-3"
     v-if="bootcamp && bootcamp.courses.length > 0"
-    focusable
   >
     <v-expansion-panel>
-      <v-expansion-panel-header>
-        <div class="d-flex justify-content-between align-items-center">
-          {{ bootcamp.name }}
-
-          <!-- display delete icon for admin and publisher only -->
-          <div
-            v-if="
-              getAuthUser.role === 'admin' || getAuthUser._id === bootcamp.user
-            "
-          >
-            <!-- delete bootcamp -->
-
-            <button
-              v-if="getToken"
-              :disabled="loading"
-              class="btn dark-bg mr-2"
-              @click="handleDeleteBootcamp"
-            >
-              <BaseIcon prop="fas fa-spin fa-spinner " v-if="loading" />
-              <BaseIcon prop="fas fa-trash " v-else />
-            </button>
-          </div>
-        </div>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel-header hide-actions>
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -51,7 +26,9 @@
                 <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`">
                   <div class="row ">
                     <div class="col-md-6 col-sm-12 mx-auto">
-                      <span class="text-dark">{{ bootcamp.name }}</span>
+                      <span class="text-dark name-hover">{{
+                        bootcamp.name
+                      }}</span>
                     </div>
                     <div class="col-md-6 col-sm-12 mx-auto">
                       <v-rating
@@ -67,7 +44,9 @@
                 <router-link v-if="!getToken" to="/login">
                   <div class="row ">
                     <div class="col-md-6 col-sm-12 mx-auto">
-                      <span>{{ bootcamp.name }}</span>
+                      <span class="text-dark name-hover">{{
+                        bootcamp.name
+                      }}</span>
                     </div>
                     <div class="col-md-6 col-sm-12 mx-auto">
                       <v-rating
@@ -87,41 +66,61 @@
               >
               <!-- end of location details -->
               <!-- display careers -->
-              <p class="card-text bootcamp_careers">
+              <p class="card-text bootcamp_careers mt-5">
                 {{ bootcamp.careers.join(', ') }}
               </p>
               <!-- end of careers -->
             </div>
-            <div class="float-right">
-              <!-- edit bootcamp -->
-              <div
-                v-if="
-                  getAuthUser.role === 'admin' ||
-                    getAuthUser._id === bootcamp.user
-                "
-              >
-                <router-link
-                  v-if="getToken"
-                  :to="
-                    `/bootcamp/${bootcamp._id}/${bootcamp.slug}/bootcamp_edit`
+            <div class="row mt-3 ml-12">
+              <!-- delete -->
+              <div class="col-md-6">
+                <!-- display delete icon for admin and publisher only -->
+                <div
+                  v-if="
+                    getAuthUser.role === 'admin' ||
+                      getAuthUser._id === bootcamp.user
                   "
                 >
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-chip v-on="on" link color="teal"
-                        ><BaseIcon prop="fas fa-pencil-alt mr-1"
-                      /></v-chip>
-                    </template>
-                    <span>Edit</span>
-                  </v-tooltip>
-                </router-link>
+                  <!-- delete bootcamp -->
+                  <div v-if="getToken" @click="handleDeleteBootcamp">
+                    <BaseIcon prop="fas fa-spin fa-spinner " v-if="loading" />
+                    <BaseIcon prop="fas fa-trash dark-bg" v-else />
+                  </div>
+                </div>
               </div>
 
-              <!-- end of edit bootcemp -->
+              <!-- edit -->
+              <div class="col-md-6">
+                <!-- edit bootcamp -->
+                <div
+                  v-if="
+                    getAuthUser.role === 'admin' ||
+                      getAuthUser._id === bootcamp.user
+                  "
+                >
+                  <router-link
+                    v-if="getToken"
+                    :to="
+                      `/bootcamp/${bootcamp._id}/${bootcamp.slug}/bootcamp_edit`
+                    "
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <div v-on="on">
+                          <BaseIcon prop="fas fa-pencil-alt mr-1" />
+                        </div>
+                      </template>
+                      <span>Edit</span>
+                    </v-tooltip>
+                  </router-link>
+                </div>
+
+                <!-- end of edit bootcemp -->
+              </div>
             </div>
           </div>
         </div>
-      </v-expansion-panel-content>
+      </v-expansion-panel-header>
     </v-expansion-panel>
   </v-expansion-panels>
 </template>
@@ -164,13 +163,17 @@ export default {
 </script>
 
 <style scoped>
-.dark-bg {
-  background: #009688 !important;
+.dark-bg,
+.fa-pencil-alt {
+  color: #009688 !important;
 }
 .fas {
   color: #fff;
 }
 
+.name-hover:hover {
+  color: #009688 !important;
+}
 /* mobile phone screen sm <= 425px */
 @media screen and (max-width: 425px) {
   .card-img {
