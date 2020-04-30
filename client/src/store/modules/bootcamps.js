@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  bootcamps: [],
+  bootcamps: {},
   latestBootcamps: [],
   singleBootcamp: {},
   bootcampReviews: [],
@@ -28,7 +28,7 @@ const actions = {
     try {
       const res = await axios.get('/api/v1/bootcamps');
       if (res && res.data.success) {
-        commit('bootcamp_res', res.data.data);
+        commit('bootcamp_res', res.data);
       }
       return res;
     } catch (err) {

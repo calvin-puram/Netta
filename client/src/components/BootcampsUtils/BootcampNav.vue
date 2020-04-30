@@ -18,14 +18,16 @@ export default {
   props: ['bootcamps'],
   data() {
     return {
-      currentPage: 1,
-      totalPages: 10
+      currentPage: this.bootcamps.paginate.page,
+      totalPages: this.bootcamps.paginate.totalPage
     };
   },
   methods: {
     pageChangeHandler(selectedPage) {
       this.currentPage = selectedPage;
+      console.log(this.currentPage);
     }
-  }
+  },
+  created() {}
 };
 </script>

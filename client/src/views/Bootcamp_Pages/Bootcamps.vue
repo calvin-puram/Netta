@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-4" v-if="getBootcamps">
+        <div class="col-md-4" v-if="getBootcamps.data">
           <div class="card card-body mb-4">
             <h4 class="mb-3">By Location</h4>
             <LocationFilter />
@@ -15,7 +15,7 @@
         <!-- Main col -->
         <div class="col-md-8 bootcamps">
           <!-- Bootcamps -->
-          <div v-for="bootcamps in getBootcamps" :key="bootcamps._id">
+          <div v-for="bootcamps in getBootcamps.data" :key="bootcamps._id">
             <BootcampCard :bootcamp="bootcamps" />
           </div>
 
