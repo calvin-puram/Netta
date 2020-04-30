@@ -198,10 +198,7 @@ exports.updatedetails = asyncHandler(async (req, res, next) => {
   });
 
   user.password = undefined;
-  res.status(200).json({
-    success: true,
-    data: user
-  });
+  sendToken(user, 200, res);
 });
 
 //@desc       update user password

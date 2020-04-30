@@ -6,7 +6,8 @@ export default {
       if (res && res.data.success) {
         localStorage.setItem('data', JSON.stringify(res.data.data));
 
-        axios.defaults.headers.common['Authorization'] = res.data.data;
+        axios.defaults.headers.common['Authorization'] =
+          'Bearer ' + res.data.data;
         this.$noty.success(successMsg);
         this.$router.push('/');
       } else {

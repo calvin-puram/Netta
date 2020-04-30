@@ -83,7 +83,7 @@ const actions = {
       commit('loading_res');
       const res = await axios.patch(`/api/v1/auth/updatedetails`, data);
       if (res && res.data.success) {
-        commit('auth_user', res.data.data, res.data.data);
+        commit('auth_res', res.data.data);
         commit('loading_req');
       }
       return res;

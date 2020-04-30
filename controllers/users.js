@@ -43,7 +43,7 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
 //@route      PATCH api/v1/auth/users/:id
 //@access     private
 exports.updateUsers = asyncHandler(async (req, res, next) => {
-  const user = await Users.findByIdAndUpdate(req.params.id, req.body, {
+  const user = await Users.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
     runValidators: true
   });

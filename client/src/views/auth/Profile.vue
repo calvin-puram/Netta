@@ -46,10 +46,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import NProgress from 'nprogress';
 import LoadingMixin from '@mixins/LoadingMixins';
+import axios from 'axios';
 
 export default {
   mixins: [LoadingMixin],
-  computed: mapGetters(['getAuthUser', 'getErr', 'getAuthLoading']),
+  computed: mapGetters(['getAuthUser', 'getAuthErr', 'getAuthLoading']),
   data() {
     return {
       valid: true,
@@ -75,8 +76,9 @@ export default {
         this.updateUserDetails(data).then(res => {
           if (res && res.data.success) {
             this.$noty.success('User Details Updated Successfully!');
+            localStorage.setItem('data', JSON.stringify(res.data.data));
           } else {
-            this.$noty.error(this.getErr);
+            this.$noty.error(this.getAuthErr);
           }
         });
       }
