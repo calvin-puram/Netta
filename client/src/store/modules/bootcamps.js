@@ -175,7 +175,7 @@ const actions = {
     try {
       const res = await axios.get('/api/v1/bootcamps?sort=-createdAt');
       if (res && res.data.success) {
-        commit('bootcampLatest_res', res.data.data);
+        commit('bootcampLatest_res', res.data.data.slice(0, 3));
       }
       return res;
     } catch (err) {
