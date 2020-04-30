@@ -49,31 +49,34 @@
             <div class="card-body">
               <h5 class="card-title">
                 <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`">
-                  <div class="col-md-6 col-sm-12">
-                    <span>{{ bootcamp.name }}</span>
-
-                    <v-rating
-                      class="float-right"
-                      v-model="bootcamp.averageRating"
-                      background-color="purple lighten-3"
-                      color="teal"
-                      small
-                    ></v-rating>
+                  <div class="row ">
+                    <div class="col-md-6 col-sm-12 mx-auto">
+                      <span class="text-dark">{{ bootcamp.name }}</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mx-auto">
+                      <v-rating
+                        v-model="bootcamp.averageRating"
+                        background-color="purple lighten-3"
+                        color="teal"
+                        small
+                      ></v-rating>
+                    </div>
                   </div>
                 </router-link>
 
-                <router-link v-if="!getToken" to="/login"
-                  ><div class="col-md-6 col-sm-12">
-                    <span>{{ bootcamp.name }}</span>
-                    <!-- display ratings star -->
-                    <v-rating
-                      class="float-right"
-                      v-model="bootcamp.averageRating"
-                      background-color="purple lighten-3"
-                      color="teal"
-                      small
-                    ></v-rating>
-                    <!-- end display ratings star -->
+                <router-link v-if="!getToken" to="/login">
+                  <div class="row ">
+                    <div class="col-md-6 col-sm-12 mx-auto">
+                      <span>{{ bootcamp.name }}</span>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mx-auto">
+                      <v-rating
+                        v-model="bootcamp.averageRating"
+                        background-color="purple lighten-3"
+                        color="teal"
+                        small
+                      ></v-rating>
+                    </div>
                   </div>
                 </router-link>
               </h5>
