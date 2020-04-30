@@ -90,7 +90,7 @@
                 required
                 :rules="descriptionRules"
                 label="Description"
-                hint="No more than 200 characters"
+                hint="No more than 500 characters"
               ></v-textarea>
 
               <v-checkbox

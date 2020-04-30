@@ -37,16 +37,20 @@
                             bootcamp().courses && bootcamp().courses.length > 0
                           "
                         >
-                          <div class="col-md-6 col-sm-12 text-center">
-                            <span>{{ bootcamp().name }}</span>
-
-                            <v-rating
-                              class="float-right"
-                              v-model="bootcamp().averageRating"
-                              background-color="purple lighten-3"
-                              color="teal"
-                              small
-                            ></v-rating>
+                          <div class="row ">
+                            <div class="col-md-6 col-sm-12 mx-auto">
+                              <span class="text-dark">{{
+                                bootcamp().name
+                              }}</span>
+                            </div>
+                            <div class="col-md-6 col-sm-12 mx-auto">
+                              <v-rating
+                                v-model="bootcamp().averageRating"
+                                background-color="purple lighten-3"
+                                color="teal"
+                                small
+                              ></v-rating>
+                            </div>
                           </div>
                         </router-link>
 
@@ -59,16 +63,20 @@
                           "
                           v-else
                         >
-                          <div class="col-md-6 col-sm-12 text-center">
-                            <span>{{ bootcamp().name }}</span>
-
-                            <v-rating
-                              class="float-right"
-                              v-model="bootcamp().averageRating"
-                              background-color="purple lighten-3"
-                              color="teal"
-                              small
-                            ></v-rating>
+                          <div class="row ">
+                            <div class="col-md-6 col-sm-12 mx-auto">
+                              <span class="text-dark">{{
+                                bootcamp().name
+                              }}</span>
+                            </div>
+                            <div class="col-md-6 col-sm-12 mx-auto">
+                              <v-rating
+                                v-model="bootcamp().averageRating"
+                                background-color="purple lighten-3"
+                                color="teal"
+                                small
+                              ></v-rating>
+                            </div>
                           </div>
                         </router-link>
                       </h5>
@@ -218,7 +226,7 @@ export default {
   methods: {
     ...mapActions(['getAllBootcamps', 'uploadedimage']),
     bootcamp() {
-      const data = this.getBootcamps.find(
+      const data = this.getBootcamps.data.find(
         doc => doc.user === this.getAuthUser._id
       );
 
@@ -234,7 +242,6 @@ export default {
         formData.append('file', this.file);
         this.uploadedimage({ formData, id }).then(res => {
           if (res && res.data.success) {
-            this.$router.push('/bootcamps');
             this.$noty.success('bootcamp image uploaded successfully!');
             this.file = null;
           } else {

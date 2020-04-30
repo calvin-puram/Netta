@@ -1,5 +1,5 @@
 <template>
-  <section class="container mt-5" v-if="getBootcamps.length > 0">
+  <section class="container mt-5" v-if="getBootcamps.data.length > 0">
     <div class="row">
       <div class="col-md-8 col-sm-12 ">
         <div class="card bg-white py-2 px-4">
@@ -14,7 +14,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody v-for="bootcamp in getBootcamps" :key="bootcamp._id">
+              <tbody v-for="bootcamp in getBootcamps.data" :key="bootcamp._id">
                 <tr>
                   <td>{{ bootcamp.name }}</td>
                   <td>
