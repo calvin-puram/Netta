@@ -38,6 +38,21 @@ const actions = {
     }
   },
 
+  // all bootcamps by page
+  async getAllBootcampsByPage({ commit }, page) {
+    try {
+      const res = await axios.get(`/api/v1/bootcamps?page=${page}`);
+      if (res && res.data.success) {
+        commit('bootcamp_res', res.data);
+      }
+      return res;
+    } catch (err) {
+      if (err && err.response.data) {
+        commit('bootcamp_err', err.response.data.error);
+      }
+    }
+  },
+
   //create bootcamp
   async createBootcamps({ commit }, data) {
     try {

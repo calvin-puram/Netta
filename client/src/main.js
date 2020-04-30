@@ -11,7 +11,6 @@ import camelCase from 'lodash/camelCase';
 import vuetify from './plugins/vuetify';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
-import 'vue-sliding-pagination/dist/style/vue-sliding-pagination.css';
 
 // map icon
 delete Icon.Default.prototype._getIconUrl;

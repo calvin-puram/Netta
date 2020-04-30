@@ -112,10 +112,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left flat color="teal">
-      <v-app-bar-nav-icon
-        @click.stop="drawer = !drawer"
-        class="d-sm-none d-md-block d-lg-none"
-      />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="d-none d-sm-flex">
         <router-link to="/">
           <BaseIcon prop="fas fa-laptop-code fa-logo mr-1" />

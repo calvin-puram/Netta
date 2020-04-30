@@ -1,33 +1,36 @@
 <template>
-  <div class="mt-12 text-center">
-    <sliding-pagination
-      :current="currentPage"
-      :total="totalPages"
-      @page-change="pageChangeHandler"
-    ></sliding-pagination>
+  <div class="text-center mt-12">
+    <v-pagination
+      v-model="page"
+      :length="bootcamps.paginate.totalPage"
+      :value="page"
+      light
+      @input="pageChangeHandler"
+      color="teal"
+      circle
+    ></v-pagination>
   </div>
 </template>
 
 <script>
-import SlidingPagination from 'vue-sliding-pagination';
+import NProgress from 'nprogress';
+import { mapActions } from 'vuex';
 
 export default {
-  components: {
-    SlidingPagination
-  },
   props: ['bootcamps'],
   data() {
     return {
-      currentPage: this.bootcamps.paginate.page,
-      totalPages: this.bootcamps.paginate.totalPage
+      page: this.bootcamps.paginate.page
     };
   },
   methods: {
-    pageChangeHandler(selectedPage) {
-      this.currentPage = selectedPage;
-      console.log(this.currentPage);
+    ...mapActions(['getAllBootcampsByPage']),
+    pageChangeHandler() {
+      NProgress.start();
+      this.getAllBootcampsByPage(this.page).then(() => {
+        NProgress.done();
+      });
     }
-  },
-  created() {}
+  }
 };
 </script>
