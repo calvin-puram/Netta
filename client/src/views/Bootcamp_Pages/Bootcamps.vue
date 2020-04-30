@@ -20,22 +20,7 @@
           </div>
 
           <!-- Pagination -->
-          <!-- <nav
-            aria-label="Page navigation example"
-            v-if="getBootcamps && getBootcamps.length > 0"
-          >
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav> -->
+          <BootcampNav :bootcamps="getBootcamps" />
         </div>
       </div>
     </div>
@@ -46,6 +31,7 @@
 import LocationFilter from '@bootcampsUtils/LocationFilter';
 import OtherFilter from '@bootcampsUtils/OtherFilters';
 import BootcampCard from '@bootcampsUtils/BootcampsCard';
+import BootcampNav from '@bootcampsUtils/BootcampNav';
 import LoadingMixin from '@mixins/LoadingMixins';
 import { mapGetters, mapActions } from 'vuex';
 import NProgress from 'nprogress';
@@ -56,7 +42,8 @@ export default {
   components: {
     LocationFilter,
     OtherFilter,
-    BootcampCard
+    BootcampCard,
+    BootcampNav
   },
   computed: mapGetters(['getBootcamps']),
   methods: {

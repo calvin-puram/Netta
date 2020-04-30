@@ -26,5 +26,6 @@ export default {
 <style>
 a {
   text-decoration: none !important;
+  color: #fff !important;
 }
 </style>
