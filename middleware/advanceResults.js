@@ -41,7 +41,7 @@ const advanceResults = (model, populate) => {
     // pagination result
     const paginate = {};
     paginate.page = page;
-    paginate.totalPage = Math.round(total / limit);
+    paginate.totalPage = Math.ceil(total / limit);
 
     const results = await filteredQuery;
 
