@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center mt-12">
+  <div class="text-center mt-12" v-if="bootcamps.paginate.totalPage > 1">
     <v-pagination
       v-model="page"
       :length="bootcamps.paginate.totalPage"

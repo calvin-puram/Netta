@@ -218,6 +218,7 @@
         class="d-none d-sm-flex"
         text
         large
+        @click="getBootcamps"
         color="white"
         link
         :to="{ name: 'bootcamps' }"
@@ -230,6 +231,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import router from '../../router/index';
+import NProgress from 'nprogress';
 
 export default {
   computed: mapGetters(['getToken', 'getAuthUser']),
@@ -248,13 +250,21 @@ export default {
   }),
 
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'getAllBootcamps']),
     logoutUser() {
       this.logout();
 
       if (router.history.current.name !== 'Home') {
         router.push('/');
       }
+    },
+    getBootcamps() {
+      NProgress.start();
+      this.getAllBootcamps().then(res => {
+        if (res && res.data.success) {
+          NProgress.done();
+        }
+      });
     }
   }
 };
