@@ -30,4 +30,14 @@ export default {
 a {
   text-decoration: none !important;
 }
+#nprogress .bar {
+  background: #fff !important;
+}
+
+#nprogress .spinner-icon {
+  border: solid 2px transparent !important;
+  border-top-color: #fff !important;
+  border-left-color: #fff !important;
+  border-radius: 50%;
+}
 </style>

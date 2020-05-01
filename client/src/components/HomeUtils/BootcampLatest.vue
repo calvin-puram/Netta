@@ -1,7 +1,9 @@
 <template>
-  <section class="latest py-5 bg-light">
+  <section class="latest py-5 bg-light" v-if="getLatestBootcamps.length > 0">
     <div class="container">
-      <h3 class="subtitle-5 heading_lastest">Latest Bootcamps</h3>
+      <h3 class="subtitle-5 heading_lastest">
+        Latest Bootcamps
+      </h3>
       <div class="row">
         <div
           class="col-md-4 col-sm-12"
