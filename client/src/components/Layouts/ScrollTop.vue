@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      fab: true
+      fab: false
     };
   },
   methods: {

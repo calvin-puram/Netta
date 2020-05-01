@@ -145,7 +145,11 @@ const actions = {
         `/api/v1/bootcamps/radius/200/${data.lng}/${data.lat}/km`
       );
       if (res && res.data.success) {
-        commit('bootcamp_res', res.data.bootcamps);
+        res.data.paginate = {
+          page: 0,
+          totalPage: 0
+        };
+        commit('bootcamp_res', res.data);
       }
       return res;
     } catch (err) {
@@ -160,7 +164,7 @@ const actions = {
       const res = await axios.get(
         `/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
       );
-      if (res && res.data.success) {
+      if (res && res.data.data.length > 0) {
         res.data.paginate.totalPage = Math.ceil(res.data.count / 3);
 
         commit('bootcamp_res', res.data);

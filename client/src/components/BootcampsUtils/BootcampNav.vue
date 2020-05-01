@@ -1,8 +1,13 @@
 <template>
-  <div class="text-center mt-12" v-if="bootcamps.paginate.totalPage > 1">
+  <div
+    class="text-center mt-12"
+    v-if="bootcamps.paginate.totalPage && bootcamps.paginate.totalPage > 1"
+  >
     <v-pagination
       v-model="page"
-      :length="bootcamps.paginate.totalPage"
+      :length="
+        bootcamps.paginate.totalPage > 0 ? bootcamps.paginate.totalPage : 1
+      "
       :value="page"
       light
       @input="pageChangeHandler"

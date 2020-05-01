@@ -153,12 +153,12 @@ exports.getBootcampsByRadius = asyncHandler(async (req, res, next) => {
     location: {
       $geoWithin: { $centerSphere: [[lng, lat], radius] }
     }
-  });
+  }).populate('courses');
 
   res.status(200).json({
     success: true,
     count: bootcamps.length,
-    bootcamps
+    data: bootcamps
   });
 });
 
