@@ -161,7 +161,7 @@ const actions = {
         `/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
       );
       if (res && res.data.success) {
-        commit('bootcamp_res', res.data.data);
+        commit('bootcamp_res', res.data);
       }
       return res;
     } catch (err) {

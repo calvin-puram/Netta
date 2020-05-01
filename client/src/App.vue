@@ -3,8 +3,9 @@
     <Navbar />
     <v-content>
       <router-view :key="$route.fullpath" />
+      <ScrollTop />
     </v-content>
-    <ScrollTop />
+
     <Footer />
   </v-app>
 </template>

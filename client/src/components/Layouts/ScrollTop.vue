@@ -7,10 +7,10 @@
     fixed
     bottom
     right
-    color="primary"
+    color="teal"
     @click="toTop"
   >
-    <v-icon>keyboard_arrow_up</v-icon>
+    <BaseIcon prop="fas fa-chevron-up" />
   </v-btn>
 </template>
 
@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      fab: false
+      fab: true
     };
   },
   methods: {

@@ -20,7 +20,9 @@
           </div>
 
           <!-- Pagination -->
-          <BootcampNav :bootcamps="getBootcamps" />
+          <div v-if="getBootcamps.data && getBootcamps.data.length > 1">
+            <BootcampNav :bootcamps="getBootcamps" />
+          </div>
         </div>
       </div>
     </div>
