@@ -4,22 +4,21 @@
     <v-content>
       <router-view :key="$route.fullpath" />
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import Navbar from './components/Layouts/Navbar';
+import Footer from '@layouts/Footer';
 
 export default {
   name: 'App',
 
   components: {
-    Navbar
-  },
-
-  data: () => ({
-    //
-  })
+    Navbar,
+    Footer
+  }
 };
 </script>
 
