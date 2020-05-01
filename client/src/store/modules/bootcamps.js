@@ -161,6 +161,8 @@ const actions = {
         `/api/v1/bootcamps?averageCost[gte]=${data.bgt}&averageRating[gte]=${data.rtn}`
       );
       if (res && res.data.success) {
+        res.data.paginate.totalPage = Math.ceil(res.data.count / 3);
+
         commit('bootcamp_res', res.data);
       }
       return res;
