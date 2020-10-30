@@ -1,0 +1,8 @@
+node_modules
+_data
+.gitignore
+README.md
+.eslintrc.json
+.prettierrc.json
+seeder.js
+client
