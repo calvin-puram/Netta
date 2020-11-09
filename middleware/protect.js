@@ -6,7 +6,7 @@ const ErroResponse = require('../utils/errorResponse');
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
-   if (req.cookie.token) {
+   if (req.cookie?.token) {
     // eslint-disable-next-line prefer-destructuring
     token = req.cookie.token;
   }
