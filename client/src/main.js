@@ -25,8 +25,7 @@ Vue.prototype.$http = axios;
 const token = JSON.parse(localStorage.getItem('data'))
   ? JSON.parse(localStorage.getItem('data')).token
   : '';
-Vue.prototype.$http.defaults.headers.common['Authorization'] =
-  'Bearer ' + token;
+Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
 Vue.use(VueNoty);
 
 // automatic component registration

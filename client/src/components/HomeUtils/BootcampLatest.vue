@@ -130,7 +130,7 @@ export default {
   }
 
   .card {
-    height: 40rem !important;
+    height: auto !important;
   }
 }
 </style>

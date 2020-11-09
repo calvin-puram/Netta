@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
-          <img src="/img/showcase.jpg" alt="landing image" />
+          <img src="/img/showcase.jpg" alt="landing image" class="showcase=img"/>
         </div>
       </div>
     </div>
@@ -54,6 +54,7 @@ a {
   }
   img {
     height: 100%;
+    margin-bottom: 5rem;
   }
   .showcase_context .heading {
     font-size: 38px;
@@ -70,6 +71,7 @@ a {
 @media screen and (max-width: 425px) {
   img {
     height: 400px;
+    margin-bottom: 0;
   }
   .showcase_context .heading {
     font-size: 27px;

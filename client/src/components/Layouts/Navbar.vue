@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app clipped color="teal">
+    <v-navigation-drawer v-model="drawer" app clipped color="teal" class="navigator">
       <v-list dense>
         <!-- logo -->
         <v-list-item class="d-md-none  d-xs-flex justify-center align-center">
@@ -278,6 +278,7 @@ export default {
 .side_nav_color {
   color: #fff;
 }
+
 
 .app_footer {
   margin-top: 10rem;
