@@ -7,7 +7,7 @@ export default {
         localStorage.setItem('data', JSON.stringify(res.data.data));
 
         axios.defaults.headers.common['Authorization'] =
-          'Bearer ' + res.data.data;
+          res.data.data.token;
         this.$noty.success(successMsg);
         this.$router.push('/');
       } else {
