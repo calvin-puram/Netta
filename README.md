@@ -27,7 +27,7 @@
 
 <img src="./client/public/img/devCoachImg.png" alt="Logo" />
 
-DevCoach App is a bootcamp directory application where users can search for bootcamps within Nigeria using search creteria such as ratings, latitude, longitute, price.
+DevCoach App is a bootcamp directory application where users can search for bootcamps within Nigeria using search criteria such as ratings, latitude, longitute, price.
 
 The development of this Full stack App took into account several specific needs. It is carefully crafted as one that can easily require updates and new features, taking into account the need for scalability, easy maintainance, performance and security. I have chosen to use the MODEL-VIEW CONTROLLER (MVC)
 architecture.
@@ -56,7 +56,7 @@ npm install npm@latest -g
 1. Clone the repo
 
 ```sh
-git clone https://github.com/calvin-puram/DevMentor.git
+git clone https://github.com/calvin-puram/bootcamp_fullstack.git
 ```
 
 2. Install NPM packages
@@ -101,4 +101,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@your_twitter](https://twitter.com/cpuram1) - puram.calvin@gmail.com
 
-Project Live: [https://devcoaching.herokuapp.com/register](https://devcoaching.herokuapp.com/register)
+Project Live: [https://devcoaching.herokuapp.com/](https://devcoaching.herokuapp.com/)
