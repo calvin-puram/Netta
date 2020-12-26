@@ -34,7 +34,7 @@ architecture.
 
 ### Built With
 
-List of major frameworks use to build getIdea.
+List of major frameworks use to build DevCoach App.
 
 - [Vuejs](https://vuejs.org/)
 - [Expressjs](https://expressjs.com/)
@@ -99,6 +99,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/cpuram1) - puram.calvin@gmail.com
+Your Name - [cpuram1](https://twitter.com/cpuram1) - puram.calvin@gmail.com
 
 Project Live: [https://devcoaching.herokuapp.com/](https://devcoaching.herokuapp.com/)
