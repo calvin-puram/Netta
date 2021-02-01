@@ -1,6 +1,5 @@
 module.exports = {
-  outputDir:
-    'C:\\Users\\user\\Desktop\\personal projects\\deployed apps\\devCoach\\public',
+  outputDir: '../public',
   devServer: {
     proxy: {
       '/api': {
