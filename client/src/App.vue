@@ -26,10 +26,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 a {
   text-decoration: none !important;
 }
+
+.join {
+  display: block;
+}
+
+.bg-color {
+  background: #181f44 !important;
+}
+
 #nprogress .bar {
   background: #fff !important;
 }

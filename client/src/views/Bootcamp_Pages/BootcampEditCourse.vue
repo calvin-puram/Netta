@@ -5,7 +5,7 @@
         <div class="card bg-white py-2 px-4">
           <div class="card-body">
             <!-- back button -->
-            <v-btn class="my-3" color="teal" dark link to="/">
+            <v-btn class="my-3 bg-color"  dark link to="/">
               <BaseIcon prop="fas fa-chevron-left mr-1" />Manage Courses</v-btn
             >
 

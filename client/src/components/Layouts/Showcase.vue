@@ -1,86 +1,147 @@
 <template>
-  <section class="showcase">
-    <div class="container ">
-      <div class="row">
-        <div class="col-md-6 col-sm-12 ">
-          <div
-            class="showcase_context d-flex flex-column justify-content-center align-items-center"
-          >
-            <h1 class="text-secondary heading  ">
-              Find a Code Bootcamp
-            </h1>
-            <p class="lead mb-4">
-              Find, rate and read reviews on coding bootcamps
-            </p>
-            <router-link
-              class="btn btn-secondary rounded btn-lg mt-4"
-              :to="{ name: 'bootcamps' }"
-              >Explore Bootcamps</router-link
-            >
-          </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
-          <img src="/img/showcase.jpg" alt="landing image" class="showcase=img"/>
-        </div>
+  <div class="hero__wrapper">
+    <div class="hero">
+      <div class="hero__content">
+        <h1 class="hero__content-header">
+          Find a Code Bootcamp
+        </h1>
+
+        <p class="hero__content-lead">
+          We connect software developers, tech enthusiasts with coding bootcamps
+          at every step of their journey.
+        </p>
+
+        <router-link class="hero__btn" :to="{ name: 'bootcamps' }"
+          >Explore Bootcamps</router-link
+        >
       </div>
+
+      <img :src="heroBg" alt="hero bg" class="hero__img" />
     </div>
-  </section>
+  </div>
 </template>
 
-<style scoped>
-.showcase {
-  max-height: 100vh;
+<script>
+import heroBg from '../../assets/herobg.svg';
+export default {
+  data() {
+    return {
+      heroBg
+    };
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.hero__wrapper {
+  background: url('../../assets/hero.svg') no-repeat center center/cover;
+  height: 100vh;
 }
-.showcase_context {
+.hero {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
   height: 90%;
-}
-.btn {
-  background: #03dfc1 !important;
-  border: none !important;
-}
-img {
-  width: 100%;
-  height: 100%;
+
+  &__content {
+    flex: 1;
+
+    &-header {
+      color: #ffffff;
+      padding-bottom: 1rem;
+    }
+
+    &-secondary {
+      display: block;
+    }
+
+    &-lead {
+      padding-bottom: 2.5rem;
+      font-size: 1.7rem;
+      line-height: 2.7rem;
+      color: #afb6d3;
+      width: 30rem;
+    }
+  }
+
+  &__btn {
+    background: #e7c7a0;
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 900;
+    color: #191f40;
+    padding: 1.5rem 2rem;
+    border: 1px solid #e7c7a0;
+    border-radius: 1rem;
+    transition: all 0.5s ease-in;
+
+    &:hover {
+      background: #f0bd7c;
+      color: #191f40;
+      border-color: #f0bd7c;
+    }
+  }
+
+  &__img {
+    flex: 1;
+    width: 100%;
+  }
 }
 
-a {
-  color: #fff !important;
+@media screen and (max-width: 1024px) {
+  .hero {
+    height: 100vh;
+    &__content {
+      &-lead {
+        width: 80%;
+      }
+    }
+  }
 }
 
-/* tablet screen xs <= 768px */
-@media screen and (max-width: 768px) {
-  .showcase {
-    min-height: 100vh;
-  }
-  img {
-    height: 100%;
-    margin-bottom: 5rem;
-  }
-  .showcase_context .heading {
-    font-size: 38px;
-    font-style: oblique;
-    margin: 2rem 0;
-  }
-  .showcase_context .lead {
-    font-size: 23px;
+@media screen and (max-width: 764px) {
+  .hero {
     text-align: center;
+    height: 100vh;
+    &__content {
+      &-lead {
+        width: 80%;
+        margin: auto;
+        margin-bottom: 2.5rem;
+      }
+    }
+    &__btn {
+      margin-top: 1rem;
+    }
   }
 }
 
-/* mobile phone screen sm <= 425px */
-@media screen and (max-width: 425px) {
-  img {
-    height: 400px;
-    margin-bottom: 0;
+@media screen and (max-width: 500px) {
+  .hero {
+    height: 80vh;
+    width: 100%;
+    padding: 1rem 1rem;
+    &__content {
+      &-header {
+        font-size: 2.5rem;
+        line-height: 1.5;
+      }
+      &-lead {
+        width: 100%;
+      }
+    }
+    &__img {
+      display: none;
+    }
   }
-  .showcase_context .heading {
-    font-size: 27px;
-    font-style: oblique;
-    margin: 1rem 0;
-  }
-  .showcase_context .lead {
-    font-size: 17px;
-    text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .hero {
+    height: 95vh;
   }
 }
 </style>

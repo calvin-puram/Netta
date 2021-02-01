@@ -10,7 +10,7 @@
           <div class="col-md-8 ">
             <v-btn
               class="my-3"
-              color="teal"
+              color="#181f44"
               dark
               link
               :to="`/bootcamp/${singleBootcamp.slug}`"
@@ -124,9 +124,8 @@
               <div v-if="checkUserCreateReview()">
                 <v-btn
                   :disabled="checkUserCreateReview()"
-                  class="my-3"
+                  class="my-3 bg-color"
                   block
-                  color="teal"
                   link
                   :to="
                     `/bootcamp/${singleBootcamp._id}/${singleBootcamp.slug}/createReview`
@@ -160,8 +159,7 @@
       <!-- back button -->
 
       <v-btn
-        class="my-3 ml-5"
-        color="teal"
+        class="my-3 ml-5 bg-color"
         dark
         link
         :to="`/bootcamp/${singleBootcamp.slug}`"
@@ -177,8 +175,7 @@
 
       <div class="text-center">
         <v-btn
-          class="my-5"
-          color="teal"
+          class="my-5 bg-color"
           dark
           link
           :to="
@@ -250,8 +247,9 @@ export default {
   margin-top: 7rem;
 }
 .dark-bg {
-  background: #009688 !important;
+  background: #181f44 !important;
 }
+
 .fas {
   color: #fff;
 }

@@ -106,6 +106,6 @@ export default {
 
 <style scoped>
 .form {
-  margin-top: 6rem !important;
+  margin: 6rem 0 !important;
 }
 </style>

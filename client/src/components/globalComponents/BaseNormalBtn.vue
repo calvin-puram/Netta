@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="my-3" block color="teal" dark link :to="route">
+  <v-btn class="my-3" block color="#181f44" dark link :to="route">
     <slot></slot
   ></v-btn>
 </template>

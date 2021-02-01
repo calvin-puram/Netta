@@ -101,7 +101,7 @@ export default {
 
 <style scoped>
 .form {
-  margin-top: 6rem !important;
+  margin: 6rem auto !important;
 }
 
 @media screen and (max-width: 425px) {

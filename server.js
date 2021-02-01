@@ -21,7 +21,7 @@ process.on('uncaughtException', err => {
   console.log(chalk.red(`uncaught exception: ${err.stack}`));
   process.exit(1);
 });
-dotenv.config({ path: './config/config.env' });
+dotenv.config();
 
 //routes
 const bootcampsRoutes = require('./routes/bootcamps');

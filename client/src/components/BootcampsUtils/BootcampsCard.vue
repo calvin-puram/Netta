@@ -41,18 +41,20 @@
                   </div>
                 </router-link>
 
-                <router-link v-if="!getToken" to="/login">
+                <router-link
+                  v-if="!getToken"
+                  to="/login"
+                  class="bootcamp__name"
+                >
                   <div class="row ">
                     <div class="col-md-6 col-sm-12 mx-auto">
-                      <span class="text-dark name-hover">{{
-                        bootcamp.name
-                      }}</span>
+                      <span class=" name-hover">{{ bootcamp.name }}</span>
                     </div>
                     <div class="col-md-6 col-sm-12 mx-auto">
                       <v-rating
                         v-model="bootcamp.averageRating"
                         background-color="purple lighten-3"
-                        color="teal"
+                        color="#181f44"
                         small
                       ></v-rating>
                     </div>
@@ -163,17 +165,26 @@ export default {
 </script>
 
 <style scoped>
-.dark-bg,
-.fa-pencil-alt {
-  color: #009688 !important;
+.bootcamp__name {
+  color: #333 !important;
 }
+
 .fas {
   color: #fff;
 }
 
 .name-hover:hover {
-  color: #009688 !important;
+  color: #333 !important;
 }
+
+
+
+.dark-bg,
+.fa-pencil-alt {
+  color: #181f44 !important;
+}
+
+
 /* mobile phone screen sm <= 425px */
 @media screen and (max-width: 425px) {
   .card-img {

@@ -6,21 +6,18 @@ const ErroResponse = require('../utils/errorResponse');
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  if (
+  if (req.headers.authorization) {
+    token = req.headers.authorization;
+  } else if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer') 
-    
+    req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.headers.authorization.split(' ')[1]
-  } else if (req.cookie.token) {
-    // eslint-disable-next-line prefer-destructuring
-    token = req.cookie.token;
+    token = req.headers.authorization.split(' ')[1];
   }
-console.log(token)
+
   if (!token) {
     return next(new ErroResponse('Not authorize to access this route ', 401));
   }
-  
 
   try {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
@@ -28,7 +25,7 @@ console.log(token)
 
     next();
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
     return next(new ErroResponse('Not authorize to access this route', 409));
   }
 });

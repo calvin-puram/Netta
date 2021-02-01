@@ -11,7 +11,7 @@
       :value="page"
       light
       @input="pageChangeHandler"
-      color="teal"
+      color="#181f44"
       circle
     ></v-pagination>
   </div>

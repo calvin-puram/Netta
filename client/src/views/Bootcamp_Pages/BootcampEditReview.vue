@@ -6,8 +6,7 @@
           <div class="card-body">
             <div class="col-md-6 col-sm-12 mb-4">
               <v-btn
-                class="my-3"
-                color="teal"
+                class="my-3 bg-color"
                 dark
                 link
                 :to="`/bootcamp/${getSingleReview.bootcamp.slug}`"

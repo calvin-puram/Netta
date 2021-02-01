@@ -28,7 +28,7 @@
                           `/bootcamp/${bootcamp._id}/${bootcamp.slug}/createReview`
                         "
                       >
-                        <v-btn color="teal mr-3 table_actions_1" dark
+                        <v-btn class="bg-color mr-3 table_actions_1" dark
                           ><BaseIcon prop="fas fa-pencil-alt"
                         /></v-btn>
                       </router-link>
@@ -38,7 +38,7 @@
                           `/bootcamp/${bootcamp._id}/${bootcamp.slug}/reviews`
                         "
                       >
-                        <v-btn color="teal " dark
+                        <v-btn class="bg-color " dark
                           ><BaseIcon prop="fas fa-trash"
                         /></v-btn>
                       </router-link>

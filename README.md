@@ -1,6 +1,6 @@
 </p>
 <p align="center">
- <h3 align="center">DevCoach App</h3>
+ <h3 align="center">Netta App</h3>
   <p align="center">
     <br />
     <a href="https://devcoaching.herokuapp.com/"><strong>View Demo »</strong></a>
@@ -23,18 +23,18 @@
 - [License](#license)
 - [Contact](#contact)
 
-## About DevCoach App
+## About Netta App
 
 <img src="./client/public/img/devCoachImg.png" alt="Logo" />
 
-DevCoach App is a bootcamp directory application where users can search for bootcamps within Nigeria using search criteria such as ratings, latitude, longitute, price.
+Netta App is a bootcamp directory application where users can search for bootcamps within Nigeria using search criteria such as ratings, latitude, longitute, price.
 
 The development of this Full stack App took into account several specific needs. It is carefully crafted as one that can easily require updates and new features, taking into account the need for scalability, easy maintainance, performance and security. I have chosen to use the MODEL-VIEW CONTROLLER (MVC)
 architecture.
 
 ### Built With
 
-List of major frameworks use to build DevCoach App.
+List of major frameworks use to build Netta App.
 
 - [Vuejs](https://vuejs.org/)
 - [Expressjs](https://expressjs.com/)
@@ -65,7 +65,7 @@ git clone https://github.com/calvin-puram/bootcamp_fullstack.git
 npm install
 ```
 
-3. Enter your API in `config.env`
+3. Enter your API in `.env`
 
 ```JS
  API_KEY = 'ENTER YOUR API';

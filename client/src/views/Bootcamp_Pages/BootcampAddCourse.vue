@@ -8,9 +8,8 @@
             <div>
               <!-- bootcamp has no course disable the button -->
               <v-btn
-                class="my-3"
+                class="my-3 bg-color"
                 v-if="singleBootcamp.courses.length === 0"
-                color="teal"
                 :disabled="singleBootcamp.courses.length === 0"
                 link
                 :to="
@@ -24,8 +23,7 @@
               <!-- if the bootcamp has courses -->
               <v-btn
                 v-if="singleBootcamp.courses.length > 0"
-                class="my-3"
-                color="teal"
+                class="my-3 bg-color"
                 dark
                 link
                 :to="

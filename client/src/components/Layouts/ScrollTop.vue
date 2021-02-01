@@ -7,7 +7,7 @@
     fixed
     bottom
     right
-    color="teal"
+    class="scrollTop"
     @click="toTop"
   >
     <BaseIcon prop="fas fa-chevron-up" />
@@ -33,3 +33,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.theme--dark.v-btn.v-btn--has-bg {
+  background: #181f44 !important;
+}
+</style>

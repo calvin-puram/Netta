@@ -1,5 +1,5 @@
 <template>
-  <section class="bootcamp mt-5" v-if="!loading">
+  <section class="bootcamp mt-5" v-if="!loading && singleBootcamp">
     <div class="container">
       <div class="row">
         <!-- Main col -->
@@ -13,7 +13,9 @@
           <!-- Avg cost -->
           <p class="lead mb-4">
             Average Course Cost:
-            <span class="text-primary">${{ singleBootcamp.averageCost }}</span>
+            <span class="text-primary"
+              ><span>&#8358;</span> {{ singleBootcamp.averageCost }}</span
+            >
           </p>
           <!-- Courses -->
           <div v-for="course in singleBootcamp.courses" :key="course._id">
@@ -35,7 +37,7 @@
                     >
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                          <v-chip v-on="on" link color="teal"
+                          <v-chip v-on="on" link class="bg-color"
                             ><BaseIcon prop="fas fa-pencil-alt mr-1"
                           /></v-chip>
                         </template>
@@ -79,7 +81,7 @@
                 <ul class="list-group mb-3">
                   <!-- course tuition -->
                   <li class="list-group-item">
-                    Cost: ${{ course.tuition }} USD
+                    Cost: <span>&#8358;</span> {{ course.tuition }} USD
                   </li>
                   <li class="list-group-item">
                     Skill Required: {{ course.minimumSkill }}
@@ -268,7 +270,7 @@ export default {
 .dark-bg,
 .course_bg,
 .btn-color {
-  background: #009688 !important;
+  background: #181f44 !important;
 }
 .fas {
   color: #fff;

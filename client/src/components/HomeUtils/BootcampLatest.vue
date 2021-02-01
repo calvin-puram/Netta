@@ -1,8 +1,8 @@
 <template>
-  <section class="latest py-5 bg-light" v-if="getLatestBootcamps.length > 0">
+  <section class="latest py-5 " v-if="getLatestBootcamps.length > 0">
     <div class="container">
-      <h3 class="subtitle-5 heading_lastest">
-        Latest Bootcamps
+      <h3 class="subtitle-5 heading_lastest text-center my-2">
+        Featured Bootcamps
       </h3>
       <div class="row">
         <div
@@ -27,7 +27,10 @@
                 <v-img v-else height="250" :src="`${bootcamp.photo}`"></v-img>
 
                 <v-card-title>
-                  <router-link v-if="getToken" :to="`bootcamp/${bootcamp.slug}`"
+                  <router-link
+                    class="bootcamp__name"
+                    v-if="getToken"
+                    :to="`bootcamp/${bootcamp.slug}`"
                     >{{ bootcamp.name }}
                   </router-link>
 
@@ -71,7 +74,7 @@
                       v-for="career in bootcamp.careers"
                       :key="career"
                     >
-                      <v-btn text small color="teal">{{ career }}</v-btn>
+                      <v-btn text small color="#181f44">{{ career }}</v-btn>
                     </div>
                   </div>
                 </div>
@@ -94,8 +97,15 @@ export default {
 </script>
 
 <style scoped>
+.latest {
+  margin-top: 1rem;
+}
 .card {
   height: 40rem !important;
+}
+
+.bootcamp__name {
+  color: #181f44 !important;
 }
 
 /* large screen lg <= 1024px */

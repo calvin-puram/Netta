@@ -1,14 +1,13 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app clipped color="teal" class="navigator">
+    <v-navigation-drawer v-model="drawer" app clipped class="navigator ">
       <v-list dense>
         <!-- logo -->
         <v-list-item class="d-md-none  d-xs-flex justify-center align-center">
           <v-toolbar-title>
-            <router-link to="/">
-              <BaseIcon prop="fas fa-laptop-code fa-logo mr-1" />
-              <span class="logo">DevCoach</span></router-link
-            >
+            <router-link to="/" class="navbar__brand">
+              <img :src="logo" alt="logo" /> <span class="logo">Netta</span>
+            </router-link>
           </v-toolbar-title>
         </v-list-item>
         <v-divider class="d-md-none  d-xs-flex"></v-divider>
@@ -71,7 +70,7 @@
         <v-list-item link to="/profile">
           <v-list-item-title>
             <span class=" side_nav_color subtitle-1 font-italic"
-              ><BaseIcon prop="fas fa-user mr-2" /> Manage Account</span
+              ><BaseIcon prop="fas fa-user mr-2" /> Settings</span
             ></v-list-item-title
           >
         </v-list-item>
@@ -97,7 +96,7 @@
 
       <div class="app_footer">
         <v-divider></v-divider>
-        <v-card-title class="teal" dark>
+        <v-card-title dark>
           <h6 class="text-center">
             Get connected with us
           </h6>
@@ -111,13 +110,12 @@
       </div>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left flat color="teal">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar app clipped-left class=" navbar" flat>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="white" />
       <v-toolbar-title class="d-none d-sm-flex">
-        <router-link to="/">
-          <BaseIcon prop="fas fa-laptop-code fa-logo mr-1" />
-          <span class="logo">DevCoach</span></router-link
-        >
+        <router-link to="/" class="navbar__brand">
+          <img :src="logo" alt="logo" /> <span class="logo">Netta</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -167,7 +165,7 @@
                 Account<BaseIcon prop="fas fa-chevron-down ml-2" />
               </v-btn>
             </template>
-            <v-list dense color="teal" dark flat>
+            <v-list dense class="navdropdown" dark flat>
               <v-list-item
                 link
                 to="/manage_bootcamp"
@@ -178,7 +176,7 @@
               >
                 <v-list-item-title>
                   <BaseIcon prop="far fa-clipboard mr-2" />
-                  Manage Bootcamp</v-list-item-title
+                  Settings</v-list-item-title
                 >
               </v-list-item>
 
@@ -196,7 +194,7 @@
               <v-list-item link to="/profile">
                 <v-list-item-title>
                   <BaseIcon prop="fas fa-user mr-2" />
-                  Manage Account</v-list-item-title
+                  Settings</v-list-item-title
                 >
               </v-list-item>
 
@@ -232,22 +230,26 @@
 import { mapGetters, mapActions } from 'vuex';
 import router from '../../router/index';
 import NProgress from 'nprogress';
+import logo from '../../assets/logo.svg';
 
 export default {
   computed: mapGetters(['getToken', 'getAuthUser']),
   props: {
     source: String
   },
-  data: () => ({
-    drawer: false,
-    icons: [
-      'fab fa-facebook',
-      'fab fa-twitter',
-      'fab fa-google-plus',
-      'fab fa-linkedin',
-      'fab fa-instagram'
-    ]
-  }),
+  data() {
+    return {
+      logo,
+      drawer: false,
+      icons: [
+        'fab fa-facebook',
+        'fab fa-twitter',
+        'fab fa-google-plus',
+        'fab fa-linkedin',
+        'fab fa-instagram'
+      ]
+    };
+  },
 
   methods: {
     ...mapActions(['logout', 'getAllBootcamps']),
@@ -270,7 +272,34 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.navbar {
+  height: auto !important;
+  background: #181f44 !important;
+}
+.navbar__brand {
+  display: flex;
+  align-items: center;
+
+  .logo {
+    font-size: 26px;
+    color: #d8bd9e;
+    padding-left: 0.5rem;
+  }
+}
+
+.navdropdown {
+  background: #181f44 !important;
+  margin-top: 1rem;
+  &:hover {
+    color: #d8bd9e !important;
+  }
+}
+
+.navigator {
+  background: #181f44 !important;
+}
+
 .logo,
 .fa-logo,
 .fas,
@@ -278,7 +307,6 @@ export default {
 .side_nav_color {
   color: #fff;
 }
-
 
 .app_footer {
   margin-top: 10rem;

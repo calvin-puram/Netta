@@ -7,7 +7,7 @@
           <div class="card bg-white py-2 px-4">
             <div class="card-body">
               <!-- manage bootcamp button -->
-              <v-btn class="my-3" color="teal" dark link to="/manage_bootcamp">
+              <v-btn class="my-3 bg-color" dark link to="/manage_bootcamp">
                 <BaseIcon prop="fas fa-chevron-left mr-1" />Manage
                 Bootcamp</v-btn
               >
@@ -75,13 +75,13 @@
                     <td>
                       <!-- edit course -->
                       <router-link :to="`/bootcamp/${bootcamp().slug}/`">
-                        <v-btn color="teal mr-3 table_actions_1" dark
+                        <v-btn clas="bg-colorc mr-3 table_actions_1" dark
                           ><BaseIcon prop="fas fa-pencil-alt"
                         /></v-btn>
                       </router-link>
                       <!-- delete course -->
                       <router-link :to="`/bootcamp/${bootcamp().slug}/`">
-                        <v-btn color="teal " dark
+                        <v-btn class="bg-color " dark
                           ><BaseIcon prop="fas fa-trash"
                         /></v-btn>
                       </router-link>
