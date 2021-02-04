@@ -89,6 +89,12 @@ export default {
       padding-right: 0;
       text-align: center;
       margin-top: 1rem;
+      .about__header {
+        text-align: center;
+      }
+      .about__para {
+        text-align: center;
+      }
     }
     .about__img {
       margin-left: 0;
