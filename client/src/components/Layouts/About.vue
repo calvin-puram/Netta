@@ -84,16 +84,12 @@ export default {
 @media screen and (max-width: 1024px) {
   .home__about {
     height: auto;
-    .about__img {
-      margin-left: 0;
-      flex: 1;
-      height: auto;
-      margin: 1rem 0;
+    margin-top: 1rem;
+    &-content {
+      padding-right: 0;
+      text-align: center;
+      margin-top: 1rem;
     }
-  }
-}
-@media screen and (max-width: 600px) {
-  .home__about {
     .about__img {
       margin-left: 0;
       flex: 1;

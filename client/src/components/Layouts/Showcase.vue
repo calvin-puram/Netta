@@ -94,9 +94,14 @@ export default {
 @media screen and (max-width: 1024px) {
   .hero {
     height: 100vh;
+    margin: auto;
+    &__img {
+      display: none;
+    }
     &__content {
+      text-align: center;
       &-lead {
-        width: 80%;
+        width: 100%;
       }
     }
   }
@@ -132,9 +137,6 @@ export default {
       &-lead {
         width: 100%;
       }
-    }
-    &__img {
-      display: none;
     }
   }
 }
