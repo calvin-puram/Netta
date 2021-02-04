@@ -83,6 +83,8 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .home__about {
+    justify-content: center;
+    flex-direction: column;
     height: auto;
     margin-top: 1rem;
     &-content {
