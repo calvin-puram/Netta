@@ -320,7 +320,7 @@ const mutations = {
   },
 
   bootcampLatest_res(state, data) {
-    state.latestBootcamps = data.splice(0, 5);
+    state.latestBootcamps = data.splice(0, 6);
     state.err = null;
   },
 

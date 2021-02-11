@@ -33,6 +33,11 @@ export default {
     pageChangeHandler() {
       NProgress.start();
       this.getAllBootcampsByPage(this.page).then(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
         NProgress.done();
       });
     }
